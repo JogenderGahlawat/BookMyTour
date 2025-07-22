@@ -1,0 +1,68 @@
+#login{
+    background-color: rgb(67, 211, 255);
+    border-color: rgb(255, 1, 1);   
+}
+#signup {
+    background-color:rgb(155, 241, 35);
+    color: black;
+    border-color: rgb(255, 1, 1);
+}
+h1 {
+    color:black;
+    font-family: 'Courier New', Courier, monospace;
+}
+.upvote {
+    background-color: cyan;
+    border-color:blue;
+}
+.follow {
+    background-color: rgb(225, 231, 238);
+    border-color: transparent;
+    border-color:blue;
+}
+input[type="password"] {
+    background-color: ghostwhite;
+}
+input[type="text"] {
+    background-color: ghostwhite;
+}
+/* descendant:selector */
+p a {
+    color:purple !important;
+}
+.li a{
+    background-color: yellow;
+}
+nav ul li {
+    color:darkgray;
+}
+h3 {
+    color:brown;
+    text-decoration:wavy;
+}
+.upvote+button {
+    background-color: dodgerblue;
+}
+input[type="text"] {
+    color:red;
+}
+button:hover {
+    background-color:springgreen;
+    color:brown;
+}
+h3:hover {
+    text-decoration:underline;
+}
+button:active {
+    background-color: rgb(212, 10, 192);
+}
+h1::first-letter {
+    color:red;
+}
+p {
+    color:brown;
+    font-weight: bold;
+}
+form {
+    background-color: yellow;
+}
