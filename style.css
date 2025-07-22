@@ -1,4 +1,4 @@
-/* --- Universal Box-Sizing and Basic Resets --- */
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -8,21 +8,20 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    overflow-x: hidden; /* Poore page par horizontal scroll rokege, BUT specific elements (like footer) ko allowed denge */
+    overflow-x: hidden; 
     min-width: 320px;
 }
 
-/* --- Responsive Images and Media --- */
+
 img, video, iframe {
     max-width: 100%;
     height: auto;
     display: block;
 }
 
-/* --- Main Navigation Bar Container (.nav-bar) --- */
 .nav-bar {
     display: flex;
-    justify-content: space-between; /* Logo left, Hamburger/Nav right */
+    justify-content: space-between; 
     align-items: center;
     justify-content: center;
     padding: 10px 20px;
@@ -46,26 +45,24 @@ img, video, iframe {
     height: auto;
 }
 
-
-/* --- Navigation Links Wrapper (Desktop default) --- */
 .nav-links-wrapper {
     display: flex;
     align-items: center;
     gap: 15px;
     flex-grow: 1;
-    justify-content: flex-end; /* Links ko right side align karein */
+    justify-content: flex-end; 
 }
 
-/* Individual Navigation Details Item (Home, About Us, Contact) */
+
 .nav-details-item {
     position: relative;
     display: inline-block;
     color: #f0f0f0;
-    white-space: nowrap; /* Summary text ko wrap hone se roke */
+    white-space: nowrap; 
     flex-shrink: 0;
 }
 
-/* Summary tag (e.g., "Home", "About Us", "Contact") styling */
+
 .nav-details-item summary {
     cursor: pointer;
     list-style: none;
@@ -76,25 +73,25 @@ img, video, iframe {
     color: #f0f0f0;
 }
 
-/* Hide the default details marker (arrow) */
+
 .nav-details-item summary::-webkit-details-marker,
 .nav-details-item summary::marker {
     display: none;
 }
 
-/* Hover effect for nav items */
+
 .nav-details-item summary:hover {
     background-color: #4a4f5f;
 }
 
-/* Expanded Content (Dropdown box for Navigation) */
+
 .nav-details-item .details-content {
     display: none;
     position: absolute;
     top: 50px;
     left: 0%;
     transform: translateX(-50%);
-    width: 700px; /* Default width for desktop */
+    width: 700px; 
     padding: 20px;
     background-color: #ffffff;
     border: 1px solid #ccc;
@@ -108,12 +105,12 @@ img, video, iframe {
     overflow-y: auto;
 }
 
-/* When a details item is open, show its content */
+
 .nav-details-item[open] .details-content {
     display: block;
 }
 
-/* Styling for Sign Up / Login buttons */
+
 .nav-button {
     background-color: #8b008b;
     color: white;
@@ -129,17 +126,15 @@ img, video, iframe {
     background-color: #6a006a;
 }
 
-
-/* --- General Paragraph Styles --- */
 p {
     font-weight: bold;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: normal;
-    padding-left: 22%; /* Will be adjusted in media query */
+    padding-left: 22%; 
     margin-top: 0;
 }
 
-/* --- Specific Content Box Styles (Contact, About) --- */
+
 .contact-box {
     background-color:#95AFC3;
     width:100%;
@@ -166,16 +161,15 @@ p {
     font-size: 20px;
     font-weight: 600;
 }
-.PT{ /* For footer summary text */
+.PT{ 
     color:#551A8B;
     font-weight: bold;
     font-size:large;
 }
 
-/* --- Footer Links Wrapper (.footer-links-wrapper) --- */
 .footer-links-wrapper {
     display: flex;
-    flex-wrap: wrap; /* Desktop par wrap ho sakta hai */
+    flex-wrap: wrap; 
     justify-content: center;
     align-items: flex-start;
     gap: 20px;
@@ -186,17 +180,15 @@ p {
     width: 100%;
 }
 
-/* --- Footer Details Item (.footer-details-item) --- */
 .footer-details-item {
     position: relative;
     display: inline-block;
-    width: 200px; /* Default width for desktop */
+    width: 200px; 
     min-width: 150px;
     color:#551A8B;
     flex-shrink: 0;
 }
 
-/* Summary tag styling for footer */
 .footer-details-item summary {
     cursor: pointer;
     white-space: nowrap;
@@ -206,46 +198,42 @@ p {
     text-decoration: none;
 }
 
-/* Hide default marker for footer details */
 .footer-details-item summary::-webkit-details-marker,
 .footer-details-item summary::marker {
     display: none;
 }
 
-/* --- Content for Footer Details (Dropdowns) --- */
+
 .footer-details-item .details-content {
-    display: none; /* By default hidden rahega */
+    display: none; 
     position: absolute;
-    top:100%; /* Content ko normal flow se hatayega */
+    top:100%; 
     left:27%;
     right:0%;
     padding: 20px;
     text-align: left;
-    transform: translateX(-50%); /* Exactly center content */
-    width: 300%; /* Content box ki width, adjust as needed */
+    transform: translateX(-50%); 
+    width: 300%; 
     padding: 10px;
-    background-color: #ffffff; /* Content box ka background color */
+    background-color: #ffffff; 
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    z-index: 1000; /* Ensure content is above everything else */
-    color: #5F758E; /* Content text color */
-    text-align: left; /* Content text alignment */
-    white-space: normal; /* Content ke andar text wrap ho sakta hai */
+    z-index: 1000;
+    color: #5F758E; 
+    text-align: left; 
+    white-space: normal; 
 }
 
-/* Jab details open ho, tab content dikhega */
+
 .footer-details-item[open] .details-content {
-    display: block; /* Content ko dikhayega */
+    display: block; 
 }
 
-
-/* When details open, show content */
 .footer-details-item[open] .details-content {
     display: block;
 }
 
-/* Optional: Summary text on hover */
 .footer-details-item summary:hover {
     text-decoration: underline;
 }
