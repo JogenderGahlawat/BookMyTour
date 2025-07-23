@@ -1,45 +1,49 @@
- <!DOCTYPE html>
- <html lang="en">
- <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="Form.css">
- </head>
- <body>
- <form action="/sumbit form" method="post" class="container" >
-        <h1 class="login-title">Login</h1>
-         
-        <section class="input-box">
-        <input type="text" name="Username" placeholder="username">
-        <i class='bx bxs-lock-alt'></i>
-        </section> 
+    <script src="login.js"></script>
+</head>
+<body>
+<form class="container" id="loginForm">
+    <h1 class="login-title">Login</h1>
+        
+    <section class="input-box">
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        <i class='bx bxs-user'></i>
+    </section> 
 
-        <section class="input-box">
-        <input type="password" name="Password" placeholder="password">
+    <section class="input-box">
+        <input type="password" name="password" id="password" placeholder="Password" required>
         <i class='bx bxs-lock-alt'></i>
-        </section>
+    </section>
 
-        <section class="remember-forgot-box">
+    <section class="remember-forgot-box">
         <div class="remember-me">
-        <input type="checkbox"name="remember-me" id="remember-me">
-        <label for="remember-me">
-            <h6>&nbsp;&nbsp;&nbsp;Remember me</h6>
-        </label>
+            <input type="checkbox" name="remember-me" id="remember-me">
+            <label for="remember-me">
+                <h6>&nbsp;&nbsp;&nbsp;Remember me</h6>
+            </label>
         </div>
         <a class="forgot-box" href="#">
             <h5>&nbsp;&nbsp;&nbsp;&nbsp;Forgot Password</h5>
         </a>
-        </section>
-        <button class="login-button" type="submit">
-            Login
-        </button>
-        <br>
-        <h5 class="$" dont-have-an-account>
-        Don't have an account ? </h5>
-        <br>
-        <a href="#" class="signup" style="text-decoration:none">Sign up</b></a></h5>
-    </form>
+    </section>
+    
+    <button class="login-button" type="submit">Login</button>
 
-    </body>
- </html>
+    <p id="message" style="text-align: center; margin-top: 15px; color: red;"></p>
+    
+    <br>
+    <h5 class="dont-have-an-account">
+        Don't have an account?
+    </h5>
+    <br>
+    <a href="#" class="signup" style="text-decoration:none">Sign up</a>
+</form>
+
+</body>
+</html>
