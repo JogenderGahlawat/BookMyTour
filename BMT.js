@@ -1,5 +1,3 @@
-// BMT.js - Is file mein sirf browser ka code hai
-
 document.addEventListener('DOMContentLoaded', () => {
     
     const searchForm = document.querySelector('.tour-search-form');
@@ -19,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsContainer.innerHTML = '<h4>Searching for hotels...</h4>';
 
             try {
-                // Backend server ko request bhejein
                 const response = await fetch(`http://localhost:5000/api/search-hotels?destination=${destination}`);
                 const data = await response.json();
 
