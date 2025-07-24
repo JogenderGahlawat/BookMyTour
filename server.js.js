@@ -32,6 +32,17 @@ const loginForm = document.getElementById('loginForm');
             messageElement.textContent = 'Server se connect nahi ho pa raha hai. Try again later.';
             messageElement.style.color = 'red';
         }
-        
+    
+        const card = document.getElementById('card');
+        const showSignupLink = document.getElementById('show-signup');
+        const showLoginLink = document.getElementById('show-login');
+
+        showSignupLink.addEventListener('click', () => {
+            card.classList.add('is-flipped');
+        });
+
+        showLoginLink.addEventListener('click', () => {
+            card.classList.remove('is-flipped');
+    
     });
         
