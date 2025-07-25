@@ -1,4 +1,4 @@
-// BMT2.js - Is file mein sirf Node.js server ka code hai
+
 
 const express = require('express');
 const axios = require('axios');
@@ -9,7 +9,7 @@ app.use(cors());
 
 app.get('/api/search-hotels', async (req, res) => {
     const { destination } = req.query;
-    const API_KEY = 'AIzaSyBkgLj94P9MLJ6z1BI6Lk4ZzHgVEP6TlLw'; // Apni API Key yahan daalein
+    const API_KEY = 'AIzaSyBkgLj94P9MLJ6z1BI6Lk4ZzHgVEP6TlLw'; /
 
     if (!destination) {
         return res.status(400).json({ message: 'Destination is required.' });

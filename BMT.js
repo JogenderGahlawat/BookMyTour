@@ -1,59 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
+
+document.addEventListener('DOMContentLoaded', function() {
     
-    const searchForm = document.querySelector('.tour-search-form');
-    const resultsContainer = document.getElementById('hotel-results-container');
-    const destinationInput = document.getElementById('destination');
+    
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navLinks = document.querySelector('.nav-links-wrapper');
 
-    if (searchForm) {
-        searchForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
 
-            const destination = destinationInput.value;
-            if (!destination) {
-                alert('Please enter a destination.');
-                return;
-            }
-
-            resultsContainer.innerHTML = '<h4>Searching for hotels...</h4>';
-
-            try {
-                const response = await fetch(`http://localhost:5000/api/search-hotels?destination=${destination}`);
-                const data = await response.json();
-
-                if (response.ok) {
-                    displayHotels(data.hotels, destination);
-                } else {
-                    resultsContainer.innerHTML = `<p style="color: red;">Error: ${data.message}</p>`;
-                }
-            } catch (error) {
-                console.error('Error fetching hotels:', error);
-                resultsContainer.innerHTML = '<p style="color: red;">Could not connect to the server.</p>';
-            }
+    if (hamburger && navLinks) {
+       
+        hamburger.addEventListener('click', () => {
+         
+            navLinks.classList.toggle('active');
         });
     }
 
-    function displayHotels(hotels, destination) {
-        resultsContainer.innerHTML = ''; 
-
-        if (hotels.length === 0) {
-            resultsContainer.innerHTML = '<h4>No hotels found for this location.</h4>';
-            return;
+    document.addEventListener('click', function(event) {
+        const openNavDetails = document.querySelector('.nav-details-item[open]');
+        if (openNavDetails && !openNavDetails.contains(event.target)) {
+            openNavDetails.removeAttribute('open');
         }
 
-        resultsContainer.innerHTML = `<h3>Hotels in ${destination}:</h3>`;
+        const openFooterDetails = document.querySelector('.footer-details-item[open]');
+        if (openFooterDetails && !openFooterDetails.contains(event.target)) {
+            openFooterDetails.removeAttribute('open');
+        }
+    });
 
-        hotels.forEach(hotel => {
-            const hotelDiv = document.createElement('div');
-            hotelDiv.style.border = '1px solid #ddd';
-            hotelDiv.style.padding = '15px';
-            hotelDiv.style.marginBottom = '10px';
-            hotelDiv.style.borderRadius = '8px';
-            hotelDiv.innerHTML = `
-                <h4 style="margin-top: 0;">${hotel.name}</h4>
-                <p><strong>Address:</strong> ${hotel.address}</p>
-                <p style="margin-bottom: 0;"><strong>Rating:</strong> ${hotel.rating ? `${hotel.rating} ⭐` : 'Not available'}</p>
-            `;
-            resultsContainer.appendChild(hotelDiv);
+    document.querySelectorAll('.details-content').forEach(details => {
+        details.addEventListener('click', function(event) {
+            event.stopPropagation();
         });
-    }
-});
+    });
+
+}); 
