@@ -90,6 +90,7 @@ img, video, iframe {
     white-space: normal;
     max-height: 400px; 
     overflow-y: auto;
+    background-image: url(BMT.png);
 }
 .nav-details-item .details-content p {
     margin-bottom: 1em;
@@ -100,7 +101,6 @@ img, video, iframe {
 .nav-details-item[open] .details-content {
     display: block;
     background-color: white;
-    
 }
 
 .nav-button {

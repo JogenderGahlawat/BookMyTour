@@ -157,7 +157,6 @@ form {
     font-weight: bold;
     transition: background-color 0.3s;
 }
-
 .main-button:hover {
     background: #0052a3;
 }
@@ -174,6 +173,7 @@ form {
     display: flex;
     justify-content: center;
     gap: 15px;
+    z-index: 100%;
 }
 .social-btn {
     display: flex;
@@ -193,8 +193,6 @@ form {
 .social-btn:hover {
     color: #fff;
     backface-visibility: visible;
-    
-    
 }
 .social-btn.google:hover { background-color: #DB4437; }
 .social-btn.apple:hover { background-color: #000000; }
