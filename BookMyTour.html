@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book My Tour</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <header class="nav-bar">
+        <div class="logo">
+            <img src="logo.png" alt="Book My Tour Logo">
+        </div>
+
+        <button class="hamburger-menu" aria-label="Toggle navigation menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="nav-links-wrapper">
+            <details class="nav-details-item">
+                <summary>Home</summary>
+                <div class="details-content">
+                    <p>To make the most of online travel booking, consider being flexible with travel dates as this can significantly reduce costs. Using multiple flight and hotel search engines to compare prices is recommended. Booking in advance often leads to lower fares, especially during peak seasons, although prices can fluctuate. It's worth considering package deals that bundle flights and hotels for potential savings. Additionally, checking reviews and ratings from other travelers provides valuable insights before making a booking decision. Remember to browse in incognito mode on your web browser to prevent websites from tracking your searches and potentially inflating prices based on your Browse history.</p>
+                    <p>Traveling, beyond the mere act of moving from one place to another, unveils itself as a symphony of discovery and connection, a profound journey into the heart of the world and the depths of oneself. It is an invitation to step beyond the familiar, to peel back the layers of routine and expectation, and embrace the sheer joy of the unknown. Every destination becomes a page in a richly illustrated book, each new face a line in an unfolding poem. It's the thrill of waking up in a place where the scent of spices dances in the air or the sound of an unfamiliar language creates a captivating melody, beckoning you to explore.</p>
+                </div>
+            </details>
+
+            <details class="nav-details-item">
+                <summary>About Us</summary>
+                <div class="details-content">
+                    <p class="About" id="about"><b class="BMT">Book My Tour</b>, travel is more than a destination; it encompasses experiences, memories, and connections. This platform aims to help people explore the world and discover their next adventure, whether it's a relaxing beach escape, an exciting city break, or an immersive cultural expedition.</p>
+                    <p><b class="BMT">Book My Tour</b> was created from a shared love for exploration and a desire to make travel planning easier and more inspiring. The founders, a group of dedicated travelers who enjoyed discovering new places, wanted a platform where anyone could confidently and easily plan their ideal trip. Their initial goal was toconnect travelers with unique local experiences. Over time, this has grown into a leading platform, offering a comprehensive selection of flights, accommodations, tours, and activities worldwide. A love for discovery and a commitment to helping others experience the joy of travel have fueled this journey.</p>
+                    <p>The team consists of experienced travelers and dedicated advisors who bring knowledge and expertise to every itinerary. From planning to the traveler's return, the team is devoted to exceptional service. Personalized attention is provided by getting to know preferences to design a unique experience.</p>
+                    <p>Whether the dream is soaring through mountains, exploring cities, or relaxing on beaches, discover the difference of traveling with<b class="BMT">Book My Tour</b>. The team is ready to help plan your next adventure, offering a personalized experience. Contact the team for expert advice to begin crafting a unique journey.</p>
+                    <p>The story started with a love for exploration and the belief that travel can be a positive force.<b class="BMT">Book My Tour</b> uncovers the authentic spirit of destinations by building relationships with local guides and communities to ensure trips contribute positively to the places visited. This commitment to responsible and ethical travel is a core value, with efforts to minimize environmental impact and support local economies.</p>
+                    <p>Tell the story of how the travel company began. Was it founded by avid travelers with a dream? Did a personal experience spark the inspiration? Keep it authentic and engaging.<b class="BMT">Book My Tour</b> began because there was an opportunity to redefine travel experiences. The goal was to create a platform that went beyond booking flights and hotels, offering travelers a chance to truly connect with their chosen destinations. The journey began with our inspiration is AGE, and since then, the company has been committed to curating unforgettable experiences for clients.</p>
+                </div>
+            </details>
+
+            <details class="nav-details-item">
+                <summary>Contact</summary>
+                <div class="details-content contact-box">
+                    <p><strong>Email: </strong><a href="mailto:jogendergahlawat777@gmail.com">jogendergahlawat777@gmail.com</a></p>
+                    <p><strong>Email:</strong><a href="mailto:Iamgahlawat777@gmail.com"> Iamgahlawat777@gmail.com</a></p>
+                    <p><strong>Phone: </strong><a href="tel:8307023216">+91 8307023216</a></p>
+                    <p><strong>Address: </strong> Jhajjar, Haryana, India</p>
+                </div>
+            </details>
+            <a href="/BookMyTourForm.html" class="nav-button">Sign Up</a>
+            <a href="/BookMyTourForm.html" class="nav-button">Login</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Book Your Dream Vacation</h1>
+                <p>Dream big and explore the world’s most beautiful places. ✈️</p>
+                
+                <div class="search-form-container">
+                    <form class="tour-search-form">
+                        <div class="form-group">
+                            <label for="destination">Destination:</label>
+                            <input type="text" id="destination" list="famous-spots-50" placeholder="Enter your destination">
+                            <datalist id="famous-spots-50">
+                                <option value="Leh-Ladakh, Ladakh"></option>
+                                <option value="Srinagar, Jammu & Kashmir"></option>
+                                </datalist>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkin-date">Check-in Date:</label>
+                            <input type="date" id="checkin-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-date">Check-out Date:</label>
+                            <input type="date" id="checkout-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="guests">Guests:</label>
+                            <input type="number" id="guests" placeholder="Number of guests" min="1">
+                        </div>
+                        <button type="submit" class="search-button">Search Hotels</button>
+                    </form>
+                    <div id="hotel-results-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="popular-destinations">
+            <h2>Popular Destinations</h2>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <div class="card-image-container"><img src="Goa.png" alt="Goa Beach"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Goa</h3>
+                        <p class="card-description">Sun, sand, and sea. Explore the vibrant beaches and nightlife of India's party capital.</p>
+                        <a href="/Goa.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-image-container"><img src="Manali.png" alt="Manali Mountains"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Manali</h3>
+                        <p class="card-description">Nestled in the Himalayas, Manali offers breathtaking views and adventure sports.</p>
+                        <a href="/Manali.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+                 <div class="destination-card">
+                    <div class="card-image-container"><img src="Jaipur.png" alt="Jaipur Palace"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Jaipur</h3>
+                        <p class="card-description">Discover the Pink City's royal palaces, vibrant markets, and rich history.</p>
+                        <a href="/jaipur.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+                 <div class="destination-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjA5fDB8MXxjb2xsZWN0aW9ufDF8MTQ3OTI2N3x8fHx8Mnx8MTY2Mjk4ODg4OA&ixlib=rb-4.0.3&q=80&w=1080" alt="Kerala Backwaters"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Kerala</h3>
+                        <p class="card-description">Experience tranquility in "God's Own Country" with its serene backwaters.</p>
+                        <a href="Kerela.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-image-container"><img src="Haryana.png" alt="Haryana landscape"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Haryana</h3>
+                        <p class="card-description">Haryana is a dynamic North Indian state, renowned as an agricultural powerhouse, an industrial hub, and the ancient land of the Mahabharata.</p>
+                        <a href="Haryana.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-image-container"><img src="leh.png" alt="Leh Ladakh mountains"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Leh Ladakh</h3>
+                        <p class="card-description">Leh-Ladakh is a breathtaking high-altitude desert in the Himalayas, celebrated for its stark mountain beauty and serene Buddhist monasteries.</p>
+                        <a href="Lehladhak.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-links-wrapper">
+    <details class="footer-details-item">
+        <summary class="PT">Privacy Policy</summary>
+        <div class="details-content">
+            <p>Last updated: July 25, 2025</p>
+            <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
+            <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the <a href="/BookMyTour.html" target="BookMyTour"><b class="BMT">Book My Tour</b></a>.</p>
+            <h2>Collecting and Using Your Personal Data</h2>
+            <h3>Types of Data Collected</h3>
+            <h4>Personal Data</h4>
+            <p>While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:</p>
+            <ul>
+                <li><p>Email address</p></li>
+                <li><p>First name and last name</p></li>
+                <li><p>Phone number</p></li>
+                <li><p>Address, State, Province, ZIP/Postal code, City</p></li>
+                <li><p>Usage Data</p></li>
+            </ul>
+            <h4>Usage Data</h4>
+            <p>Usage Data is collected automatically when using the Service.</p>
+            <p>Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</p>
+            <h4>Information from Third-Party Social Media Services</h4>
+            <p>The Company allows You to create an account and log in to use the Service through the following Third-party Social Media Services: Google, Facebook, Instagram, Twitter, LinkedIn.</p>
+            <h4>Tracking Technologies and Cookies</h4>
+            <p>We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information. For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy or the Cookies section of our Privacy Policy.</p>
+            <h3>Use of Your Personal Data</h3>
+            <p>The Company may use Personal Data for various purposes, including to provide and maintain our Service, manage Your Account, and for other purposes as described in our full policy.</p>
+            <h2>Contact Us</h2>
+            <p>If you have any questions about this Privacy Policy, You can contact us: <strong>Email: </strong><a href="mailto:jogenderjaat777@gmail.com">jogenderjaat777@gmail.com</a></p>
+        </div>
+    </details>
+    
+    <details class="footer-details-item">
+        <summary class="PT">Term & Condition</summary>
+        <div class="details-content">
+            <p>Here’s a simple Terms & Conditions:</p>
+            <p><strong>1. Bookings & Payments:</strong> All bookings require accurate information and accepted payment before confirmation. Prices may change due to currency or operational costs.</p>
+            <p><strong>2. Cancellations & Changes:</strong> Cancellations/refunds depend on the policies of airlines, hotels, or other suppliers. Some bookings may be non-refundable.</p>
+            <p><strong>3. Passports & Entry:</strong> Travelers are responsible for valid documents, including passports and visas.</p>
+            <p><strong>4. Booking for Others:</strong> If booking for others, you must have their consent and communicate these terms to them.</p>
+            <p><strong>5. Liability:</strong> The website acts as an agent; it’s not responsible for third-party service disruptions or events outside its control.</p>
+            <p><strong>6. User Conduct:</strong> Provide true information, don’t misuse the platform, and protect your account details.</p>
+            <p><strong>7. Age Restriction:</strong> Users must be 18+ to book.</p>
+        </div>
+    </details>
+
+    <details class="footer-details-item">
+        <summary class="PT">Help</summary>
+        <div class="details-content">
+            <p><strong>1. How to Book:</strong> Step-by-step guide booking process (search, select, pay, confirm).</p>
+            <p><strong>2. Cancellation/Refund:</strong> First, you raise a complaint on refund by gmail. After, we getting your mail and check the details and the refund process is start but the refund gives to you in 6-7 working days.</p>
+            <p><strong>3. Payment Options:</strong> These payemnts option are available on my website. (UPI, cards, net banking, Paytm, etc).</p>
+            <p><strong>4. Contact Support:</strong> These details are provide on contact tab (Mobile No., Gmail, etc)</p>
+            <p><strong>5. Safety Tips:</strong> For safety purpose contact on this <strong>Phone No.: </strong><a href="tel:112"> Emergency Helpline no. 112</a></p>
+        </div>
+    </details>
+    
+    <details class="footer-details-item">
+        <summary class="PT">Copyright policy ©</summary>
+        <div class="details-content">
+            <p><strong>1. Ownership:</strong> All content (text, images, videos, graphics, logos, etc.) on this website is protected by copyright laws and is the property of the website owner unless otherwise noted.</p>
+            <p><strong>2. Permissible Use:</strong> Users can only access and use our content for personal, non-commercial purposes. Reproduction, distribution, or modification of content is not allowed without our written consent.</p>
+            <p><strong>3. Copyright Infringement:</strong> If you believe your copyrighted work has been used without permission, contact us with full details (work description, location, your contact info).</p>
+            <p><strong>4. Notice:</strong> ©2025 <b class="BMT">Book My Tour</b>. All rights reserved.</p>
+        </div>
+    </details>
+</footer>
+
+    <script src="BMT.js"></script>
+</body>
+</html>
