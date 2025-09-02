@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book My Tour</title>
+    <!-- Font Awesome for icons (Requires internet connection to work) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
     <header class="nav-bar">
         <div class="logo">
             <img src="logo.png" alt="Book My Tour Logo">
         </div>
-
         <button class="hamburger-menu" aria-label="Toggle navigation menu">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </button>
-
         <nav class="nav-links-wrapper">
             <details class="nav-details-item">
                 <summary>Home</summary>
@@ -27,19 +27,13 @@
                     <p>Traveling, beyond the mere act of moving from one place to another, unveils itself as a symphony of discovery and connection, a profound journey into the heart of the world and the depths of oneself. It is an invitation to step beyond the familiar, to peel back the layers of routine and expectation, and embrace the sheer joy of the unknown. Every destination becomes a page in a richly illustrated book, each new face a line in an unfolding poem. It's the thrill of waking up in a place where the scent of spices dances in the air or the sound of an unfamiliar language creates a captivating melody, beckoning you to explore.</p>
                 </div>
             </details>
-
             <details class="nav-details-item">
                 <summary>About Us</summary>
                 <div class="details-content">
                     <p class="About" id="about"><b class="BMT">Book My Tour</b>, travel is more than a destination; it encompasses experiences, memories, and connections. This platform aims to help people explore the world and discover their next adventure, whether it's a relaxing beach escape, an exciting city break, or an immersive cultural expedition.</p>
                     <p><b class="BMT">Book My Tour</b> was created from a shared love for exploration and a desire to make travel planning easier and more inspiring. The founders, a group of dedicated travelers who enjoyed discovering new places, wanted a platform where anyone could confidently and easily plan their ideal trip. Their initial goal was toconnect travelers with unique local experiences. Over time, this has grown into a leading platform, offering a comprehensive selection of flights, accommodations, tours, and activities worldwide. A love for discovery and a commitment to helping others experience the joy of travel have fueled this journey.</p>
-                    <p>The team consists of experienced travelers and dedicated advisors who bring knowledge and expertise to every itinerary. From planning to the traveler's return, the team is devoted to exceptional service. Personalized attention is provided by getting to know preferences to design a unique experience.</p>
-                    <p>Whether the dream is soaring through mountains, exploring cities, or relaxing on beaches, discover the difference of traveling with<b class="BMT">Book My Tour</b>. The team is ready to help plan your next adventure, offering a personalized experience. Contact the team for expert advice to begin crafting a unique journey.</p>
-                    <p>The story started with a love for exploration and the belief that travel can be a positive force.<b class="BMT">Book My Tour</b> uncovers the authentic spirit of destinations by building relationships with local guides and communities to ensure trips contribute positively to the places visited. This commitment to responsible and ethical travel is a core value, with efforts to minimize environmental impact and support local economies.</p>
-                    <p>Tell the story of how the travel company began. Was it founded by avid travelers with a dream? Did a personal experience spark the inspiration? Keep it authentic and engaging.<b class="BMT">Book My Tour</b> began because there was an opportunity to redefine travel experiences. The goal was to create a platform that went beyond booking flights and hotels, offering travelers a chance to truly connect with their chosen destinations. The journey began with our inspiration is AGE, and since then, the company has been committed to curating unforgettable experiences for clients.</p>
                 </div>
             </details>
-
             <details class="nav-details-item">
                 <summary>Contact</summary>
                 <div class="details-content contact-box">
@@ -59,16 +53,11 @@
             <div class="hero-content">
                 <h1>Book Your Dream Vacation</h1>
                 <p>Dream big and explore the world’s most beautiful places. ✈️</p>
-                
                 <div class="search-form-container">
                     <form class="tour-search-form">
                         <div class="form-group">
                             <label for="destination">Destination:</label>
                             <input type="text" id="destination" list="famous-spots-50" placeholder="Enter your destination">
-                            <datalist id="famous-spots-50">
-                                <option value="Leh-Ladakh, Ladakh"></option>
-                                <option value="Srinagar, Jammu & Kashmir"></option>
-                                </datalist>
                         </div>
                         <div class="form-group">
                             <label for="checkin-date">Check-in Date:</label>
@@ -84,10 +73,8 @@
                         </div>
                         <button type="submit" class="search-button">Search Hotels</button>
                     </form>
-                    <div id="hotel-results-container"></div>
                 </div>
-            </div>
-        </section>
+            </section>
 
         <section class="popular-destinations">
             <h2>Popular Destinations</h2>
@@ -108,7 +95,7 @@
                         <a href="/Manali.html" class="card-button">Explore More</a>
                     </div>
                 </div>
-                 <div class="destination-card">
+                <div class="destination-card">
                     <div class="card-image-container"><img src="Jaipur.png" alt="Jaipur Palace"></div>
                     <div class="card-content">
                         <h3 class="card-title">Jaipur</h3>
@@ -116,7 +103,7 @@
                         <a href="/jaipur.html" class="card-button">Explore More</a>
                     </div>
                 </div>
-                 <div class="destination-card">
+                <div class="destination-card">
                     <div class="card-image-container"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjA5fDB8MXxjb2xsZWN0aW9ufDF8MTQ3OTI2N3x8fHx8Mnx8MTY2Mjk4ODg4OA&ixlib=rb-4.0.3&q=80&w=1080" alt="Kerala Backwaters"></div>
                     <div class="card-content">
                         <h3 class="card-title">Kerala</h3>
@@ -142,76 +129,396 @@
                 </div>
             </div>
         </section>
+        
+        <section id="hotels" class="featured-hotels">
+            <h2>Featured Indian Hotels</h2>
+            <div class="hotels-grid">
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1562790351-d273a961e0e9" alt="Taj Mahal Palace, Mumbai"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Taj Mahal Palace</h3>
+                        <p class="card-description">Mumbai, Maharashtra</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <div class="price">₹25,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="data:image/jpeg;base64,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" alt="The Oberoi Amarvilas, Agra"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Oberoi Amarvilas</h3>
+                        <p class="card-description">Agra, Uttar Pradesh</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <div class="price">₹45,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="data:image/jpeg;base64,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" alt="Rambagh Palace, Jaipur"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Rambagh Palace</h3>
+                        <p class="card-description">Jaipur, Rajasthan</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <div class="price">₹40,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="data:image/jpeg;base64,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" alt="Kumarakom Lake Resort, Kerala"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Kumarakom Lake Resort</h3>
+                        <p class="card-description">Kumarakom, Kerala</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <div class="price">₹18,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" alt="Umaid Bhawan Palace, Jodhpur"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Umaid Bhawan Palace</h3>
+                        <p class="card-description">Jodhpur, Rajasthan</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <div class="price">₹55,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39" alt="The Leela Palace, Udaipur"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Leela Palace</h3>
+                        <p class="card-description">Udaipur, Rajasthan</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <div class="price">₹35,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1540541338287-41700207dee6" alt="Wildflower Hall, Shimla"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Wildflower Hall</h3>
+                        <p class="card-description">Shimla, Himachal Pradesh</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <div class="price">₹30,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa" alt="Ananda in the Himalayas, Rishikesh"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Ananda in the Himalayas</h3>
+                        <p class="card-description">Rishikesh, Uttarakhand</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <div class="price">₹60,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9" alt="The Imperial, New Delhi"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Imperial</h3>
+                        <p class="card-description">New Delhi, Delhi</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <div class="price">₹22,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6" alt="Evolve Back, Coorg"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Evolve Back</h3>
+                        <p class="card-description">Coorg, Karnataka</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <div class="price">₹28,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1549294413-26f195200c16" alt="ITC Grand Goa"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">ITC Grand Goa</h3>
+                        <p class="card-description">Cansaulim, Goa</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <div class="price">₹19,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7" alt="The Lodhi, New Delhi"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Lodhi</h3>
+                        <p class="card-description">New Delhi, Delhi</p>
+                        <div class="rating-price">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <div class="price">₹26,000/night</div>
+                        </div>
+                        <a href="#" class="card-button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer-links-wrapper">
-    <details class="footer-details-item">
-        <summary class="PT">Privacy Policy</summary>
-        <div class="details-content">
-            <p>Last updated: July 25, 2025</p>
-            <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
-            <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the <a href="/BookMyTour.html" target="BookMyTour"><b class="BMT">Book My Tour</b></a>.</p>
-            <h2>Collecting and Using Your Personal Data</h2>
-            <h3>Types of Data Collected</h3>
-            <h4>Personal Data</h4>
-            <p>While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:</p>
-            <ul>
-                <li><p>Email address</p></li>
-                <li><p>First name and last name</p></li>
-                <li><p>Phone number</p></li>
-                <li><p>Address, State, Province, ZIP/Postal code, City</p></li>
-                <li><p>Usage Data</p></li>
-            </ul>
-            <h4>Usage Data</h4>
-            <p>Usage Data is collected automatically when using the Service.</p>
-            <p>Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</p>
-            <h4>Information from Third-Party Social Media Services</h4>
-            <p>The Company allows You to create an account and log in to use the Service through the following Third-party Social Media Services: Google, Facebook, Instagram, Twitter, LinkedIn.</p>
-            <h4>Tracking Technologies and Cookies</h4>
-            <p>We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information. For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy or the Cookies section of our Privacy Policy.</p>
-            <h3>Use of Your Personal Data</h3>
-            <p>The Company may use Personal Data for various purposes, including to provide and maintain our Service, manage Your Account, and for other purposes as described in our full policy.</p>
-            <h2>Contact Us</h2>
-            <p>If you have any questions about this Privacy Policy, You can contact us: <strong>Email: </strong><a href="mailto:jogenderjaat777@gmail.com">jogenderjaat777@gmail.com</a></p>
+        <details class="footer-details-item">
+            <summary class="PT">Privacy Policy</summary>
+            <div class="details-content">
+                <p>Last updated: July 25, 2025</p>
+                <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
+                <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the <a href="/BookMyTour.html" target="BookMyTour"><b class="BMT">Book My Tour</b></a>.</p>
+                <h2>Collecting and Using Your Personal Data</h2>
+                <h3>Types of Data Collected</h3>
+                <h4>Personal Data</h4>
+                <p>While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:</p>
+                <ul>
+                    <li><p>Email address</p></li>
+                    <li><p>First name and last name</p></li>
+                    <li><p>Phone number</p></li>
+                    <li><p>Address, State, Province, ZIP/Postal code, City</p></li>
+                    <li><p>Usage Data</p></li>
+                </ul>
+                <h4>Usage Data</h4>
+                <p>Usage Data is collected automatically when using the Service.</p>
+                <p>Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</p>
+                <h4>Information from Third-Party Social Media Services</h4>
+                <p>The Company allows You to create an account and log in to use the Service through the following Third-party Social Media Services: Google, Facebook, Instagram, Twitter, LinkedIn.</p>
+                <h4>Tracking Technologies and Cookies</h4>
+                <p>We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information. For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy or the Cookies section of our Privacy Policy.</p>
+                <h3>Use of Your Personal Data</h3>
+                <p>The Company may use Personal Data for various purposes, including to provide and maintain our Service, manage Your Account, and for other purposes as described in our full policy.</p>
+                <h2>Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, You can contact us: <strong>Email: </strong><a href="mailto:jogenderjaat777@gmail.com">jogenderjaat777@gmail.com</a></p>
+            </div>
+        </details>
+        <details class="footer-details-item">
+            <summary class="PT">Term & Condition</summary>
+            <div class="details-content">
+                <p>Here’s a simple Terms & Conditions:</p>
+                <p><strong>1. Bookings & Payments:</strong> All bookings require accurate information and accepted payment before confirmation. Prices may change due to currency or operational costs.</p>
+                <p><strong>2. Cancellations & Changes:</strong> Cancellations/refunds depend on the policies of airlines, hotels, or other suppliers. Some bookings may be non-refundable.</p>
+                <p><strong>3. Passports & Entry:</strong> Travelers are responsible for valid documents, including passports and visas.</p>
+                <p><strong>4. Booking for Others:</strong> If booking for others, you must have their consent and communicate these terms to them.</p>
+                <p><strong>5. Liability:</strong> The website acts as an agent; it’s not responsible for third-party service disruptions or events outside its control.</p>
+                <p><strong>6. User Conduct:</strong> Provide true information, don’t misuse the platform, and protect your account details.</p>
+                <p><strong>7. Age Restriction:</strong> Users must be 18+ to book.</p>
+            </div>
+        </details>
+        <details class="footer-details-item">
+            <summary class="PT">Help</summary>
+            <div class="details-content">
+                <p><strong>1. How to Book:</strong> Step-by-step guide booking process (search, select, pay, confirm).</p>
+                <p><strong>2. Cancellation/Refund:</strong> First, you raise a complaint on refund by gmail. After, we getting your mail and check the details and the refund process is start but the refund gives to you in 6-7 working days.</p>
+                <p><strong>3. Payment Options:</strong> These payemnts option are available on my website. (UPI, cards, net banking, Paytm, etc).</p>
+                <p><strong>4. Contact Support:</strong> These details are provide on contact tab (Mobile No., Gmail, etc)</p>
+                <p><strong>5. Safety Tips:</strong> For safety purpose contact on this <strong>Phone No.: </strong><a href="tel:112"> Emergency Helpline no. 112</a></p>
+            </div>
+        </details>
+        <details class="footer-details-item">
+            <summary class="PT">Copyright policy ©</summary>
+            <div class="details-content">
+                <p><strong>1. Ownership:</strong> All content (text, images, videos, graphics, logos, etc.) on this website is protected by copyright laws and is the property of the website owner unless otherwise noted.</p>
+                <p><strong>2. Permissible Use:</strong> Users can only access and use our content for personal, non-commercial purposes. Reproduction, distribution, or modification of content is not allowed without our written consent.</p>
+                <p><strong>3. Copyright Infringement:</strong> If you believe your copyrighted work has been used without permission, contact us with full details (work description, location, your contact info).</p>
+                <p><strong>4. Notice:</strong> ©2025 <b class="BMT">Book My Tour</b>. All rights reserved.</p>
+            </div>
+        </details>
+        <!-- Follow Us and Feedback Section Modified -->
+        <div class="social-media-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
         </div>
-    </details>
-    
-    <details class="footer-details-item">
-        <summary class="PT">Term & Condition</summary>
-        <div class="details-content">
-            <p>Here’s a simple Terms & Conditions:</p>
-            <p><strong>1. Bookings & Payments:</strong> All bookings require accurate information and accepted payment before confirmation. Prices may change due to currency or operational costs.</p>
-            <p><strong>2. Cancellations & Changes:</strong> Cancellations/refunds depend on the policies of airlines, hotels, or other suppliers. Some bookings may be non-refundable.</p>
-            <p><strong>3. Passports & Entry:</strong> Travelers are responsible for valid documents, including passports and visas.</p>
-            <p><strong>4. Booking for Others:</strong> If booking for others, you must have their consent and communicate these terms to them.</p>
-            <p><strong>5. Liability:</strong> The website acts as an agent; it’s not responsible for third-party service disruptions or events outside its control.</p>
-            <p><strong>6. User Conduct:</strong> Provide true information, don’t misuse the platform, and protect your account details.</p>
-            <p><strong>7. Age Restriction:</strong> Users must be 18+ to book.</p>
+        <div class="feedback-section">
+            <h3>Have Feedback?</h3>
+            <p style="color: #551A8B; font-size: 0.9em; margin-bottom: 15px;">We'd love to hear from you!</p>
+            <button id="open-feedback-modal-btn" class="card-button">Leave Feedback</button>
         </div>
-    </details>
+    </footer>
 
-    <details class="footer-details-item">
-        <summary class="PT">Help</summary>
-        <div class="details-content">
-            <p><strong>1. How to Book:</strong> Step-by-step guide booking process (search, select, pay, confirm).</p>
-            <p><strong>2. Cancellation/Refund:</strong> First, you raise a complaint on refund by gmail. After, we getting your mail and check the details and the refund process is start but the refund gives to you in 6-7 working days.</p>
-            <p><strong>3. Payment Options:</strong> These payemnts option are available on my website. (UPI, cards, net banking, Paytm, etc).</p>
-            <p><strong>4. Contact Support:</strong> These details are provide on contact tab (Mobile No., Gmail, etc)</p>
-            <p><strong>5. Safety Tips:</strong> For safety purpose contact on this <strong>Phone No.: </strong><a href="tel:112"> Emergency Helpline no. 112</a></p>
+    <!-- Feedback Modal Added -->
+    <div id="feedback-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Share Your Feedback</h2>
+                <button id="close-feedback-modal-btn" class="close-btn">&times;</button>
+            </div>
+            <form id="feedback-form-modal">
+                <div class="form-group">
+                    <label for="feedback-name">Name</label>
+                    <input type="text" id="feedback-name" placeholder="Your full name" required>
+                </div>
+                 <div class="form-group" style="margin-top: 15px;">
+                    <label for="feedback-email">Email</label>
+                    <input type="email" id="feedback-email" placeholder="Your email address" required>
+                </div>
+                 <div class="form-group" style="margin-top: 15px;">
+                    <label>Your Rating</label>
+                    <div class="feedback-stars">
+                        <i class="far fa-star" data-value="1"></i>
+                        <i class="far fa-star" data-value="2"></i>
+                        <i class="far fa-star" data-value="3"></i>
+                        <i class="far fa-star" data-value="4"></i>
+                        <i class="far fa-star" data-value="5"></i>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="feedback-message">Message</label>
+                    <textarea id="feedback-message" rows="5" placeholder="Tell us what you think..." required></textarea>
+                </div>
+                <button type="submit" class="card-button" style="width: 100%; margin-top: 20px;">Submit Feedback</button>
+            </form>
         </div>
-    </details>
-    
-    <details class="footer-details-item">
-        <summary class="PT">Copyright policy ©</summary>
-        <div class="details-content">
-            <p><strong>1. Ownership:</strong> All content (text, images, videos, graphics, logos, etc.) on this website is protected by copyright laws and is the property of the website owner unless otherwise noted.</p>
-            <p><strong>2. Permissible Use:</strong> Users can only access and use our content for personal, non-commercial purposes. Reproduction, distribution, or modification of content is not allowed without our written consent.</p>
-            <p><strong>3. Copyright Infringement:</strong> If you believe your copyrighted work has been used without permission, contact us with full details (work description, location, your contact info).</p>
-            <p><strong>4. Notice:</strong> ©2025 <b class="BMT">Book My Tour</b>. All rights reserved.</p>
-        </div>
-    </details>
-</footer>
+    </div>
 
-    <script src="BMT.js"></script>
+    <!-- Feedback Confirmation Box -->
+    <div id="feedback-confirmation-box" class="confirmation-box">
+        <p>Thank you for your feedback!</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // User's original script
+            const hamburger = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links-wrapper');
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+            document.addEventListener('click', function(event) {
+                const openNavDetails = document.querySelector('.nav-details-item[open]');
+                if (openNavDetails && !openNavDetails.contains(event.target)) {
+                    openNavDetails.removeAttribute('open');
+                }
+                const openFooterDetails = document.querySelector('.footer-details-item[open]');
+                if (openFooterDetails && !openFooterDetails.contains(event.target)) {
+                    openFooterDetails.removeAttribute('open');
+                }
+            });
+            document.querySelectorAll('.details-content').forEach(details => {
+                details.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            });
+
+            // New script for Feedback Modal
+            const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
+            const feedbackModal = document.getElementById('feedback-modal');
+            const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
+            const feedbackForm = document.getElementById('feedback-form-modal');
+            const feedbackConfirmationBox = document.getElementById('feedback-confirmation-box');
+            const feedbackStars = document.querySelectorAll('.feedback-stars i');
+            let currentRating = 0;
+
+            if (openFeedbackBtn) {
+                openFeedbackBtn.addEventListener('click', () => {
+                    feedbackModal.classList.add('active');
+                });
+            }
+
+            if (closeFeedbackBtn) {
+                closeFeedbackBtn.addEventListener('click', () => {
+                    feedbackModal.classList.remove('active');
+                });
+            }
+
+            if (feedbackModal) {
+                feedbackModal.addEventListener('click', (e) => {
+                    if (e.target === feedbackModal) {
+                        feedbackModal.classList.remove('active');
+                    }
+                });
+            }
+
+            feedbackStars.forEach(star => {
+                star.addEventListener('mouseover', () => {
+                    const rating = star.dataset.value;
+                    feedbackStars.forEach(s => {
+                        s.classList.toggle('fas', s.dataset.value <= rating);
+                        s.classList.toggle('far', s.dataset.value > rating);
+                    });
+                });
+
+                star.addEventListener('mouseout', () => {
+                    feedbackStars.forEach(s => {
+                        s.classList.toggle('fas', s.dataset.value <= currentRating);
+                        s.classList.toggle('far', s.dataset.value > currentRating);
+                    });
+                });
+
+                star.addEventListener('click', () => {
+                    currentRating = star.dataset.value;
+                });
+            });
+
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    // Get form data
+                    const name = document.getElementById('feedback-name').value;
+                    const email = document.getElementById('feedback-email').value;
+                    const message = document.getElementById('feedback-message').value;
+
+                    // --- Data Storage Logic ---
+                    // This will open the user's default email client
+                    // and pre-fill the feedback for you to receive.
+                    const subject = encodeURIComponent("New Feedback from Book My Tour");
+                    const body = encodeURIComponent(
+                        `Name: ${name}\n` +
+                        `Email: ${email}\n` +
+                        `Rating: ${currentRating} out of 5\n\n` +
+                        `Message:\n${message}`
+                    );
+                    const ownerEmail = "jogendergahlawat777@gmail.com"; // Your email
+                    
+                    // This opens the email client
+                    window.location.href = `mailto:${ownerEmail}?subject=${subject}&body=${body}`;
+                    
+                    // --- UI Feedback ---
+                    feedbackModal.classList.remove('active');
+                    feedbackConfirmationBox.classList.add('show');
+                    setTimeout(() => {
+                        feedbackConfirmationBox.classList.remove('show');
+                    }, 3000);
+
+                    // Reset form
+                    feedbackForm.reset();
+                    currentRating = 0;
+                    feedbackStars.forEach(s => {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
+
