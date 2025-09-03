@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
     <header class="nav-bar">
         <div class="logo">
            <a href="/BookMyTour.html"> <img src="logo.png" alt="Book My Tour Logo"></a>
         </div>
-        <button class="hamburger-menu" aria-label="Toggle navigation menu">
+        <button class="hamburger-menu" ar   ia-label="Toggle navigation menu">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
@@ -432,8 +433,7 @@
             <button type="submit" class="cta-button">Subscribe Now</button>
         </form>
     </div>
-</section>
-<footer class="site-footer">
+</section><footer class="site-footer">
     <div class="container">
         <div class="footer-main-content">
             <div class="footer-column about">
@@ -506,68 +506,109 @@
         <div class="footer-bottom">
             <p class="copyright-text">Copyright © 2025 BookMyTour. All Rights Reserved.</p>
             <div class="footer-bottom-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms & Condition</a>
+                <a id="privacy-policy-link">Privacy Policy</a>
+                <a id="terms-condition-link">Terms & Condition</a>
             </div>
         </div>
     </div>
 </footer>
+
+<div class="feedback-section">
+    <button id="open-feedback-modal-btn" class="card-button-2">Leave Feedback</button>
+</div>
+
 <div id="feedback-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Share Your Feedback</h2>
+            <button id="close-feedback-modal-btn" class="close-btn">×</button>
+        </div>
+        <form id="feedback-form-modal">
+            <div class="form-group">
+                <label for="feedback-name">Name</label>
+                <input type="text" id="feedback-name" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="feedback-email">Email</label>
+                <input type="email" id="feedback-email" placeholder="Your email address" required>
+            </div>
+            <div class="form-group">
+                <label>Your Rating</label>
+                <div class="feedback-stars">
+                    <i class="far fa-star" data-value="1"></i>
+                    <i class="far fa-star" data-value="2"></i>
+                    <i class="far fa-star" data-value="3"></i>
+                    <i class="far fa-star" data-value="4"></i>
+                    <i class="far fa-star" data-value="5"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="feedback-message">Message</label>
+                <textarea id="feedback-message" rows="5" placeholder="Tell us what you think..." required></textarea>
+            </div>
+            <button type="submit" class="card-button" style="width: 100%; margin-top: 10px;">Submit Feedback</button>
+        </form>
     </div>
+</div>
+
 <div id="feedback-confirmation-box" class="confirmation-box">
     <p>Thank you for your feedback!</p>
 </div>
-    
-         <div class="feedback-section">
-            <button id="open-feedback-modal-btn" class="card-button-2">Leave Feedback</button>
-         </div>
-       </div>
-         <div id="feedback-modal" class="modal">
-         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Share Your Feedback</h2>
-                <button id="close-feedback-modal-btn" class="close-btn">&times;</button>
-            </div>
-            <form id="feedback-form-modal">
-                <div class="form-group">
-                    <label for="feedback-name">Name</label>
-                    <input type="text" id="feedback-name" placeholder="Your full name" required>
-                </div>
-                 <div class="form-group" style="margin-top: 15px;">
-                    <label for="feedback-email">Email</label>
-                    <input type="email" id="feedback-email" placeholder="Your email address" required>
-                </div>
-                 <div class="form-group" style="margin-top: 15px;">
-                    <label>Your Rating</label>
-                    <div class="feedback-stars">
-                        <i class="far fa-star" data-value="1"></i>
-                        <i class="far fa-star" data-value="2"></i>
-                        <i class="far fa-star" data-value="3"></i>
-                        <i class="far fa-star" data-value="4"></i>
-                        <i class="far fa-star" data-value="5"></i>
-                    </div>
-                </div>
-                <div class="form-group" style="margin-top: 15px;">
-                    <label for="feedback-message">Message</label>
-                    <textarea id="feedback-message" rows="5" placeholder="Tell us what you think..." required></textarea>
-                </div>
-                <button type="submit" class="card-button" style="width: 100%; margin-top: 20px;">Submit Feedback</button>
-            </form>
+
+<div id="privacy-modal" class="legal-modal">
+    <div class="legal-modal-content">
+        <div class="legal-modal-header">
+            <h2>Privacy Policy</h2>
+            <button class="close-legal-modal-btn">×</button>
+        </div>
+        <div class="legal-modal-body">
+            <p><strong>Last Updated: September 03, 2025</strong></p>
+            <p>Your privacy is important to us. This Privacy Policy explains how Book My Tour ("we," "us," or "our") collects, uses, shares, and protects your personal information when you use our website and services.</p>
+            <h4>1. Information We Collect</h4>
+            <ul>
+                <li><strong>Personal Details:</strong> Name, email address, phone number.</li>
+                <li><strong>Booking Information:</strong> Travel destinations, dates, accommodation preferences.</li>
+                <li><strong>Payment Information:</strong> Credit/debit card details, which are securely processed by our payment partners.</li>
+            </ul>
+            <h4>2. How We Use Your Information</h4>
+            <ul>
+                <li>To process your travel bookings and payments.</li>
+                <li>To send you booking confirmations and necessary updates.</li>
+                <li>To provide customer support.</li>
+                <li>To send you marketing offers, if you consent.</li>
+            </ul>
+            <h4>3. Data Security</h4>
+            <p>We take necessary technical steps to protect your personal information. We do not sell your data to any third party.</p>
         </div>
     </div>
+</div>
 
-  <button class="leave-feedback-btn" onclick="openFeedbackModal()">Leave Feedback</button>
-    <div id="feedback-confirmation-box" class="confirmation-box">
-        <p>Thank you for your feedback!</p>
+<div id="terms-modal" class="legal-modal">
+    <div class="legal-modal-content">
+        <div class="legal-modal-header">
+            <h2>Terms & Conditions</h2>
+            <button class="close-legal-modal-btn">×</button>
+        </div>
+        <div class="legal-modal-body">
+            <p><strong>Last Updated: September 03, 2025</strong></p>
+            <p>Please read these Terms and Conditions ("Terms") carefully before using the Book My Tour website ("Service"). By using this service, you agree to these terms.</p>
+            <h4>1. Bookings and Payments</h4>
+            <p>All bookings are subject to availability. Full payment is required at the time of booking to confirm your reservation. All prices are in Indian Rupees (₹).</p>
+            <h4>2. Cancellations and Refunds</h4>
+            <p>Cancellation policies vary for each hotel and tour package. Please review the specific policy at the time of booking. Refunds, if applicable, will be processed within 10-15 working days.</p>
+            <h4>3. Service Terms</h4>
+            <p>We (Book My Tour) act as an intermediary between you and the service provider (e.g., hotels, airlines). We are not responsible for any deficiencies in services provided by third parties.</p>
+        </div>
     </div>
+</div>
 
-    <script>
+<script>
+
 document.addEventListener('DOMContentLoaded', () => {
-
 
     const hamburger = document.querySelector('.hamburger-menu');
     const navLinks = document.querySelector('.nav-links-wrapper');
-    const allDetailsElements = document.querySelectorAll('.nav-details-item, .footer-details-item');
+    const allDetailsElements = document.querySelectorAll('.nav-details-item');
 
     if (hamburger && navLinks) {
         hamburger.addEventListener('click', () => {
@@ -576,8 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     allDetailsElements.forEach(details => {
-        details.addEventListener('toggle', event => {
-           
+        details.addEventListener('toggle', () => {
             if (details.open) {
                 allDetailsElements.forEach(otherDetails => {
                     if (otherDetails !== details) {
@@ -588,7 +628,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Feedback Modal ke liye
     const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
     const feedbackModal = document.getElementById('feedback-modal');
     const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
@@ -608,6 +647,116 @@ document.addEventListener('DOMContentLoaded', () => {
             feedbackModal.classList.remove('active');
         });
     }
+    
+    feedbackStars.forEach(star => {
+        star.addEventListener('click', () => {
+            currentRating = star.dataset.value;
+            feedbackStars.forEach(s => {
+                s.classList.toggle('fas', s.dataset.value <= currentRating);
+                s.classList.toggle('far', s.dataset.value > currentRating);
+            });
+        });
+    });
+
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            feedbackModal.classList.remove('active');
+            feedbackConfirmationBox.classList.add('show');
+            setTimeout(() => {
+                feedbackConfirmationBox.classList.remove('show');
+            }, 3000);
+            feedbackForm.reset();
+            currentRating = 0;
+            feedbackStars.forEach(s => {
+                s.classList.remove('fas');
+                s.classList.add('far');
+            });
+        });
+    }
+
+    const privacyModal = document.getElementById('privacy-modal');
+    const termsModal = document.getElementById('terms-modal');
+    const privacyLink = document.getElementById('privacy-policy-link');
+    const termsLink = document.getElementById('terms-condition-link');
+    const closeLegalModalBtns = document.querySelectorAll('.close-legal-modal-btn');
+
+    if (privacyLink) {
+        privacyLink.addEventListener('click', () => {
+            privacyModal.classList.add('active');
+        });
+    }
+
+    if (termsLink) {
+        termsLink.addEventListener('click', () => {
+            termsModal.classList.add('active');
+        });
+    }
+
+    closeLegalModalBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            privacyModal.classList.remove('active');
+            termsModal.classList.remove('active');
+        });
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === feedbackModal) {
+            feedbackModal.classList.remove('active');
+        }
+        if (e.target === privacyModal) {
+            privacyModal.classList.remove('active');
+        }
+        if (e.target === termsModal) {
+            termsModal.classList.remove('active');
+        }
+    });
+
+    const searchForm = document.querySelector('.tour-search-form');
+});
+document.addEventListener('DOMContentLoaded', () => {
+
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navLinks = document.querySelector('.nav-links-wrapper');
+    const allDetailsElements = document.querySelectorAll('.nav-details-item, .footer-details-item');
+
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    allDetailsElements.forEach(details => {
+        details.addEventListener('toggle', () => {
+            if (details.open) {
+                allDetailsElements.forEach(otherDetails => {
+                    if (otherDetails !== details) {
+                        otherDetails.open = false;
+                    }
+                });
+            }
+        });
+    });
+    const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
+    const feedbackModal = document.getElementById('feedback-modal');
+    const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
+    const feedbackForm = document.getElementById('feedback-form-modal');
+    const feedbackConfirmationBox = document.getElementById('feedback-confirmation-box');
+    const feedbackStars = document.querySelectorAll('.feedback-stars i');
+    let currentRating = 0;
+
+    if (openFeedbackBtn) {
+        openFeedbackBtn.addEventListener('click', () => {
+            feedbackModal.classList.add('active');
+        });
+    }
+
+    if (closeFeedbackBtn) {
+        closeFeedbackBtn.addEventListener('click', () => {
+            feedbackModal.classList.remove('active');
+        });
+    }
+
     if (feedbackModal) {
         feedbackModal.addEventListener('click', (e) => {
             if (e.target === feedbackModal) {
@@ -643,10 +792,40 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+    const privacyModal = document.getElementById('privacy-modal');
+    const termsModal = document.getElementById('terms-modal');
+    const privacyLink = document.getElementById('privacy-policy-link');
+    const termsLink = document.getElementById('terms-condition-link');
+    const closeLegalModalBtns = document.querySelectorAll('.close-legal-modal-btn');
 
+    if (privacyLink) {
+        privacyLink.addEventListener('click', () => {
+            privacyModal.classList.add('active');
+        });
+    }
 
-    // --- Hotel Search Logic ---
-    
+    if (termsLink) {
+        termsLink.addEventListener('click', () => {
+            termsModal.classList.add('active');
+        });
+    }
+
+    closeLegalModalBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            privacyModal.classList.remove('active');
+            termsModal.classList.remove('active');
+        });
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === privacyModal) {
+            privacyModal.classList.remove('active');
+        }
+        if (e.target === termsModal) {
+            termsModal.classList.remove('active');
+        }
+    });
+
     const searchForm = document.querySelector('.tour-search-form');
     const hotelCardsContainer = document.querySelector('.hotels-grid');
     const hotelsSection = document.getElementById('hotels');
@@ -662,7 +841,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             hotelCardsContainer.innerHTML = `<p class="loading-message">🏨 Searching for hotels in ${city}...</p>`;
-            hotelsSection.scrollIntoView({ behavior: 'smooth' });
+            if (hotelsSection) {
+                hotelsSection.scrollIntoView({ behavior: 'smooth' });
+            }
 
             try {
                 const response = await fetch(`http://localhost:3000/api/search-by-city?city=${city}`);
@@ -671,18 +852,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 const data = await response.json();
                 
-                console.log("API se mila data:", data);
+                console.log("API data received:", data);
                 hotelCardsContainer.innerHTML = '';
                 
                 const mapLinkContainer = document.getElementById('map-link-container');
-                if(mapLinkContainer) mapLinkContainer.innerHTML = ''; // Clear previous map link
+                if(mapLinkContainer) mapLinkContainer.innerHTML = '';
 
                 const hotels = data.data?.hotels;
 
                 if (hotels && hotels.length > 0) {
                     if (mapLinkContainer) {
                         const encodedCity = encodeURIComponent(`Hotels in ${city}`);
-                        const googleMapsUrl = `https://www.google.com/maps/search/${encodedCity}`;
+                        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedCity}`;
                         mapLinkContainer.innerHTML = `<a href="${googleMapsUrl}" target="_blank" class="map-button">Show "${city}" on Google Maps 🗺️</a>`;
                     }
 
@@ -711,12 +892,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (error) {
                 console.error('Error:', error);
-                hotelCardsContainer.innerHTML = `<p class="no-results">Something went wrong. Server chal raha hai? API key theek hai?</p>`;
+                hotelCardsContainer.innerHTML = `<p class="no-results">Something went wrong. Is the server running? Is the API key correct?</p>`;
             }
         });
     }
 });
-    </script>
+</script>   
 
 </body>
 </html>
