@@ -1,37 +1,61 @@
-const loginForm = document.getElementById('loginForm');
-    const messageElement = document.getElementById('message');
 
-    loginForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); 
-   const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+const express = require('express');
+const axios = require('axios');
+const cors = require('cors');
+require('dotenv').config();
 
-        try {
-            
-            const response = await fetch('http://localhost:5000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email: email, password: password })
-            });
+const app = express();
+const PORT = 3000;
+app.use(cors());
 
-            const data = await response.json();
+const cityIdMap = {
+    'delhi': '-2092174',
+    'mumbai': '-2102242',
+    'jaipur': '-2097334',
+    'goa': '-2094770',
+    'manali': '-2101658'
+};
 
-            if (response.ok) {
-                messageElement.textContent = data.msg;
-                messageElement.style.color = 'green';
-   
-            } else {
-                
-                messageElement.textContent = data.msg;
-                messageElement.style.color = 'red';
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            messageElement.textContent = 'Server se connect nahi ho pa raha hai. Try again later.';
-            messageElement.style.color = 'red';
+app.get('/api/search-by-city', async (req, res) => {
+    try {
+        const cityName = req.query.city.toLowerCase();
+        const dest_id = cityIdMap[cityName];
+
+        if (!dest_id) {
+            return res.status(400).json({ message: `Sorry, we don't have the ID for ${cityName}. Please try another city.` });
         }
-    
-    });
         
+        const arrival_date = new Date();
+        arrival_date.setDate(arrival_date.getDate() + 1);
+        const departure_date = new Date();
+        departure_date.setDate(departure_date.getDate() + 2);
+
+        const options = {
+            method: 'GET',
+            url: 'https://booking-com15.p.rapidapi.com/api/v1/search/searchHotels',
+            params: {
+                dest_id: dest_id,
+                search_type: 'CITY',
+                arrival_date: arrival_date.toISOString().split('T')[0],
+                departure_date: departure_date.toISOString().split('T')[0],
+                adults: '1',
+                page_number: '1'
+            },
+            headers: {
+                'X-RapidAPI-Key': process.env.HOTEL_API_KEY,
+                'X-RapidAPI-Host': 'booking-com15.p.rapidapi.com'
+            }
+        };
+
+        const apiResponse = await axios.request(options);
+        res.json(apiResponse.data);
+
+    } catch (error) {
+        console.error('API Error:', error.response?.data || error.message);
+        res.status(500).json({ message: 'Error fetching hotel data from API' });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`✅ Server is running on http://localhost:${PORT}`);
+});
