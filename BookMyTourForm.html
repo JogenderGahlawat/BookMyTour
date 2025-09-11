@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="Form.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <script src="server.js.js"></script>
+   
 </head>
 <body>
     <div class="flip-container">
@@ -17,12 +17,12 @@
                     <h1 class="form-title">Login</h1>
                     
                     <div class="input-box">
-                        <input type="email" placeholder="Email" required>
+                        <input type="email" placeholder="Email" name="email" required>
                         <i class="fas fa-envelope"></i>
                     </div> 
 
                     <div class="input-box">
-                        <input type="password" placeholder="Password" required>
+                        <input type="password" placeholder="Password" name="password" required>
                         <i class="fas fa-lock"></i>
                     </div>
 
@@ -33,7 +33,7 @@
                         <a href="#">Forgot Password?</a>
                     </div>
                     
-                    <button class="main-button" type="submit">Login</button>
+                    <button class="main-button" type="submit" name="login">Login</button>
 
                     <p class="message" id="loginMessage"></p>
                     
@@ -56,21 +56,21 @@
                 <form id="signupForm">
                     <h1 class="form-title">Create Account</h1>
                     
-                    <div class="input-group">
-                        <div class="input-box">
-                            <input type="text" placeholder="First Name" required>
-                        </div>
-                        <div class="input-box">
-                            <input type="text" placeholder="Last Name" required>
-                        </div>
+                <div class="input-group">
+    <div class="input-box">
+        <input type="text" placeholder="First Name" name="firstName" required>
+    </div>
+    <div class="input-box">
+        <input type="text" placeholder="Last Name" name="lastName" required>
+    </div>
+</div>
+
+                    <div class="input-box">
+                        <input type="email" placeholder="Email" name="email" required>
                     </div>
 
                     <div class="input-box">
-                        <input type="email" placeholder="Email" required>
-                    </div>
-
-                    <div class="input-box">
-                        <input type="password" placeholder="Password" required>
+                        <input type="password" placeholder="Password" name="password" required>
                     </div>
 
                     <div class="remember-forgot-box">
@@ -80,7 +80,7 @@
                         <a href="#">Forgot Password?</a>
                     </div>
 
-                    <button class="main-button" type="submit">Sign Up</button>
+                    <button class="main-button" type="submit" name="signup">Sign Up</button>
 
                     <p class="switch-link">
                         Already have an account? 
@@ -93,17 +93,63 @@
     </div>
 
     <script>
-        const card = document.getElementById('card');
-        const showSignupLink = document.getElementById('show-signup');
-        const showLoginLink = document.getElementById('show-login');
+    const card = document.getElementById('card');
+    const showSignupLink = document.getElementById('show-signup');
+    const showLoginLink = document.getElementById('show-login');
 
-        showSignupLink.addEventListener('click', () => {
-            card.classList.add('is-flipped');
-        });
+    showSignupLink.addEventListener('click', () => {
+        card.classList.add('is-flipped');
+    });
 
-        showLoginLink.addEventListener('click', () => {
-            card.classList.remove('is-flipped');
-        });
+    showLoginLink.addEventListener('click', () => {
+        card.classList.remove('is-flipped');
+    });
+
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        console.log("Login Data Submitted:", data);
+
+        fetch('/login', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Server Response:', result);
+            alert(result.message); 
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+
+    const signupForm = document.getElementById('signupForm');
+    signupForm.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        console.log("Signup Data Submitted:", data);
+
+        fetch('/signup', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Server Response:', result);
+            alert(result.message); 
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
     </script>
 
 </body>
