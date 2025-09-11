@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt'); 
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const port = 3000;
@@ -62,10 +63,11 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         const user = await User.findOne({ email: email });
+
         if (!user) {
+
             return res.status(400).json({ message: 'User not found. Please sign up.' });
         }
 
@@ -74,13 +76,28 @@ app.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials. Please try again.' });
         }
 
-        res.json({ message: `Welcome back, ${user.firstName}! Login successful.` });
+        const payload = {
+            userId: user._id, 
+            firstName: user.firstName
+        };
+         console.log('My JWT Secret is:', process.env.JWT_SECRET); 
+        const token = jwt.sign(
+            payload, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '24h' } 
+        );
+
+        res.json({ 
+            message: `Welcome back, ${user.firstName}! Login successful.`,
+            token: token
+        });
 
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ message: 'Something went wrong.' });
     }
 });
+
 app.listen(port, () => {
     console.log(`Server is running. Open http://localhost:${port} in your browser.`);
 });
