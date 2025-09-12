@@ -646,7 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
             feedbackModal.classList.remove('active');
         });
     }
-    
+
     feedbackStars.forEach(star => {
         star.addEventListener('click', () => {
             currentRating = star.dataset.value;
@@ -674,7 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    
+
     const privacyModal = document.getElementById('privacy-modal');
     const termsModal = document.getElementById('terms-modal');
     const privacyLink = document.getElementById('privacy-policy-link');
@@ -712,62 +712,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const searchForm = document.querySelector('.tour-search-form');
-    const destinationInput = document.getElementById('destination');
-    const hotelsSection = document.getElementById('hotels');
-    const hotelsHeading = document.querySelector('#hotels h2');
-    const hotelCardsContainer = document.querySelector('.hotels-grid');
+}); 
 
-    if (searchForm) {
-        searchForm.addEventListener('submit', (event) => {
-        
-            event.preventDefault();
 
-            const destinationCity = destinationInput.value.trim();
-
-            if (destinationCity) {
-                hotelsHeading.textContent = `Showing Hotels in ${destinationCity}`;
-
-                hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; font-size: 1.2rem;">Searching for hotels in ${destinationCity}... 🏨</p>`;
-
-                hotelsSection.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                alert('Please enter a destination to search for.');
-            }
-        });
-    }
-});
+document.addEventListener('DOMContentLoaded', () => {
 
 const searchForm = document.querySelector('.tour-search-form');
 const destinationInput = document.getElementById('destination');
+const checkinInput = document.getElementById('checkin-date'); 
+const checkoutInput = document.getElementById('checkout-date'); 
 const hotelsSection = document.getElementById('hotels');
 const hotelsHeading = document.querySelector('#hotels h2');
-const hotelCardsContainer = document.querySelector('.hotels-grid');
+const hotelCardsContainer = document.querySelector('.hotels-grid .hotels-grid');
 
 if (searchForm) {
     searchForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const city = destinationInput.value.trim();
+        const checkin = checkinInput.value;
+        const checkout = checkoutInput.value;
 
         if (!city) {
-            alert('Please enter a destination to search for.');
+            alert('Please enter a destination.');
             return;
         }
 
         hotelsHeading.textContent = `Searching for Hotels in ${city}`;
-        hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%;">Loading... 🏨</p>`;
+        hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Loading... 🏨</p>`;
         hotelsSection.scrollIntoView({ behavior: 'smooth' });
 
         try {
-            const response = await fetch(`/search-hotels?city=${city}`);
-            const hotelsData = await response.json();
+            const response = await fetch(`/search-hotels?city=${city}&checkin=${checkin}&checkout=${checkout}`);
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Network response was not ok');
+            }
 
-            hotelCardsContainer.innerHTML = ''; 
+            const hotelsData = await response.json();
+            
+            hotelCardsContainer.innerHTML = '';
 
             if (hotelsData && hotelsData.length > 0) {
                 hotelsHeading.textContent = `Showing Hotels in ${city}`;
                 hotelsData.forEach(hotel => {
-                   
                     const hotelCardHTML = `
                         <div class="hotel-card">
                             <div class="card-image-container">
@@ -777,7 +765,7 @@ if (searchForm) {
                                 <h3 class="card-title">${hotel.name}</h3>
                                 <p class="card-description">${hotel.location}</p>
                                 <div class="rating-price">
-                                    <div class="stars">${'⭐'.repeat(hotel.rating)}</div>
+                                    <div class="stars">⭐ ${hotel.rating}</div>
                                     <div class="price">₹${hotel.price}/night</div>
                                 </div>
                                 <a href="#" class="card-button">Book Now</a>
@@ -787,15 +775,20 @@ if (searchForm) {
                     hotelCardsContainer.insertAdjacentHTML('beforeend', hotelCardHTML);
                 });
             } else {
-                hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%;">No hotels found in ${city}.</p>`;
+                hotelsHeading.textContent = `No Hotels Found`;
+                hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Sorry, no hotels found for "${city}".</p>`;
             }
 
         } catch (error) {
-            console.error('Error fetching hotels:', error);
-            hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%;">Sorry, something went wrong.</p>`;
+            console.error('Search Error:', error);
+            hotelsHeading.textContent = `Error`;
+            hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Error: ${error.message}</p>`;
         }
     });
 }
+});
+
+
 </script>
 
 </body>
