@@ -603,117 +603,6 @@
 </div>
 
 <script>
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    const hamburger = document.querySelector('.hamburger-menu');
-    const navLinks = document.querySelector('.nav-links-wrapper');
-    const allDetailsElements = document.querySelectorAll('.nav-details-item');
-
-    if (hamburger && navLinks) {
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    }
-
-    allDetailsElements.forEach(details => {
-        details.addEventListener('toggle', () => {
-            if (details.open) {
-                allDetailsElements.forEach(otherDetails => {
-                    if (otherDetails !== details) {
-                        otherDetails.open = false;
-                    }
-                });
-            }
-        });
-    });
-
-    const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
-    const feedbackModal = document.getElementById('feedback-modal');
-    const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
-    const feedbackForm = document.getElementById('feedback-form-modal');
-    const feedbackConfirmationBox = document.getElementById('feedback-confirmation-box');
-    const feedbackStars = document.querySelectorAll('.feedback-stars i');
-    let currentRating = 0;
-
-    if (openFeedbackBtn) {
-        openFeedbackBtn.addEventListener('click', () => {
-            feedbackModal.classList.add('active');
-        });
-    }
-
-    if (closeFeedbackBtn) {
-        closeFeedbackBtn.addEventListener('click', () => {
-            feedbackModal.classList.remove('active');
-        });
-    }
-    
-    feedbackStars.forEach(star => {
-        star.addEventListener('click', () => {
-            currentRating = star.dataset.value;
-            feedbackStars.forEach(s => {
-                s.classList.toggle('fas', s.dataset.value <= currentRating);
-                s.classList.toggle('far', s.dataset.value > currentRating);
-            });
-        });
-    });
-
-    if (feedbackForm) {
-        feedbackForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            feedbackModal.classList.remove('active');
-            feedbackConfirmationBox.classList.add('show');
-            setTimeout(() => {
-                feedbackConfirmationBox.classList.remove('show');
-            }, 3000);
-            feedbackForm.reset();
-            currentRating = 0;
-            feedbackStars.forEach(s => {
-                s.classList.remove('fas');
-                s.classList.add('far');
-            });
-        });
-    }
-
-    const privacyModal = document.getElementById('privacy-modal');
-    const termsModal = document.getElementById('terms-modal');
-    const privacyLink = document.getElementById('privacy-policy-link');
-    const termsLink = document.getElementById('terms-condition-link');
-    const closeLegalModalBtns = document.querySelectorAll('.close-legal-modal-btn');
-
-    if (privacyLink) {
-        privacyLink.addEventListener('click', () => {
-            privacyModal.classList.add('active');
-        });
-    }
-
-    if (termsLink) {
-        termsLink.addEventListener('click', () => {
-            termsModal.classList.add('active');
-        });
-    }
-
-    closeLegalModalBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            privacyModal.classList.remove('active');
-            termsModal.classList.remove('active');
-        });
-    });
-
-    window.addEventListener('click', (e) => {
-        if (e.target === feedbackModal) {
-            feedbackModal.classList.remove('active');
-        }
-        if (e.target === privacyModal) {
-            privacyModal.classList.remove('active');
-        }
-        if (e.target === termsModal) {
-            termsModal.classList.remove('active');
-        }
-    });
-
-    const searchForm = document.querySelector('.tour-search-form');
-});
 document.addEventListener('DOMContentLoaded', () => {
 
     const hamburger = document.querySelector('.hamburger-menu');
@@ -737,6 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
     const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
     const feedbackModal = document.getElementById('feedback-modal');
     const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
@@ -754,14 +644,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeFeedbackBtn) {
         closeFeedbackBtn.addEventListener('click', () => {
             feedbackModal.classList.remove('active');
-        });
-    }
-
-    if (feedbackModal) {
-        feedbackModal.addEventListener('click', (e) => {
-            if (e.target === feedbackModal) {
-                feedbackModal.classList.remove('active');
-            }
         });
     }
     
@@ -792,6 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+    
     const privacyModal = document.getElementById('privacy-modal');
     const termsModal = document.getElementById('terms-modal');
     const privacyLink = document.getElementById('privacy-policy-link');
@@ -824,83 +707,98 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === termsModal) {
             termsModal.classList.remove('active');
         }
+        if (e.target === feedbackModal) {
+            feedbackModal.classList.remove('active');
+        }
     });
 
     const searchForm = document.querySelector('.tour-search-form');
-    const hotelCardsContainer = document.querySelector('.hotels-grid');
-    const hotelsSection = document.getElementById('hotels');
     const destinationInput = document.getElementById('destination');
+    const hotelsSection = document.getElementById('hotels');
+    const hotelsHeading = document.querySelector('#hotels h2');
+    const hotelCardsContainer = document.querySelector('.hotels-grid');
 
     if (searchForm) {
-        searchForm.addEventListener('submit', async (event) => {
+        searchForm.addEventListener('submit', (event) => {
+        
             event.preventDefault();
-            const city = destinationInput.value.trim();
-            if (!city) {
-                alert('Please enter a city name.');
-                return;
-            }
 
-            hotelCardsContainer.innerHTML = `<p class="loading-message">🏨 Searching for hotels in ${city}...</p>`;
-            if (hotelsSection) {
+            const destinationCity = destinationInput.value.trim();
+
+            if (destinationCity) {
+                hotelsHeading.textContent = `Showing Hotels in ${destinationCity}`;
+
+                hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; font-size: 1.2rem;">Searching for hotels in ${destinationCity}... 🏨</p>`;
+
                 hotelsSection.scrollIntoView({ behavior: 'smooth' });
-            }
-
-            try {
-                const response = await fetch(`http://localhost:3000/api/search-by-city?city=${city}`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                
-                console.log("API data received:", data);
-                hotelCardsContainer.innerHTML = '';
-                
-                const mapLinkContainer = document.getElementById('map-link-container');
-                if(mapLinkContainer) mapLinkContainer.innerHTML = '';
-
-                const hotels = data.data?.hotels;
-
-                if (hotels && hotels.length > 0) {
-                    if (mapLinkContainer) {
-                        const encodedCity = encodeURIComponent(`Hotels in ${city}`);
-                        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedCity}`;
-                        mapLinkContainer.innerHTML = `<a href="${googleMapsUrl}" target="_blank" class="map-button">Show "${city}" on Google Maps 🗺️</a>`;
-                    }
-
-                    hotels.forEach(hotel => {
-                        const hotelCardHTML = `
-                            <div class="hotel-card">
-                                <div class="card-image-container">
-                                    <img src="${hotel.property.photoUrls[0].replace('square60', 'square200')}" alt="${hotel.property.name}">
-                                </div>
-                                <div class="card-content">
-                                    <h3 class="card-title">${hotel.property.name}</h3>
-                                    <p class="card-description">${hotel.property.wishlistName}</p>
-                                    <div class="rating-price">
-                                        <div class="stars">${'⭐'.repeat(Math.round(hotel.property.reviewScore / 2 || 0))} (${hotel.property.reviewCount || 0})</div>
-                                        <div class="price">${hotel.property.priceBreakdown.grossPrice.currency} ${hotel.property.priceBreakdown.grossPrice.value.toLocaleString()}</div>
-                                    </div>
-                                    <a href="https://www.booking.com${hotel.property.url}" target="_blank" class="card-button">Book Now</a>
-                                </div>
-                            </div>
-                        `;
-                        hotelCardsContainer.insertAdjacentHTML('beforeend', hotelCardHTML);
-                    });
-                } else {
-                    hotelCardsContainer.innerHTML = `<p class="no-results">Sorry, no hotels found for "${city}". Please try Delhi, Mumbai, Jaipur, Goa, or Manali.</p>`;
-                }
-
-            } catch (error) {
-                console.error('Error:', error);
-                hotelCardsContainer.innerHTML = `<p class="no-results">Something went wrong. Is the server running? Is the API key correct?</p>`;
+            } else {
+                alert('Please enter a destination to search for.');
             }
         });
     }
 });
 
+const searchForm = document.querySelector('.tour-search-form');
+const destinationInput = document.getElementById('destination');
+const hotelsSection = document.getElementById('hotels');
+const hotelsHeading = document.querySelector('#hotels h2');
+const hotelCardsContainer = document.querySelector('.hotels-grid');
 
-</script>   
+if (searchForm) {
+    searchForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const city = destinationInput.value.trim();
+
+        if (!city) {
+            alert('Please enter a destination to search for.');
+            return;
+        }
+
+        hotelsHeading.textContent = `Searching for Hotels in ${city}`;
+        hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%;">Loading... 🏨</p>`;
+        hotelsSection.scrollIntoView({ behavior: 'smooth' });
+
+        try {
+            const response = await fetch(`/search-hotels?city=${city}`);
+            const hotelsData = await response.json();
+
+            hotelCardsContainer.innerHTML = ''; 
+
+            if (hotelsData && hotelsData.length > 0) {
+                hotelsHeading.textContent = `Showing Hotels in ${city}`;
+                hotelsData.forEach(hotel => {
+                   
+                    const hotelCardHTML = `
+                        <div class="hotel-card">
+                            <div class="card-image-container">
+                                <img src="${hotel.imageUrl}" alt="${hotel.name}">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">${hotel.name}</h3>
+                                <p class="card-description">${hotel.location}</p>
+                                <div class="rating-price">
+                                    <div class="stars">${'⭐'.repeat(hotel.rating)}</div>
+                                    <div class="price">₹${hotel.price}/night</div>
+                                </div>
+                                <a href="#" class="card-button">Book Now</a>
+                            </div>
+                        </div>
+                    `;
+                    hotelCardsContainer.insertAdjacentHTML('beforeend', hotelCardHTML);
+                });
+            } else {
+                hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%;">No hotels found in ${city}.</p>`;
+            }
+
+        } catch (error) {
+            console.error('Error fetching hotels:', error);
+            hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%;">Sorry, something went wrong.</p>`;
+        }
+    });
+}
+</script>
 
 </body>
 </html>
 
+    

@@ -6,16 +6,16 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
+const API_KEY = process.env.LOCATION_API_KEY;
 
 app.get('/api/search-hotels', async (req, res) => {
     const { destination } = req.query;
-    const API_KEY = 'AIzaSyBkgLj94P9MLJ6z1BI6Lk4ZzHgVEP6TlLw'; /
 
     if (!destination) {
         return res.status(400).json({ message: 'Destination is required.' });
     }
     
-    if (API_KEY === 'YOUR_Maps_API_KEY') {
+    if (API_KEY === '') {
         return res.status(500).json({ message: 'API key is not present on server.' });
     }
 
