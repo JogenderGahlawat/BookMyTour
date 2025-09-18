@@ -1,5 +1,3 @@
-// app.js
-
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
@@ -8,16 +6,12 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
-const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST;
-
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'BookMyTour.html'));
 });
 
-// Hotel search ke liye API route
 app.get('/search-hotels', async (req, res) => {
     const city = req.query.city;
     const checkin = req.query.checkin;
@@ -28,7 +22,7 @@ app.get('/search-hotels', async (req, res) => {
     }
 
     try {
-        // STEP 1: City ka dest_id nikalein
+
         const locationOptions = {
             method: 'GET',
             url: `https://${RAPIDAPI_HOST}/v1/hotels/locations`,
@@ -41,7 +35,6 @@ app.get('/search-hotels', async (req, res) => {
 
         const locationResponse = await axios.request(locationOptions);
         
-        // Agar sheher nahi mila, to error bheje
         if (!locationResponse.data[0] || !locationResponse.data[0].dest_id) {
             return res.status(404).json({ error: `Could not find location: ${city}` });
         }
@@ -60,7 +53,7 @@ app.get('/search-hotels', async (req, res) => {
                 adults_number: '2',
                 checkin_date: checkin_date,
                 filter_by_currency: 'INR',
-                dest_id: dest_id, // Yahan dynamic dest_id use kiya hai
+                dest_id: dest_id, 
                 locale: 'en-gb',
                 checkout_date: checkout_date,
                 units: 'metric',
