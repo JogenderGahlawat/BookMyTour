@@ -4,7 +4,9 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt'); 
 const jwt = require('jsonwebtoken');
-
+require('dotenv').config();
+console.log("My RapidAPI Key is:", process.env.RAPIDAPI_KEY); 
+console.log("My RapidAPI Key is:", process.env.RAPIDAPI_HOST); 
 const app = express();
 const port = 3000;
 

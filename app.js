@@ -13,6 +13,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/search-hotels', async (req, res) => {
+    const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
+    const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST;
+
+    if (!RAPIDAPI_KEY || !RAPIDAPI_HOST) {
+        console.error('ERROR: API Key or Host is not defined in the .env file.');
+        return res.status(500).json({ error: 'Server configuration error.' });
+    }
+
     const city = req.query.city;
     const checkin = req.query.checkin;
     const checkout = req.query.checkout;
@@ -22,7 +30,6 @@ app.get('/search-hotels', async (req, res) => {
     }
 
     try {
-
         const locationOptions = {
             method: 'GET',
             url: `https://${RAPIDAPI_HOST}/v1/hotels/locations`,
@@ -44,7 +51,6 @@ app.get('/search-hotels', async (req, res) => {
 
         const checkin_date = checkin || '2025-09-20';
         const checkout_date = checkout || '2025-09-21';
-
         const hotelOptions = {
             method: 'GET',
             url: `https://${RAPIDAPI_HOST}/v2/hotels/search`,
