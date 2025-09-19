@@ -109,21 +109,22 @@
 
             console.log("Login Data Submitted:", data);
 
-            fetch('/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
+           fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+          })
             .then(response => response.json())
             .then(result => {
-                console.log('Server Response:', result);
-                alert(result.message); 
-                if (result.token) {
-                    
-                }
+            console.log('Server Response:', result);
+            alert(result.message);
+            if (result.token) {
+                localStorage.setItem('authToken', result.token);
+                 window.location.href = '/BookMyTour.html'; 
+         }
             })
             .catch(error => console.error('Error:', error));
-        });
+                    });
 
 
         const signupForm = document.getElementById('signupForm');
