@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book My Tour</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+
+    <header class="nav-bar">
+        <div class="logo">
+            <a href="/BookMyTour.html"><img src="logo.png" alt="Book My Tour Logo"></a>
+        </div>
+        <button class="hamburger-menu" aria-label="Toggle navigation menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <nav class="nav-links-wrapper">
+            <a href="BookMyTour.html" style="text-decoration: none; color:white;">Home</a>
+            <details class="nav-details-item">
+                <summary id="About Us">About Us</summary>
+                <div class="details-content">
+                    <p class="About" id="about"><b class="BMT">Book My Tour</b>, travel is more than a destination; it encompasses experiences, memories, and connections. This platform aims to help people explore the world and discover their next adventure, whether it's a relaxing beach escape, an exciting city break, or an immersive cultural expedition.</p>
+                    <p><b class="BMT">Book My Tour</b> was created from a shared love for exploration and a desire to make travel planning easier and more inspiring. The founders, a group of dedicated travelers who enjoyed discovering new places, wanted a platform where anyone could confidently and easily plan their ideal trip. Their initial goal was toconnect travelers with unique local experiences. Over time, this has grown into a leading platform, offering a comprehensive selection of flights, accommodations, tours, and activities worldwide. A love for discovery and a commitment to helping others experience the joy of travel have fueled this journey.</p>
+                </div>
+            </details>
+            <details class="nav-details-item">
+                <summary>Contact</summary>
+                <div class="details-content contact-box">
+                    <p><strong>Email: </strong><a href="mailto:jogendergahlawat777@gmail.com">jogendergahlawat777@gmail.com</a></p>
+                    <p><strong>Email:</strong><a href="mailto:Iamgahlawat777@gmail.com"> Iamgahlawat777@gmail.com</a></p>
+                    <p><strong>Phone: </strong><a href="tel:8307023216">+91 8307023216</a></p>
+                    <p><strong>Address: </strong> Jhajjar, Haryana, India</p>
+                </div>
+            </details>
+            <a href="/BookMyTourForm.html" class="nav-button">Sign Up</a>
+            <a href="/BookMyTourForm.html" class="nav-button">Login</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Book Your Dream Vacation</h1>
+                <p>Dream big and explore the world’s most beautiful places. ✈️</p>
+                <div class="search-form-container">
+                    <form class="tour-search-form">
+                        <div class="form-group">
+                            <label for="destination">Destination:</label>
+                            <input type="text" id="destination" list="famous-spots-50" placeholder="Enter your destination">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkin-date">Check-in Date:</label>
+                            <input type="date" id="checkin-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-date">Check-out Date:</label>
+                            <input type="date" id="checkout-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="guests">Guests:</label>
+                            <input type="number" id="guests" placeholder="Number of guests" min="1">
+                        </div>
+                        <button type="submit" class="search-button">Search Hotels</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="popular-destinations">
+            <h2>Popular Destinations</h2>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <div class="card-image-container"><img src="Goa.png" alt="Goa Beach"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Goa</h3>
+                        <p class="card-description">Sun, sand, and sea. Explore the vibrant beaches and nightlife of India's party capital.</p>
+                        <a href="/Goa.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-image-container"><img src="Manali.png" alt="Manali Mountains"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Manali</h3>
+                        <p class="card-description">Nestled in the Himalayas, Manali offers breathtaking views and adventure sports.</p>
+                        <a href="/Manali.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-image-container"><img src="Jaipur.png" alt="Jaipur Palace"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Jaipur</h3>
+                        <p class="card-description">Discover the Pink City's royal palaces, vibrant markets, and rich history.</p>
+                        <a href="/jaipur.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-image-container"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjA5fDB8MXxjb2xsZWN0aW9ufDF8MTQ3OTI2N3x8fHx8Mnx8MTY2Mjk4ODg4OA&ixlib=rb-4.0.3&q=80&w=1080" alt="Kerala Backwaters"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Kerala</h3>
+                        <p class="card-description">Experience tranquility in "God's Own Country" with its serene backwaters.</p>
+                        <a href="Kerela.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-image-container"><img src="Haryana.png" alt="Haryana landscape"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Haryana</h3>
+                        <p class="card-description">Haryana is a dynamic North Indian state, renowned as an agricultural powerhouse, an industrial hub, and the ancient land of the Mahabharata.</p>
+                        <a href="Haryana.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-image-container"><img src="leh.png" alt="Leh Ladakh mountains"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Leh Ladakh</h3>
+                        <p class="card-description">Leh-Ladakh is a breathtaking high-altitude desert in the Himalayas, celebrated for its stark mountain beauty and serene Buddhist monasteries.</p>
+                        <a href="Lehladhak.html" class="card-button">Explore More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Why Choose Book My Tour?</h2>
+                <p class="section-subtitle">Your perfect trip is just a few clicks away. We provide the best services for your dream vacation.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-card__icon"><i class="fas fa-dollar-sign"></i></div>
+                        <h3 class="feature-card__title">Best Price Guarantee</h3>
+                        <p class="feature-card__text">We offer the most competitive prices on hotels and tour packages across India.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card__icon"><i class="fas fa-headset"></i></div>
+                        <h3 class="feature-card__title">24/7 Customer Support</h3>
+                        <p class="feature-card__text">Our dedicated team is always here to help you with any questions or issues.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card__icon"><i class="fas fa-map-marked-alt"></i></div>
+                        <h3 class="feature-card__title">Wide Destination Coverage</h3>
+                        <p class="feature-card__text">From the Himalayas to the backwaters of Kerala, we have you covered.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="video-showcase">
+            <div class="video-background">
+                <video src="https://media.istockphoto.com/id/1390880690/video/fantasy-asian-temple-with-mysterious-lights.mp4?s=mp4-640x640-is&k=20&c=g9LOjzKnYxP7UQ-GKqTFtuiFKzvQrm1rBaL2MsrUhsE=" autoplay loop muted></video>
+            </div>
+            <div class="video-overlay"></div>
+            <div class="video-content container">
+                <h2 class="video-title">Your Adventure Awaits</h2>
+                <p class="video-subtitle">Discover breathtaking destinations and create unforgettable memories.</p>
+                <a href="#hotels" class="cta-button">Explore Top Hotels</a>
+            </div>
+        </section>
+
+        <section class="offers-section">
+            <div class="container">
+                <h2 class="section-title">Exclusive Deals & Offers</h2>
+                <p class="section-subtitle">Grab these limited-time offers and save big on your next trip!</p>
+                <div class="offers-grid">
+                    <div class="offer-card">
+                        <img src="https://images.pexels.com/photos/1483053/pexels-photo-1483053.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Honeymoon Package">
+                        <div class="offer-overlay">
+                            <div class="offer-content">
+                                <span class="offer-discount">30% OFF</span>
+                                <h3 class="offer-title">Honeymoon in Kerala</h3>
+                                <p class="offer-text">7 Days, 6 Nights in God's Own Country.</p>
+                                <a href="#" class="cta-button-small">View Deal</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offer-card">
+                        <img src="https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg" alt="Mountain Adventure">
+                        <div class="offer-overlay">
+                            <div class="offer-content">
+                                <span class="offer-discount">25% OFF</span>
+                                <h3 class="offer-title">Himalayan Adventure</h3>
+                                <p class="offer-text">Trekking and camping in the mountains of Manali.</p>
+                                <a href="#" class="cta-button-small">View Deal</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offer-card">
+                        <img src="https://images.pexels.com/photos/3889926/pexels-photo-3889926.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Royal Rajasthan">
+                        <div class="offer-overlay">
+                            <div class="offer-content">
+                                <span class="offer-discount">40% OFF</span>
+                                <h3 class="offer-title">Royal Rajasthan Tour</h3>
+                                <p class="offer-text">Explore the majestic forts and palaces of Jaipur.</p>
+                                <a href="#" class="cta-button-small">View Deal</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="hotels" class="featured-hotels">
+            <h2>Featured Indian Hotels</h2>
+            <div id="map-link-container"></div>
+            <div class="hotels-grid">
+                <div class="hotels-grid">
+                    <div class="hotel-card">
+                        <div class="card-image-container"><img src="https://images.unsplash.com/photo-1562790351-d273a961e0e9" alt="Taj Mahal Palace, Mumbai"></div>
+                        <div class="card-content">
+                            <h3 class="card-title">The Taj Mahal Palace</h3>
+                            <p class="card-description">Mumbai, Maharashtra</p>
+                            <div class="rating-price">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                <div class="price">₹25,000/night</div>
+                            </div>
+                            <a href="#" class="card-button">Book Now</a>
+                        </div>
+                    </div>
+                    <div class="hotel-card">
+                        <div class="card-image-container"><img src="https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg" alt="The Oberoi Amarvilas, Agra"></div>
+                        <div class="card-content">
+                            <h3 class="card-title">The Oberoi Amarvilas</h3>
+                            <p class="card-description">Agra, Uttar Pradesh</p>
+                            <div class="rating-price">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <div class="price">₹45,000/night</div>
+                            </div>
+                            <a href="#" class="card-button">Book Now</a>
+                        </div>
+                    </div>
+                    <div class="hotel-card">
+                        <div class="card-image-container"><img src="https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg" alt="Rambagh Palace, Jaipur"></div>
+                        <div class="card-content">
+                            <h3 class="card-title">Rambagh Palace</h3>
+                            <p class="card-description">Jaipur, Rajasthan</p>
+                            <div class="rating-price">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                <div class="price">₹40,000/night</div>
+                            </div>
+                            <a href="#" class="card-button">Book Now</a>
+                        </div>
+                    </div>
+                    <div class="hotel-card">
+                        <div class="card-image-container"><img src="https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg" alt="Kumarakom Lake Resort, Kerala"></div>
+                        <div class="card-content">
+                            <h3 class="card-title">Kumarakom Lake Resort</h3>
+                            <p class="card-description">Kumarakom, Kerala</p>
+                            <div class="rating-price">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <div class="price">₹18,000/night</div>
+                            </div>
+                            <a href="#" class="card-button">Book Now</a>
+                        </div>
+                    </div>
+                    <div class="hotel-card">
+                        <div class="card-image-container"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" alt="Umaid Bhawan Palace, Jodhpur"></div>
+                        <div class="card-content">
+                            <h3 class="card-title">Umaid Bhawan Palace</h3>
+                            <p class="card-description">Jodhpur, Rajasthan</p>
+                            <div class="rating-price">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                <div class="price">₹55,000/night</div>
+                            </div>
+                            <a href="#" class="card-button">Book Now</a>
+                        </div>
+                    </div>
+                    <div class="hotel-card">
+                        <div class="card-image-container"><img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39" alt="The Leela Palace, Udaipur"></div>
+                        <div class="card-content">
+                            <h3 class="card-title">The Leela Palace</h3>
+                            <p class="card-description">Udaipur, Rajasthan</p>
+                            <div class="rating-price">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                <div class="price">₹35,000/night</div>
+                            </div>
+                            <a href="#" class="card-button">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title light-text">What Our Travelers Say</h2>
+            <p class="section-subtitle light-text">We are proud to have created unforgettable experiences for our customers.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya Sharma" class="testimonial-avatar">
+                    <p class="testimonial-text">"An amazing experience! Book My Tour planned our Goa trip perfectly. Everything was seamless from start to finish. Highly recommended!"</p>
+                    <div class="testimonial-author">Priya Sharma</div>
+                    <div class="testimonial-location">Mumbai, Maharashtra</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Verma" class="testimonial-avatar">
+                    <p class="testimonial-text">"Our family trip to Manali was a dream come true, all thanks to the team. The hotel selection was fantastic and the support was excellent."</p>
+                    <div class="testimonial-author">Rahul Verma</div>
+                    <div class="testimonial-location">New Delhi, Delhi</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Anjali Singh" class="testimonial-avatar">
+                    <p class="testimonial-text">"I booked a solo trip to Rajasthan and it was one of the best decisions. The itinerary was well-planned and safe. Thank you, Book My Tour!"</p>
+                    <div class="testimonial-author">Anjali Singh</div>
+                    <div class="testimonial-location">Bengaluru, Karnataka</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-main-content">
+                <div class="footer-column about">
+                    <img src="logo.png" alt="Book My Tour Logo" class="footer-logo">
+                    <p class="footer-about-text">
+                        BookMyTour is your trusted travel companion for unforgettable journeys across India and beyond. We specialize in curated tour packages, hotel bookings, and seamless transportation services.
+                    </p>
+                    <div class="social-links-footer">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/code_with_darkmode?igsh=anZ0dGlhb3dnYWF6" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/jogender-gahlawat-18019b375/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/JogenderGahlawat" aria-label="Github"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column links">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul>
+                        <li><a href="#About Us">About Us</a></li>
+                        <li><a href="#">Our Services</a></li>
+                        <li><a href="#">Why Choose Us</a></li>
+                        <li><a href="#">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column links">
+                    <h4 class="footer-heading">Explore</h4>
+                    <ul>
+                        <li><a href="#">Destinations</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column contact">
+                    <h4 class="footer-heading">Contact Information</h4>
+                    <ul>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <span>Phone Number</span>
+                                <a href="tel:+918307023216">+91 8307023216</a>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <span>Email Address</span>
+                                <a href="mailto:jogendergahlawat777@gmail.com">jogendergahlawat777@gmail.com</a>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <span>Address</span>
+                                <p>Jhajjar, Haryana, IND (124103)</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="footer-bottom">
+                <p class="copyright-text">Copyright © 2025 BookMyTour. All Rights Reserved.</p>
+                <div class="footer-bottom-links">
+                    <a id="privacy-policy-link">Privacy Policy</a>
+                    <a id="terms-condition-link">Terms & Condition</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="feedback-section">
+        <button id="open-feedback-modal-btn" class="card-button-2">Leave Feedback</button>
+    </div>
+
+    <div id="feedback-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Share Your Feedback</h2>
+                <button id="close-feedback-modal-btn" class="close-btn">×</button>
+            </div>
+            <form id="feedback-form-modal">
+                <div class="form-group">
+                    <label for="feedback-name">Name</label>
+                    <input type="text" id="feedback-name" placeholder="Your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="feedback-email">Email</label>
+                    <input type="email" id="feedback-email" placeholder="Your email address" required>
+                </div>
+                <div class="form-group">
+                    <label>Your Rating</label>
+                    <div class="feedback-stars">
+                        <i class="far fa-star" data-value="1"></i>
+                        <i class="far fa-star" data-value="2"></i>
+                        <i class="far fa-star" data-value="3"></i>
+                        <i class="far fa-star" data-value="4"></i>
+                        <i class="far fa-star" data-value="5"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="feedback-message">Message</label>
+                    <textarea id="feedback-message" rows="5" placeholder="Tell us what you think..." required></textarea>
+                </div>
+                <button type="submit" class="card-button" style="width: 100%; margin-top: 10px;">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="feedback-confirmation-box" class="confirmation-box">
+        <p>Thank you for your feedback!</p>
+    </div>
+
+    <div id="privacy-modal" class="legal-modal">
+        <div class="legal-modal-content">
+            <div class="legal-modal-header">
+                <h2>Privacy Policy</h2>
+                <button class="close-legal-modal-btn">×</button>
+            </div>
+            <div class="legal-modal-body">
+                <p><strong>Last Updated: September 03, 2025</strong></p>
+                <p>Your privacy is important to us. This Privacy Policy explains how Book My Tour ("we," "us," or "our") collects, uses, shares, and protects your personal information when you use our website and services.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="terms-modal" class="legal-modal">
+        <div class="legal-modal-content">
+            <div class="legal-modal-header">
+                <h2>Terms & Conditions</h2>
+                <button class="close-legal-modal-btn">×</button>
+            </div>
+            <div class="legal-modal-body">
+                <p><strong>Last Updated: September 03, 2025</strong></p>
+                <p>Please read these Terms and Conditions ("Terms") carefully before using the Book My Tour website ("Service"). By using this service, you agree to these terms.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const hamburger = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links-wrapper');
+            const allDetailsElements = document.querySelectorAll('.nav-details-item, .footer-details-item');
+
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            allDetailsElements.forEach(details => {
+                details.addEventListener('toggle', () => {
+                    if (details.open) {
+                        allDetailsElements.forEach(otherDetails => {
+                            if (otherDetails !== details) {
+                                otherDetails.open = false;
+                            }
+                        });
+                    }
+                });
+            });
+
+            const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
+            const feedbackModal = document.getElementById('feedback-modal');
+            const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
+            const feedbackForm = document.getElementById('feedback-form-modal');
+            const feedbackConfirmationBox = document.getElementById('feedback-confirmation-box');
+            const feedbackStars = document.querySelectorAll('.feedback-stars i');
+            let currentRating = 0;
+
+            if (openFeedbackBtn) {
+                openFeedbackBtn.addEventListener('click', () => {
+                    feedbackModal.classList.add('active');
+                });
+            }
+
+            if (closeFeedbackBtn) {
+                closeFeedbackBtn.addEventListener('click', () => {
+                    feedbackModal.classList.remove('active');
+                });
+            }
+
+            feedbackStars.forEach(star => {
+                star.addEventListener('click', () => {
+                    currentRating = star.dataset.value;
+                    feedbackStars.forEach(s => {
+                        s.classList.toggle('fas', s.dataset.value <= currentRating);
+                        s.classList.toggle('far', s.dataset.value > currentRating);
+                    });
+                });
+            });
+
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    console.log(`Feedback submitted with rating: ${currentRating}`);
+                    feedbackModal.classList.remove('active');
+                    feedbackConfirmationBox.classList.add('show');
+                    setTimeout(() => {
+                        feedbackConfirmationBox.classList.remove('show');
+                    }, 3000);
+                    feedbackForm.reset();
+                    currentRating = 0;
+                    feedbackStars.forEach(s => {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                    });
+                });
+            }
+
+            const privacyModal = document.getElementById('privacy-modal');
+            const termsModal = document.getElementById('terms-modal');
+            const privacyLink = document.getElementById('privacy-policy-link');
+            const termsLink = document.getElementById('terms-condition-link');
+            const closeLegalModalBtns = document.querySelectorAll('.close-legal-modal-btn');
+
+            if (privacyLink) {
+                privacyLink.addEventListener('click', () => {
+                    privacyModal.classList.add('active');
+                });
+            }
+
+            if (termsLink) {
+                termsLink.addEventListener('click', () => {
+                    termsModal.classList.add('active');
+                });
+            }
+
+            closeLegalModalBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    privacyModal.classList.remove('active');
+                    termsModal.classList.remove('active');
+                });
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === privacyModal) {
+                    privacyModal.classList.remove('active');
+                }
+                if (e.target === termsModal) {
+                    termsModal.classList.remove('active');
+                }
+                if (e.target === feedbackModal) {
+                    feedbackModal.classList.remove('active');
+                }
+            });
+
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchForm = document.querySelector('.tour-search-form');
+            const destinationInput = document.getElementById('destination');
+            const checkinInput = document.getElementById('checkin-date');
+            const checkoutInput = document.getElementById('checkout-date');
+            const hotelsSection = document.getElementById('hotels');
+            const hotelsHeading = document.querySelector('#hotels h2');
+            const hotelCardsContainer = document.querySelector('.hotels-grid .hotels-grid');
+
+            if (searchForm) {
+                searchForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    const city = destinationInput.value.trim();
+                    const checkin = checkinInput.value;
+                    const checkout = checkoutInput.value;
+
+                    if (!city) {
+                        alert('Please enter a destination.');
+                        return;
+                    }
+
+                    hotelsHeading.textContent = `Searching for Hotels in ${city}`;
+                    hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Loading... 🏨</p>`;
+                    hotelsSection.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                    try {
+                        const response = await fetch(`/search-hotels?city=${city}&checkin=${checkin}&checkout=${checkout}`);
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || 'Network response was not ok');
+                        }
+                        const hotelsData = await response.json();
+                        hotelCardsContainer.innerHTML = '';
+                        if (hotelsData && hotelsData.length > 0) {
+                            hotelsHeading.textContent = `Showing Hotels in ${city}`;
+                            hotelsData.forEach(hotel => {
+                                const hotelCardHTML = `
+                                <div class="hotel-card">
+                                    <div class="card-image-container">
+                                        <img src="${hotel.imageUrl}" alt="${hotel.name}">
+                                    </div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">${hotel.name}</h3>
+                                        <p class="card-description">${hotel.location}</p>
+                                        <div class="rating-price">
+                                            <div class="stars">⭐ ${hotel.rating}</div>
+                                            <div class="price">₹${hotel.price}/night</div>
+                                        </div>
+                                       <a href="#" class="card-button">Book Now</a>
+                                    </div>
+                                </div>
+                                `;
+                                hotelCardsContainer.insertAdjacentHTML('beforeend', hotelCardHTML);
+                            });
+                        } else {
+                            hotelsHeading.textContent = `No Hotels Found`;
+                            hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Sorry, no hotels found for "${city}".</p>`;
+                        }
+                    } catch (error) {
+                        console.error('Search Error:', error);
+                        hotelsHeading.textContent = `Error`;
+                        hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Error: ${error.message}</p>`;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
