@@ -120,7 +120,7 @@
             alert(result.message);
             if (result.token) {
                 localStorage.setItem('authToken', result.token);
-                 window.location.href = '/BookMyTour.html'; 
+                 window.location.href = '/'; 
          }
             })
             .catch(error => console.error('Error:', error));
@@ -151,6 +151,88 @@
             })
             .catch(error => console.error('Error:', error));
         });
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Function to update the navigation bar based on login status
+            const updateNavbarForAuth = async () => {
+                const navLinksWrapper = document.querySelector('.nav-links-wrapper');
+                // Dono "Sign Up" aur "Login" buttons ko select karein
+                const authButtons = navLinksWrapper.querySelectorAll('a[href="/BookMyTourForm.html"]');
+
+                const token = localStorage.getItem('authToken');
+
+                if (token) {
+                    try {
+                        const response = await fetch('/api/user/me', {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+
+                        if (response.ok) {
+                            const user = await response.json();
+                            
+                            // "Login" aur "Sign Up" dono buttons ko hata dein
+                            authButtons.forEach(button => button.remove());
+
+                            // "Welcome" message banayein aur add karein
+                            const welcomeMessage = document.createElement('span');
+                            welcomeMessage.textContent = `Welcome, ${user.firstName}!`;
+                            welcomeMessage.style.color = 'white';
+                            welcomeMessage.style.marginRight = '15px';
+                            welcomeMessage.style.alignSelf = 'center';
+                            
+                            // "Logout" button banayein aur add karein
+                            const logoutButton = document.createElement('a');
+                            logoutButton.href = '#';
+                            logoutButton.textContent = 'Logout';
+                            logoutButton.classList.add('nav-button');
+                            logoutButton.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                localStorage.removeItem('authToken');
+                                alert('You have been logged out.');
+                                window.location.reload();
+                            });
+                            
+                            navLinksWrapper.appendChild(welcomeMessage);
+                            navLinksWrapper.appendChild(logoutButton);
+
+                        } else {
+                            // Agar token galat hai, toh usey hata dein
+                            localStorage.removeItem('authToken');
+                        }
+                    } catch (error) {
+                        console.error('Error verifying token:', error);
+                        localStorage.removeItem('authToken');
+                    }
+                }
+            };
+
+            // Function to protect buttons that require login
+            const protectActions = () => {
+                const protectedButtons = document.querySelectorAll('.card-button, .cta-button, .card-button-small');
+                
+                protectedButtons.forEach(button => {
+                    // Feedback button ko protect nahi karna hai
+                    if (button.id === 'open-feedback-modal-btn') return;
+                    
+                    button.addEventListener('click', (e) => {
+                        const token = localStorage.getItem('authToken');
+                        if (!token) {
+                            // Agar user logged in nahi hai
+                            e.preventDefault(); 
+                            alert('You must be logged in to perform this action.');
+                            window.location.href = '/BookMyTourForm.html'; // Login page par bhejein
+                        }
+                    });
+                });
+            };
+
+            // Page load hone par dono functions chalaayein
+            updateNavbarForAuth();
+            protectActions();
+        });
+   
     </script>
 </body>
 </html>

@@ -14,7 +14,7 @@
 
     <header class="nav-bar">
         <div class="logo">
-            <a href="/BookMyTour.html"><img src="logo.png" alt="Book My Tour Logo"></a>
+            <a href="/index.html"><img src="logo.png" alt="Book My Tour Logo"></a>
         </div>
         <button class="hamburger-menu" aria-label="Toggle navigation menu">
             <span class="bar"></span>
@@ -22,15 +22,9 @@
             <span class="bar"></span>
         </button>
         <nav class="nav-links-wrapper">
-            <a href="BookMyTour.html" style="text-decoration: none; color:white;">Home</a>
-            <details class="nav-details-item">
-                <summary id="About Us">About Us</summary>
-                <div class="details-content">
-                    <p class="About" id="about"><b class="BMT">Book My Tour</b>, travel is more than a destination; it encompasses experiences, memories, and connections. This platform aims to help people explore the world and discover their next adventure, whether it's a relaxing beach escape, an exciting city break, or an immersive cultural expedition.</p>
-                    <p><b class="BMT">Book My Tour</b> was created from a shared love for exploration and a desire to make travel planning easier and more inspiring. The founders, a group of dedicated travelers who enjoyed discovering new places, wanted a platform where anyone could confidently and easily plan their ideal trip. Their initial goal was toconnect travelers with unique local experiences. Over time, this has grown into a leading platform, offering a comprehensive selection of flights, accommodations, tours, and activities worldwide. A love for discovery and a commitment to helping others experience the joy of travel have fueled this journey.</p>
-                </div>
-            </details>
-            <details class="nav-details-item">
+        <a href="index.html" class="nav-link-item">Home</a>
+        <a href="about.html" class="nav-link-item">About Us</a>
+        </nav>
                 <summary>Contact</summary>
                 <div class="details-content contact-box">
                     <p><strong>Email: </strong><a href="mailto:jogendergahlawat777@gmail.com">jogendergahlawat777@gmail.com</a></p>
@@ -333,7 +327,7 @@
                 <div class="footer-column links">
                     <h4 class="footer-heading">Company</h4>
                     <ul>
-                        <li><a href="#About Us">About Us</a></li>
+                        <li><a href="about.html">About Us</a></li>
                         <li><a href="#">Our Services</a></li>
                         <li><a href="#">Why Choose Us</a></li>
                         <li><a href="#">Testimonials</a></li>
@@ -633,6 +627,79 @@
                 });
             }
         });
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        const updateNavbarForAuth = async () => {
+            const navLinksWrapper = document.querySelector('.nav-links-wrapper');
+            const authButtons = navLinksWrapper.querySelectorAll('a[href="/BookMyTourForm.html"]');
+
+            const token = localStorage.getItem('authToken');
+
+            if (token) {
+                try {
+                    const response = await fetch('/api/user/me', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (response.ok) {
+                        const user = await response.json();
+                        
+                        authButtons.forEach(button => button.remove());
+
+                        const userProfileCircle = document.createElement('div');
+                        userProfileCircle.classList.add('user-profile-circle');
+                        
+                        const userInitial = user.firstName ? user.firstName.charAt(0).toUpperCase() : '?';
+                        userProfileCircle.textContent = userInitial;
+                        
+                        userProfileCircle.title = `Welcome, ${user.firstName}!`; 
+                        
+                        navLinksWrapper.appendChild(userProfileCircle);
+
+                        const logoutButton = document.createElement('a');
+                        logoutButton.href = '#';
+                        logoutButton.textContent = 'Logout';
+                        logoutButton.classList.add('nav-button');
+                        logoutButton.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            localStorage.removeItem('authToken');
+                            alert('You have been logged out.');
+                            window.location.reload();
+                        });
+                        
+                        navLinksWrapper.appendChild(logoutButton);
+
+                    } else {
+                        localStorage.removeItem('authToken');
+                    }
+                } catch (error) {
+                    console.error('Error verifying token:', error);
+                    localStorage.removeItem('authToken');
+                }
+            }
+        };
+
+        const protectActions = () => {
+            const protectedButtons = document.querySelectorAll('.card-button, .cta-button, .card-button-small');
+                
+                protectedButtons.forEach(button => {
+                    if (button.id === 'open-feedback-modal-btn') return;
+                    
+                    button.addEventListener('click', (e) => {
+                        const token = localStorage.getItem('authToken');
+                        if (!token) {
+                            e.preventDefault(); 
+                            alert('You must be logged in to perform this action.');
+                            window.location.href = '/BookMyTourForm.html';
+                        }
+                    });
+                });
+        };
+
+        updateNavbarForAuth();
+        protectActions();
+    });
+
     </script>
 </body>
 
