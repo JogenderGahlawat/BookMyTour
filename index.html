@@ -13,30 +13,27 @@
 <body>
 
     <header class="nav-bar">
-        <div class="logo">
-            <a href="/index.html"><img src="logo.png" alt="Book My Tour Logo"></a>
-        </div>
-        <button class="hamburger-menu" aria-label="Toggle navigation menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-        <nav class="nav-links-wrapper">
+    <div class="logo">
+        <a href="/index.html"><img src="logo.png" alt="Book My Tour Logo"></a>
+    </div>
+
+    <button class="hamburger-menu" aria-label="Toggle navigation menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
+    <nav class="nav-links-wrapper">
         <a href="index.html" class="nav-link-item">Home</a>
         <a href="about.html" class="nav-link-item">About Us</a>
-        </nav>
-                <summary>Contact</summary>
-                <div class="details-content contact-box">
-                    <p><strong>Email: </strong><a href="mailto:jogendergahlawat777@gmail.com">jogendergahlawat777@gmail.com</a></p>
-                    <p><strong>Email:</strong><a href="mailto:Iamgahlawat777@gmail.com"> Iamgahlawat777@gmail.com</a></p>
-                    <p><strong>Phone: </strong><a href="tel:8307023216">+91 8307023216</a></p>
-                    <p><strong>Address: </strong> Jhajjar, Haryana, India</p>
-                </div>
-            </details>
+        <a href="#contact" class="nav-link-item">Contact</a>
+
+        <div class="nav-auth-buttons">
             <a href="/BookMyTourForm.html" class="nav-button">Sign Up</a>
             <a href="/BookMyTourForm.html" class="nav-button">Login</a>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
     <main class="main-content">
         <section class="hero-section">
@@ -342,7 +339,7 @@
                     </ul>
                 </div>
                 <div class="footer-column contact">
-                    <h4 class="footer-heading">Contact Information</h4>
+                    <h4 class="footer-heading" id="contact">Contact Information</h4>
                     <ul>
                         <li>
                             <i class="fas fa-phone"></i>

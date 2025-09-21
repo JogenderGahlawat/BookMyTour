@@ -1093,9 +1093,94 @@ img, video, iframe {
         .nav-button {
             text-decoration: none;
             color: white;
-            padding: 8px 15px;
+            padding: 8px 15px;  
             border-radius: 5px;
             background-color: #007bff; 
             margin-left: 10px; 
         }  
+            html {
+                scroll-behavior: smooth; 
+            }
 
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            padding: 10px 30px; 
+            background-color: #2D5D7C;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        body {
+            padding-top: 75px;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden; 
+            min-width: 320px;
+            background-color: #f4f7f6; 
+        }
+
+        .nav-links-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px; 
+        }
+
+        .nav-link-item {
+            color: #f0f0f0;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-link-item:hover {
+            background-color: #4a4f5f; 
+        }
+
+        .nav-auth-buttons {
+            display: flex;
+            gap: 15px;
+            margin-left: 15px; 
+        }
+
+        .nav-button {
+            background-color: #8b008b;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 7px;
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+        }
+        .nav-button:hover {
+            background-color: #6a006a;
+        }
+        
+        @media (max-width: 850px) {
+            .nav-links-wrapper.active { 
+                display: flex; 
+            }
+            .nav-link-item {
+                width: 100%;
+                text-align: center;
+                padding: 15px;
+                border-radius: 0;
+                border-bottom: 1px solid rgba(74, 79, 95, 0.5);
+            }
+            
+            .nav-auth-buttons {
+                flex-direction: column;
+                width: 100%;
+                margin-left: 0;
+                gap: 0;
+            }
+        }
