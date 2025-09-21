@@ -87,27 +87,9 @@
                             <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
-                    <div class="team-card" data-aos="zoom-in" data-aos-delay="200">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member 2">
-                        <h3>Priya Sharma</h3>
-                        <p class="role">Head of Operations</p>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-card" data-aos="zoom-in" data-aos-delay="300">
-                        <img src="https://randomuser.me/api/portraits/men/34.jpg" alt="Team Member 3">
-                        <h3>Amit Singh</h3>
-                        <p class="role">Lead Travel Consultant</p>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
                      <div class="team-card" data-aos="zoom-in" data-aos-delay="400">
                         <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Team Member 4">
-                        <h3>Anjali Kaur</h3>
+                        <h3>JogenderGahlawat</h3>
                         <p class="role">Marketing Head</p>
                         <div class="social-links">
                             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -119,6 +101,43 @@
         </section>
 
     </main>
+    </main>
+
+    <footer class="site-footer">
+         </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Select all the elements you want to animate on scroll
+        const animatedElements = document.querySelectorAll('.service-card, .process-step');
+
+        const observerOptions = {
+            root: null,      // Watch for intersection in the viewport
+            threshold: 0.1   // Trigger when 10% of the element is visible
+        };
+
+        // This function runs when an observed element comes into view
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Add the 'is-visible' class to start the animation
+                    entry.target.classList.add('is-visible');
+                    // Stop observing the element so the animation only runs once
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        // Create the observer
+        const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+
+        // Tell the observer to watch each of the selected elements
+        animatedElements.forEach(element => {
+            scrollObserver.observe(element);
+        });
+    });
+    </script>
+  
     
  <footer class="site-footer">
         <div class="container">

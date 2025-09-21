@@ -36,12 +36,13 @@ body {
 }
 
 .header {
-    background:#ccc;
+    background:#2D5D7C; 
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 100;
+    color: white;
 }
 .navbar {
     display: flex;
@@ -50,11 +51,11 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    color: white;
 }
 .logo {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--primary-color);
     text-decoration: none;
 }
 .logo img{
@@ -63,6 +64,7 @@ body {
 .nav-links {
     display: flex;
     list-style: none;
+    color: #ffffff;
 }
 .nav-links li { margin: 0 20px; }
 .nav-links a {
@@ -76,7 +78,7 @@ body {
 .page-header {
     height: 50vh;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=500&auto-format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHRyYXZlbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D') no-repeat center center/cover;
-    color: white;
+    color:aqua;
     display: flex;
     flex-direction: column;
     justify-content: center;
