@@ -24,6 +24,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="/service.html">Services</a></li>
             </ul>
         </nav>
     </header>
@@ -103,41 +104,6 @@
     </main>
     </main>
 
-    <footer class="site-footer">
-         </footer>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Select all the elements you want to animate on scroll
-        const animatedElements = document.querySelectorAll('.service-card, .process-step');
-
-        const observerOptions = {
-            root: null,      // Watch for intersection in the viewport
-            threshold: 0.1   // Trigger when 10% of the element is visible
-        };
-
-        // This function runs when an observed element comes into view
-        const observerCallback = (entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Add the 'is-visible' class to start the animation
-                    entry.target.classList.add('is-visible');
-                    // Stop observing the element so the animation only runs once
-                    observer.unobserve(entry.target);
-                }
-            });
-        };
-
-        // Create the observer
-        const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
-
-        // Tell the observer to watch each of the selected elements
-        animatedElements.forEach(element => {
-            scrollObserver.observe(element);
-        });
-    });
-    </script>
-  
     
  <footer class="site-footer">
         <div class="container">
