@@ -442,12 +442,32 @@
                 <button class="close-legal-modal-btn">×</button>
             </div>
             <div class="legal-modal-body">
-                <p><strong>Last Updated: September 03, 2025</strong></p>
+                <p><strong>Last Updated: September 22, 2025</strong></p>
                 <p>Your privacy is important to us. This Privacy Policy explains how Book My Tour ("we," "us," or "our") collects, uses, shares, and protects your personal information when you use our website and services.</p>
+                
+                <h3>Information We Collect</h3>
+                <p>We may collect personal information that you provide to us directly, such as your name, email address, phone number, and payment information when you make a booking. We also collect non-personal information, such as your browser type, IP address, and browsing behavior on our site through cookies and other tracking technologies.</p>
+                
+                <h3>How We Use Your Information</h3>
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li>Process your bookings and payments.</li>
+                    <li>Communicate with you about your bookings and send you promotional offers.</li>
+                    <li>Improve our website and services.</li>
+                    <li>Comply with legal obligations.</li>
+                </ul>
+
+                <h3>Information Sharing and Disclosure</h3>
+                <p>We do not sell your personal information to third parties. We may share your information with trusted partners such as hotels, airlines, and payment processors to fulfill your booking requests. We may also disclose your information if required by law.</p>
+
+                <h3>Data Security</h3>
+                <p>We implement a variety of security measures to maintain the safety of your personal information. However, no method of transmission over the Internet or electronic storage is 100% secure.</p>
+
+                <h3>Changes to This Privacy Policy</h3>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.</p>
             </div>
         </div>
     </div>
-
     <div id="terms-modal" class="legal-modal">
         <div class="legal-modal-content">
             <div class="legal-modal-header">
@@ -455,266 +475,265 @@
                 <button class="close-legal-modal-btn">×</button>
             </div>
             <div class="legal-modal-body">
-                <p><strong>Last Updated: September 03, 2025</strong></p>
-                <p>Please read these Terms and Conditions ("Terms") carefully before using the Book My Tour website ("Service"). By using this service, you agree to these terms.</p>
+                <p><strong>Last Updated: September 22, 2025</strong></p>
+                <p>Please read these Terms and Conditions ("Terms") carefully before using the Book My Tour website ("Service"). Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.</p>
+
+                <h3>1. Agreement to Terms</h3>
+                <p>By using our Service, you agree to be bound by these Terms. If you disagree with any part of the terms, then you may not access the Service.</p>
+                
+                <h3>2. Bookings and Payments</h3>
+                <p>All bookings are subject to availability. Prices are subject to change without notice. Full payment is required at the time of booking unless otherwise specified. We accept various payment methods, which are listed on our payment page.</p>
+
+                <h3>3. Cancellations and Refunds</h3>
+                <p>Cancellation policies vary depending on the hotel, airline, or tour package. Please review the specific cancellation policy provided at the time of booking. Refunds, if applicable, will be processed within 7-10 business days.</p>
+
+                <h3>4. User Responsibilities</h3>
+                <p>You are responsible for ensuring that all information you provide is accurate. You must also ensure that you have the necessary travel documents, such as passports and visas, for your trip.</p>
+                
+                <h3>5. Limitation of Liability</h3>
+                <p>Book My Tour shall not be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the Service.</p>
             </div>
         </div>
     </div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navBar = document.querySelector('.nav-bar');
+    const navLinksWrapper = document.querySelector('.nav-links-wrapper');
 
-            const hamburger = document.querySelector('.hamburger-menu');
-            const navLinks = document.querySelector('.nav-links-wrapper');
-            const allDetailsElements = document.querySelectorAll('.nav-details-item, .footer-details-item');
-
-            if (hamburger && navLinks) {
-                hamburger.addEventListener('click', () => {
-                    navLinks.classList.toggle('active');
-                });
-            }
-
-            allDetailsElements.forEach(details => {
-                details.addEventListener('toggle', () => {
-                    if (details.open) {
-                        allDetailsElements.forEach(otherDetails => {
-                            if (otherDetails !== details) {
-                                otherDetails.open = false;
-                            }
-                        });
-                    }
-                });
-            });
-
-            const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
-            const feedbackModal = document.getElementById('feedback-modal');
-            const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
-            const feedbackForm = document.getElementById('feedback-form-modal');
-            const feedbackConfirmationBox = document.getElementById('feedback-confirmation-box');
-            const feedbackStars = document.querySelectorAll('.feedback-stars i');
-            let currentRating = 0;
-
-            if (openFeedbackBtn) {
-                openFeedbackBtn.addEventListener('click', () => {
-                    feedbackModal.classList.add('active');
-                });
-            }
-
-            if (closeFeedbackBtn) {
-                closeFeedbackBtn.addEventListener('click', () => {
-                    feedbackModal.classList.remove('active');
-                });
-            }
-
-            feedbackStars.forEach(star => {
-                star.addEventListener('click', () => {
-                    currentRating = star.dataset.value;
-                    feedbackStars.forEach(s => {
-                        s.classList.toggle('fas', s.dataset.value <= currentRating);
-                        s.classList.toggle('far', s.dataset.value > currentRating);
-                    });
-                });
-            });
-
-            if (feedbackForm) {
-                feedbackForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    console.log(`Feedback submitted with rating: ${currentRating}`);
-                    feedbackModal.classList.remove('active');
-                    feedbackConfirmationBox.classList.add('show');
-                    setTimeout(() => {
-                        feedbackConfirmationBox.classList.remove('show');
-                    }, 3000);
-                    feedbackForm.reset();
-                    currentRating = 0;
-                    feedbackStars.forEach(s => {
-                        s.classList.remove('fas');
-                        s.classList.add('far');
-                    });
-                });
-            }
-
-            const privacyModal = document.getElementById('privacy-modal');
-            const termsModal = document.getElementById('terms-modal');
-            const privacyLink = document.getElementById('privacy-policy-link');
-            const termsLink = document.getElementById('terms-condition-link');
-            const closeLegalModalBtns = document.querySelectorAll('.close-legal-modal-btn');
-
-            if (privacyLink) {
-                privacyLink.addEventListener('click', () => {
-                    privacyModal.classList.add('active');
-                });
-            }
-
-            if (termsLink) {
-                termsLink.addEventListener('click', () => {
-                    termsModal.classList.add('active');
-                });
-            }
-
-            closeLegalModalBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    privacyModal.classList.remove('active');
-                    termsModal.classList.remove('active');
-                });
-            });
-
-            window.addEventListener('click', (e) => {
-                if (e.target === privacyModal) {
-                    privacyModal.classList.remove('active');
-                }
-                if (e.target === termsModal) {
-                    termsModal.classList.remove('active');
-                }
-                if (e.target === feedbackModal) {
-                    feedbackModal.classList.remove('active');
-                }
-            });
-
+    if (hamburger && navLinksWrapper && navBar) {
+        hamburger.addEventListener('click', () => {
+            navLinksWrapper.classList.toggle('active');
+            navBar.classList.toggle('open');
+            document.body.classList.toggle('menu-open');
         });
+    }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchForm = document.querySelector('.tour-search-form');
-            const destinationInput = document.getElementById('destination');
-            const checkinInput = document.getElementById('checkin-date');
-            const checkoutInput = document.getElementById('checkout-date');
-            const hotelsSection = document.getElementById('hotels');
-            const hotelsHeading = document.querySelector('#hotels h2');
-            const hotelCardsContainer = document.querySelector('.hotels-grid .hotels-grid');
-
-            if (searchForm) {
-                searchForm.addEventListener('submit', async (event) => {
-                    event.preventDefault();
-                    const city = destinationInput.value.trim();
-                    const checkin = checkinInput.value;
-                    const checkout = checkoutInput.value;
-
-                    if (!city) {
-                        alert('Please enter a destination.');
-                        return;
-                    }
-
-                    hotelsHeading.textContent = `Searching for Hotels in ${city}`;
-                    hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Loading... 🏨</p>`;
-                    hotelsSection.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-
-                    try {
-                        const response = await fetch(`/search-hotels?city=${city}&checkin=${checkin}&checkout=${checkout}`);
-                        if (!response.ok) {
-                            const errorData = await response.json();
-                            throw new Error(errorData.error || 'Network response was not ok');
-                        }
-                        const hotelsData = await response.json();
-                        hotelCardsContainer.innerHTML = '';
-                        if (hotelsData && hotelsData.length > 0) {
-                            hotelsHeading.textContent = `Showing Hotels in ${city}`;
-                            hotelsData.forEach(hotel => {
-                                const hotelCardHTML = `
-                                <div class="hotel-card">
-                                    <div class="card-image-container">
-                                        <img src="${hotel.imageUrl}" alt="${hotel.name}">
-                                    </div>
-                                    <div class="card-content">
-                                        <h3 class="card-title">${hotel.name}</h3>
-                                        <p class="card-description">${hotel.location}</p>
-                                        <div class="rating-price">
-                                            <div class="stars">⭐ ${hotel.rating}</div>
-                                            <div class="price">₹${hotel.price}/night</div>
-                                        </div>
-                                       <a href="#" class="card-button">Book Now</a>
-                                    </div>
-                                </div>
-                                `;
-                                hotelCardsContainer.insertAdjacentHTML('beforeend', hotelCardHTML);
-                            });
-                        } else {
-                            hotelsHeading.textContent = `No Hotels Found`;
-                            hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Sorry, no hotels found for "${city}".</p>`;
-                        }
-                    } catch (error) {
-                        console.error('Search Error:', error);
-                        hotelsHeading.textContent = `Error`;
-                        hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Error: ${error.message}</p>`;
+    // --- The rest of your JavaScript remains the same ---
+    const allDetailsElements = document.querySelectorAll('.nav-details-item, .footer-details-item');
+    allDetailsElements.forEach(details => {
+        details.addEventListener('toggle', () => {
+            if (details.open) {
+                allDetailsElements.forEach(otherDetails => {
+                    if (otherDetails !== details) {
+                        otherDetails.open = false;
                     }
                 });
             }
         });
-    document.addEventListener('DOMContentLoaded', () => {
-        
-        const updateNavbarForAuth = async () => {
-            const navLinksWrapper = document.querySelector('.nav-links-wrapper');
-            const authButtons = navLinksWrapper.querySelectorAll('a[href="/BookMyTourForm.html"]');
-
-            const token = localStorage.getItem('authToken');
-
-            if (token) {
-                try {
-                    const response = await fetch('/api/user/me', {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-
-                    if (response.ok) {
-                        const user = await response.json();
-                        
-                        authButtons.forEach(button => button.remove());
-
-                        const userProfileCircle = document.createElement('div');
-                        userProfileCircle.classList.add('user-profile-circle');
-                        
-                        const userInitial = user.firstName ? user.firstName.charAt(0).toUpperCase() : '?';
-                        userProfileCircle.textContent = userInitial;
-                        
-                        userProfileCircle.title = `Welcome, ${user.firstName}!`; 
-                        
-                        navLinksWrapper.appendChild(userProfileCircle);
-
-                        const logoutButton = document.createElement('a');
-                        logoutButton.href = '#';
-                        logoutButton.textContent = 'Logout';
-                        logoutButton.classList.add('nav-button');
-                        logoutButton.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            localStorage.removeItem('authToken');
-                            alert('You have been logged out.');
-                            window.location.reload();
-                        });
-                        
-                        navLinksWrapper.appendChild(logoutButton);
-
-                    } else {
-                        localStorage.removeItem('authToken');
-                    }
-                } catch (error) {
-                    console.error('Error verifying token:', error);
-                    localStorage.removeItem('authToken');
-                }
-            }
-        };
-
-        const protectActions = () => {
-            const protectedButtons = document.querySelectorAll('.card-button, .cta-button, .card-button-small');
-                
-                protectedButtons.forEach(button => {
-                    if (button.id === 'open-feedback-modal-btn') return;
-                    
-                    button.addEventListener('click', (e) => {
-                        const token = localStorage.getItem('authToken');
-                        if (!token) {
-                            e.preventDefault(); 
-                            alert('You must be logged in to perform this action.');
-                            window.location.href = '/BookMyTourForm.html';
-                        }
-                    });
-                });
-        };
-
-        updateNavbarForAuth();
-        protectActions();
     });
 
-    </script>
+    const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
+    const feedbackModal = document.getElementById('feedback-modal');
+    const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
+    const feedbackForm = document.getElementById('feedback-form-modal');
+    const feedbackConfirmationBox = document.getElementById('feedback-confirmation-box');
+    const feedbackStars = document.querySelectorAll('.feedback-stars i');
+    let currentRating = 0;
+
+    if (openFeedbackBtn) {
+        openFeedbackBtn.addEventListener('click', () => {
+            feedbackModal.classList.add('active');
+        });
+    }
+
+    if (closeFeedbackBtn) {
+        closeFeedbackBtn.addEventListener('click', () => {
+            feedbackModal.classList.remove('active');
+        });
+    }
+
+    feedbackStars.forEach(star => {
+        star.addEventListener('click', () => {
+            currentRating = star.dataset.value;
+            feedbackStars.forEach(s => {
+                s.classList.toggle('fas', s.dataset.value <= currentRating);
+                s.classList.toggle('far', s.dataset.value > currentRating);
+            });
+        });
+    });
+
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log(`Feedback submitted with rating: ${currentRating}`);
+            feedbackModal.classList.remove('active');
+            feedbackConfirmationBox.classList.add('show');
+            setTimeout(() => {
+                feedbackConfirmationBox.classList.remove('show');
+            }, 3000);
+            feedbackForm.reset();
+            currentRating = 0;
+            feedbackStars.forEach(s => {
+                s.classList.remove('fas');
+                s.classList.add('far');
+            });
+        });
+    }
+
+    const privacyModal = document.getElementById('privacy-modal');
+    const termsModal = document.getElementById('terms-modal');
+    const privacyLink = document.getElementById('privacy-policy-link');
+    const termsLink = document.getElementById('terms-condition-link');
+    const closeLegalModalBtns = document.querySelectorAll('.close-legal-modal-btn');
+
+    if (privacyLink) {
+        privacyLink.addEventListener('click', () => {
+            privacyModal.classList.add('active');
+        });
+    }
+
+    if (termsLink) {
+        termsLink.addEventListener('click', () => {
+            termsModal.classList.add('active');
+        });
+    }
+
+    closeLegalModalBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            privacyModal.classList.remove('active');
+            termsModal.classList.remove('active');
+        });
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === privacyModal) privacyModal.classList.remove('active');
+        if (e.target === termsModal) termsModal.classList.remove('active');
+        if (e.target === feedbackModal) feedbackModal.classList.remove('active');
+    });
+
+    const searchForm = document.querySelector('.tour-search-form');
+    if (searchForm) {
+        const destinationInput = document.getElementById('destination');
+        const checkinInput = document.getElementById('checkin-date');
+        const checkoutInput = document.getElementById('checkout-date');
+        const hotelsSection = document.getElementById('hotels');
+        const hotelsHeading = document.querySelector('#hotels h2');
+        const hotelCardsContainer = document.querySelector('.hotels-grid .hotels-grid');
+
+        searchForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const city = destinationInput.value.trim();
+            const checkin = checkinInput.value;
+            const checkout = checkoutInput.value;
+
+            if (!city) {
+                alert('Please enter a destination.');
+                return;
+            }
+
+            hotelsHeading.textContent = `Searching for Hotels in ${city}`;
+            hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Loading... 🏨</p>`;
+            hotelsSection.scrollIntoView({ behavior: 'smooth' });
+
+            try {
+                const response = await fetch(`/search-hotels?city=${city}&checkin=${checkin}&checkout=${checkout}`);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Network response was not ok');
+                }
+                const hotelsData = await response.json();
+                hotelCardsContainer.innerHTML = '';
+                if (hotelsData && hotelsData.length > 0) {
+                    hotelsHeading.textContent = `Showing Hotels in ${city}`;
+                    hotelsData.forEach(hotel => {
+                        const hotelCardHTML = `
+                        <div class="hotel-card">
+                            <div class="card-image-container"><img src="${hotel.imageUrl}" alt="${hotel.name}"></div>
+                            <div class="card-content">
+                                <h3 class="card-title">${hotel.name}</h3>
+                                <p class="card-description">${hotel.location}</p>
+                                <div class="rating-price">
+                                    <div class="stars">⭐ ${hotel.rating}</div>
+                                    <div class="price">₹${hotel.price}/night</div>
+                                </div>
+                                <a href="#" class="card-button">Book Now</a>
+                            </div>
+                        </div>`;
+                        hotelCardsContainer.insertAdjacentHTML('beforeend', hotelCardHTML);
+                    });
+                } else {
+                    hotelsHeading.textContent = `No Hotels Found`;
+                    hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Sorry, no hotels found for "${city}".</p>`;
+                }
+            } catch (error) {
+                console.error('Search Error:', error);
+                hotelsHeading.textContent = `Error`;
+                hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Error: ${error.message}</p>`;
+            }
+        });
+    }
+
+    const updateNavbarForAuth = async () => {
+        const navAuthContainer = document.querySelector('.nav-auth-buttons');
+        const token = localStorage.getItem('authToken');
+
+        if (token && navAuthContainer) {
+            try {
+                const response = await fetch('/api/user/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (response.ok) {
+                    const user = await response.json();
+                    navAuthContainer.innerHTML = '';
+
+                    const userProfileCircle = document.createElement('div');
+                    userProfileCircle.classList.add('user-profile-circle');
+                    const userInitial = user.firstName ? user.firstName.charAt(0).toUpperCase() : '?';
+                    userProfileCircle.textContent = userInitial;
+                    userProfileCircle.title = `Welcome, ${user.firstName}!`;
+                    
+                    const logoutButton = document.createElement('a');
+                    logoutButton.href = '#';
+                    logoutButton.textContent = 'Logout';
+                    logoutButton.classList.add('nav-button');
+                    logoutButton.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        localStorage.removeItem('authToken');
+                        alert('You have been logged out.');
+                        window.location.reload();
+                    });
+
+                    navAuthContainer.appendChild(userProfileCircle);
+                    navAuthContainer.appendChild(logoutButton);
+
+                } else {
+                    localStorage.removeItem('authToken');
+                }
+            } catch (error) {
+                console.error('Error verifying token:', error);
+                localStorage.removeItem('authToken');
+            }
+        }
+    };
+
+    const protectActions = () => {
+        const protectedButtons = document.querySelectorAll('.card-button, .cta-button, .cta-button-small');
+        protectedButtons.forEach(button => {
+            if (button.id === 'open-feedback-modal-btn' || button.closest('form')) return;
+            
+            button.addEventListener('click', (e) => {
+                const token = localStorage.getItem('authToken');
+                if (!token) {
+                    e.preventDefault();
+                    document.getElementById('auth-prompt-modal').classList.add('active');
+                }
+            });
+        });
+        
+        const closeAuthBtn = document.getElementById('close-auth-modal-btn');
+        if (closeAuthBtn) {
+            closeAuthBtn.addEventListener('click', () => {
+                document.getElementById('auth-prompt-modal').classList.remove('active');
+            });
+        }
+    };
+
+    updateNavbarForAuth();
+    protectActions();
+});
+</script>
 </body>
 
 </html>
