@@ -37,10 +37,10 @@ const authenticateToken = (req, res, next) => {
     });
 };
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'BookMyTour.html'));
+    res.sendFile((require('path')).join(__dirname, 'BookMyTour.html'));
 });
 app.get('/login-page', (req, res) => {
-    res.sendFile(path.join(__dirname, 'BookMyTourForm.html'));
+    res.sendFile((require('path')).join(__dirname, 'BookMyTourForm.html'));
 });
 app.post('/signup', async (req, res) => {
     try {
@@ -51,7 +51,7 @@ app.post('/signup', async (req, res) => {
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ firstName, lastName, email, password: hashedPassword });
-        await newUser.save();
+        await newUser.save();   
         res.status(201).json({ message: 'Signup successful! Please login.' });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
@@ -184,6 +184,8 @@ app.get('/search-hotels', async (req, res) => {
         }
     }
 });
+
+
 
 app.listen(PORT, () => {
     console.log(`✅ Backend server is running on http://localhost:${PORT}`);

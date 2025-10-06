@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
 </head>
 
 <body>
@@ -64,6 +65,8 @@
                 </div>
             </div>
         </section>
+
+        <div id="react-app-root"></div>
 
         <section class="popular-destinations">
             <h2>Popular Destinations</h2>
@@ -142,7 +145,6 @@
                 </div>
             </div>
         </section>
-
         <section class="video-showcase">
             <div class="video-background">
                 <video src="https://media.istockphoto.com/id/1390880690/video/fantasy-asian-temple-with-mysterious-lights.mp4?s=mp4-640x640-is&k=20&c=g9LOjzKnYxP7UQ-GKqTFtuiFKzvQrm1rBaL2MsrUhsE=" autoplay loop muted></video>
@@ -154,7 +156,6 @@
                 <a href="#hotels" class="cta-button">Explore Top Hotels</a>
             </div>
         </section>
-
         <section class="offers-section">
             <div class="container">
                 <h2 class="section-title">Exclusive Deals & Offers</h2>
@@ -196,7 +197,6 @@
                 </div>
             </div>
         </section>
-
         <section id="hotels" class="featured-hotels">
             <h2>Featured Indian Hotels</h2>
             <div id="map-link-container"></div>
@@ -442,7 +442,7 @@
                 <button class="close-legal-modal-btn">×</button>
             </div>
             <div class="legal-modal-body">
-                <p><strong>Last Updated: September 22, 2025</strong></p>
+                <p><strong>Last Updated: October 06, 2025</strong></p>
                 <p>Your privacy is important to us. This Privacy Policy explains how Book My Tour ("we," "us," or "our") collects, uses, shares, and protects your personal information when you use our website and services.</p>
                 
                 <h3>Information We Collect</h3>
@@ -475,7 +475,7 @@
                 <button class="close-legal-modal-btn">×</button>
             </div>
             <div class="legal-modal-body">
-                <p><strong>Last Updated: September 22, 2025</strong></p>
+                <p><strong>Last Updated: October 06, 2025</strong></p>
                 <p>Please read these Terms and Conditions ("Terms") carefully before using the Book My Tour website ("Service"). Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.</p>
 
                 <h3>1. Agreement to Terms</h3>
@@ -495,245 +495,319 @@
             </div>
         </div>
     </div>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
 
-    const hamburger = document.querySelector('.hamburger-menu');
-    const navBar = document.querySelector('.nav-bar');
-    const navLinksWrapper = document.querySelector('.nav-links-wrapper');
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    if (hamburger && navLinksWrapper && navBar) {
-        hamburger.addEventListener('click', () => {
-            navLinksWrapper.classList.toggle('active');
-            navBar.classList.toggle('open');
-            document.body.classList.toggle('menu-open');
-        });
-    }
+    <script type="text/babel">
+        
+        function App() {
+            const [destination, setDestination] = React.useState('');
+            const [checkin, setCheckin] = React.useState('');
+            const [checkout, setCheckout] = React.useState('');
+            const [guests, setGuests] = React.useState(1);
+            
+            function handleSubmit(event) {
+                event.preventDefault();
+                alert(`React form submitted!\nDestination: ${destination}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nGuests: ${guests}`);
+            }
 
-    // --- The rest of your JavaScript remains the same ---
-    const allDetailsElements = document.querySelectorAll('.nav-details-item, .footer-details-item');
-    allDetailsElements.forEach(details => {
-        details.addEventListener('toggle', () => {
-            if (details.open) {
-                allDetailsElements.forEach(otherDetails => {
-                    if (otherDetails !== details) {
-                        otherDetails.open = false;
+            return (
+                <section className="hero-section" style={{backgroundColor: '#eef5db'}}>
+                    <div className="hero-content">
+                        <h2>Search Hotels with React 🏨</h2>
+                        <p>This entire form is a single React component.</p>
+                        <div className="search-form-container">
+                            <form className="tour-search-form" onSubmit={handleSubmit}>
+                                <div className="form-group">
+                                    <label htmlFor="destination-react">Destination:</label>
+                                    <input 
+                                        type="text" 
+                                        id="destination-react" 
+                                        placeholder="Enter your destination"
+                                        value={destination}
+                                        onChange={e => setDestination(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="checkin-date-react">Check-in Date:</label>
+                                    <input 
+                                        type="date" 
+                                        id="checkin-date-react"
+                                        value={checkin}
+                                        onChange={e => setCheckin(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="checkout-date-react">Check-out Date:</label>
+                                    <input 
+                                        type="date" 
+                                        id="checkout-date-react"
+                                        value={checkout}
+                                        onChange={e => setCheckout(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="guests-react">Guests:</label>
+                                    <input 
+                                        type="number" 
+                                        id="guests-react" 
+                                        placeholder="Number of guests" 
+                                        min="1"
+                                        value={guests}
+                                        onChange={e => setGuests(e.target.value)}
+                                    />
+                                </div>
+                                <button type="submit" className="search-button">Search Hotels</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+        
+        const container = document.getElementById('react-app-root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+
+        document.addEventListener('DOMContentLoaded', () => {
+        
+            const hamburger = document.querySelector('.hamburger-menu');
+            const navBar = document.querySelector('.nav-bar');
+            const navLinksWrapper = document.querySelector('.nav-links-wrapper');
+        
+            if (hamburger && navLinksWrapper && navBar) {
+                hamburger.addEventListener('click', () => {
+                    navLinksWrapper.classList.toggle('active');
+                    navBar.classList.toggle('open');
+                    document.body.classList.toggle('menu-open');
+                });
+            }
+        
+            const allDetailsElements = document.querySelectorAll('.nav-details-item, .footer-details-item');
+            allDetailsElements.forEach(details => {
+                details.addEventListener('toggle', () => {
+                    if (details.open) {
+                        allDetailsElements.forEach(otherDetails => {
+                            if (otherDetails !== details) {
+                                otherDetails.open = false;
+                            }
+                        });
+                    }
+                });
+            });
+        
+            const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
+            const feedbackModal = document.getElementById('feedback-modal');
+            const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
+            const feedbackForm = document.getElementById('feedback-form-modal');
+            const feedbackConfirmationBox = document.getElementById('feedback-confirmation-box');
+            const feedbackStars = document.querySelectorAll('.feedback-stars i');
+            let currentRating = 0;
+        
+            if (openFeedbackBtn) {
+                openFeedbackBtn.addEventListener('click', () => {
+                    feedbackModal.classList.add('active');
+                });
+            }
+        
+            if (closeFeedbackBtn) {
+                closeFeedbackBtn.addEventListener('click', () => {
+                    feedbackModal.classList.remove('active');
+                });
+            }
+        
+            feedbackStars.forEach(star => {
+                star.addEventListener('click', () => {
+                    currentRating = star.dataset.value;
+                    feedbackStars.forEach(s => {
+                        s.classList.toggle('fas', s.dataset.value <= currentRating);
+                        s.classList.toggle('far', s.dataset.value > currentRating);
+                    });
+                });
+            });
+        
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    console.log(`Feedback submitted with rating: ${currentRating}`);
+                    feedbackModal.classList.remove('active');
+                    feedbackConfirmationBox.classList.add('show');
+                    setTimeout(() => {
+                        feedbackConfirmationBox.classList.remove('show');
+                    }, 3000);
+                    feedbackForm.reset();
+                    currentRating = 0;
+                    feedbackStars.forEach(s => {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                    });
+                });
+            }
+        
+            const privacyModal = document.getElementById('privacy-modal');
+            const termsModal = document.getElementById('terms-modal');
+            const privacyLink = document.getElementById('privacy-policy-link');
+            const termsLink = document.getElementById('terms-condition-link');
+            const closeLegalModalBtns = document.querySelectorAll('.close-legal-modal-btn');
+        
+            if (privacyLink) {
+                privacyLink.addEventListener('click', () => {
+                    privacyModal.classList.add('active');
+                });
+            }
+        
+            if (termsLink) {
+                termsLink.addEventListener('click', () => {
+                    termsModal.classList.add('active');
+                });
+            }
+        
+            closeLegalModalBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    privacyModal.classList.remove('active');
+                    termsModal.classList.remove('active');
+                });
+            });
+        
+            window.addEventListener('click', (e) => {
+                if (e.target === privacyModal) privacyModal.classList.remove('active');
+                if (e.target === termsModal) termsModal.classList.remove('active');
+                if (e.target === feedbackModal) feedbackModal.classList.remove('active');
+            });
+        
+            const searchForm = document.querySelector('.tour-search-form');
+            if (searchForm) {
+                const destinationInput = document.getElementById('destination');
+                const checkinInput = document.getElementById('checkin-date');
+                const checkoutInput = document.getElementById('checkout-date');
+                const hotelsSection = document.getElementById('hotels');
+                const hotelsHeading = document.querySelector('#hotels h2');
+                const hotelCardsContainer = document.querySelector('.hotels-grid .hotels-grid');
+        
+                searchForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    const city = destinationInput.value.trim();
+                    const checkin = checkinInput.value;
+                    const checkout = checkoutInput.value;
+        
+                    if (!city) {
+                        alert('Please enter a destination.');
+                        return;
+                    }
+        
+                    hotelsHeading.textContent = `Searching for Hotels in ${city}`;
+                    hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Loading... 🏨</p>`;
+                    hotelsSection.scrollIntoView({ behavior: 'smooth' });
+        
+                    try {
+                        const response = await fetch(`/search-hotels?city=${city}&checkin=${checkin}&checkout=${checkout}`);
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || 'Network response was not ok');
+                        }
+                        const hotelsData = await response.json();
+                        hotelCardsContainer.innerHTML = '';
+                        if (hotelsData && hotelsData.length > 0) {
+                            hotelsHeading.textContent = `Showing Hotels in ${city}`;
+                            hotelsData.forEach(hotel => {
+                                const hotelCardHTML = `
+                                <div class="hotel-card">
+                                    <div class="card-image-container"><img src="${hotel.imageUrl}" alt="${hotel.name}"></div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">${hotel.name}</h3>
+                                        <p class="card-description">${hotel.location}</p>
+                                        <div class="rating-price">
+                                            <div class="stars">⭐ ${hotel.rating}</div>
+                                            <div class="price">₹${hotel.price}/night</div>
+                                        </div>
+                                        <a href="#" class="card-button">Book Now</a>
+                                    </div>
+                                </div>`;
+                                hotelCardsContainer.insertAdjacentHTML('beforeend', hotelCardHTML);
+                            });
+                        } else {
+                            hotelsHeading.textContent = `No Hotels Found`;
+                            hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Sorry, no hotels found for "${city}".</p>`;
+                        }
+                    } catch (error) {
+                        console.error('Search Error:', error);
+                        hotelsHeading.textContent = `Error`;
+                        hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Error: ${error.message}</p>`;
                     }
                 });
             }
-        });
-    });
-
-    const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
-    const feedbackModal = document.getElementById('feedback-modal');
-    const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
-    const feedbackForm = document.getElementById('feedback-form-modal');
-    const feedbackConfirmationBox = document.getElementById('feedback-confirmation-box');
-    const feedbackStars = document.querySelectorAll('.feedback-stars i');
-    let currentRating = 0;
-
-    if (openFeedbackBtn) {
-        openFeedbackBtn.addEventListener('click', () => {
-            feedbackModal.classList.add('active');
-        });
-    }
-
-    if (closeFeedbackBtn) {
-        closeFeedbackBtn.addEventListener('click', () => {
-            feedbackModal.classList.remove('active');
-        });
-    }
-
-    feedbackStars.forEach(star => {
-        star.addEventListener('click', () => {
-            currentRating = star.dataset.value;
-            feedbackStars.forEach(s => {
-                s.classList.toggle('fas', s.dataset.value <= currentRating);
-                s.classList.toggle('far', s.dataset.value > currentRating);
-            });
-        });
-    });
-
-    if (feedbackForm) {
-        feedbackForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            console.log(`Feedback submitted with rating: ${currentRating}`);
-            feedbackModal.classList.remove('active');
-            feedbackConfirmationBox.classList.add('show');
-            setTimeout(() => {
-                feedbackConfirmationBox.classList.remove('show');
-            }, 3000);
-            feedbackForm.reset();
-            currentRating = 0;
-            feedbackStars.forEach(s => {
-                s.classList.remove('fas');
-                s.classList.add('far');
-            });
-        });
-    }
-
-    const privacyModal = document.getElementById('privacy-modal');
-    const termsModal = document.getElementById('terms-modal');
-    const privacyLink = document.getElementById('privacy-policy-link');
-    const termsLink = document.getElementById('terms-condition-link');
-    const closeLegalModalBtns = document.querySelectorAll('.close-legal-modal-btn');
-
-    if (privacyLink) {
-        privacyLink.addEventListener('click', () => {
-            privacyModal.classList.add('active');
-        });
-    }
-
-    if (termsLink) {
-        termsLink.addEventListener('click', () => {
-            termsModal.classList.add('active');
-        });
-    }
-
-    closeLegalModalBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            privacyModal.classList.remove('active');
-            termsModal.classList.remove('active');
-        });
-    });
-
-    window.addEventListener('click', (e) => {
-        if (e.target === privacyModal) privacyModal.classList.remove('active');
-        if (e.target === termsModal) termsModal.classList.remove('active');
-        if (e.target === feedbackModal) feedbackModal.classList.remove('active');
-    });
-
-    const searchForm = document.querySelector('.tour-search-form');
-    if (searchForm) {
-        const destinationInput = document.getElementById('destination');
-        const checkinInput = document.getElementById('checkin-date');
-        const checkoutInput = document.getElementById('checkout-date');
-        const hotelsSection = document.getElementById('hotels');
-        const hotelsHeading = document.querySelector('#hotels h2');
-        const hotelCardsContainer = document.querySelector('.hotels-grid .hotels-grid');
-
-        searchForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const city = destinationInput.value.trim();
-            const checkin = checkinInput.value;
-            const checkout = checkoutInput.value;
-
-            if (!city) {
-                alert('Please enter a destination.');
-                return;
-            }
-
-            hotelsHeading.textContent = `Searching for Hotels in ${city}`;
-            hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Loading... 🏨</p>`;
-            hotelsSection.scrollIntoView({ behavior: 'smooth' });
-
-            try {
-                const response = await fetch(`/search-hotels?city=${city}&checkin=${checkin}&checkout=${checkout}`);
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Network response was not ok');
-                }
-                const hotelsData = await response.json();
-                hotelCardsContainer.innerHTML = '';
-                if (hotelsData && hotelsData.length > 0) {
-                    hotelsHeading.textContent = `Showing Hotels in ${city}`;
-                    hotelsData.forEach(hotel => {
-                        const hotelCardHTML = `
-                        <div class="hotel-card">
-                            <div class="card-image-container"><img src="${hotel.imageUrl}" alt="${hotel.name}"></div>
-                            <div class="card-content">
-                                <h3 class="card-title">${hotel.name}</h3>
-                                <p class="card-description">${hotel.location}</p>
-                                <div class="rating-price">
-                                    <div class="stars">⭐ ${hotel.rating}</div>
-                                    <div class="price">₹${hotel.price}/night</div>
-                                </div>
-                                <a href="#" class="card-button">Book Now</a>
-                            </div>
-                        </div>`;
-                        hotelCardsContainer.insertAdjacentHTML('beforeend', hotelCardHTML);
-                    });
-                } else {
-                    hotelsHeading.textContent = `No Hotels Found`;
-                    hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Sorry, no hotels found for "${city}".</p>`;
-                }
-            } catch (error) {
-                console.error('Search Error:', error);
-                hotelsHeading.textContent = `Error`;
-                hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Error: ${error.message}</p>`;
-            }
-        });
-    }
-
-    const updateNavbarForAuth = async () => {
-        const navAuthContainer = document.querySelector('.nav-auth-buttons');
-        const token = localStorage.getItem('authToken');
-
-        if (token && navAuthContainer) {
-            try {
-                const response = await fetch('/api/user/me', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (response.ok) {
-                    const user = await response.json();
-                    navAuthContainer.innerHTML = '';
-
-                    const userProfileCircle = document.createElement('div');
-                    userProfileCircle.classList.add('user-profile-circle');
-                    const userInitial = user.firstName ? user.firstName.charAt(0).toUpperCase() : '?';
-                    userProfileCircle.textContent = userInitial;
-                    userProfileCircle.title = `Welcome, ${user.firstName}!`;
-                    
-                    const logoutButton = document.createElement('a');
-                    logoutButton.href = '#';
-                    logoutButton.textContent = 'Logout';
-                    logoutButton.classList.add('nav-button');
-                    logoutButton.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        localStorage.removeItem('authToken');
-                        alert('You have been logged out.');
-                        window.location.reload();
-                    });
-
-                    navAuthContainer.appendChild(userProfileCircle);
-                    navAuthContainer.appendChild(logoutButton);
-
-                } else {
-                    localStorage.removeItem('authToken');
-                }
-            } catch (error) {
-                console.error('Error verifying token:', error);
-                localStorage.removeItem('authToken');
-            }
-        }
-    };
-
-    const protectActions = () => {
-        const protectedButtons = document.querySelectorAll('.card-button, .cta-button, .cta-button-small');
-        protectedButtons.forEach(button => {
-            if (button.id === 'open-feedback-modal-btn' || button.closest('form')) return;
-            
-            button.addEventListener('click', (e) => {
-                const token = localStorage.getItem('authToken');
-                if (!token) {
-                    e.preventDefault();
-                    document.getElementById('auth-prompt-modal').classList.add('active');
-                }
-            });
-        });
         
-        const closeAuthBtn = document.getElementById('close-auth-modal-btn');
-        if (closeAuthBtn) {
-            closeAuthBtn.addEventListener('click', () => {
-                document.getElementById('auth-prompt-modal').classList.remove('active');
-            });
-        }
-    };
-
-    updateNavbarForAuth();
-    protectActions();
-});
-</script>
+            const updateNavbarForAuth = async () => {
+                const navAuthContainer = document.querySelector('.nav-auth-buttons');
+                const token = localStorage.getItem('authToken');
+        
+                if (token && navAuthContainer) {
+                    try {
+                        const response = await fetch('/api/user/me', {
+                            headers: { 'Authorization': `Bearer ${token}` }
+                        });
+                        if (response.ok) {
+                            const user = await response.json();
+                            navAuthContainer.innerHTML = '';
+        
+                            const userProfileCircle = document.createElement('div');
+                            userProfileCircle.classList.add('user-profile-circle');
+                            const userInitial = user.firstName ? user.firstName.charAt(0).toUpperCase() : '?';
+                            userProfileCircle.textContent = userInitial;
+                            userProfileCircle.title = `Welcome, ${user.firstName}!`;
+                            
+                            const logoutButton = document.createElement('a');
+                            logoutButton.href = '#';
+                            logoutButton.textContent = 'Logout';
+                            logoutButton.classList.add('nav-button');
+                            logoutButton.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                localStorage.removeItem('authToken');
+                                alert('You have been logged out.');
+                                window.location.reload();
+                            });
+        
+                            navAuthContainer.appendChild(userProfileCircle);
+                            navAuthContainer.appendChild(logoutButton);
+        
+                        } else {
+                            localStorage.removeItem('authToken');
+                        }
+                    } catch (error) {
+                        console.error('Error verifying token:', error);
+                        localStorage.removeItem('authToken');
+                    }
+                }
+            };
+        
+            const protectActions = () => {
+                const protectedButtons = document.querySelectorAll('.card-button, .cta-button, .cta-button-small');
+                protectedButtons.forEach(button => {
+                    if (button.id === 'open-feedback-modal-btn' || button.closest('form')) return;
+                    
+                    button.addEventListener('click', (e) => {
+                        const token = localStorage.getItem('authToken');
+                        if (!token) {
+                            e.preventDefault();
+                            document.getElementById('auth-prompt-modal').classList.add('active');
+                        }
+                    });
+                });
+                
+                const closeAuthBtn = document.getElementById('close-auth-modal-btn');
+                if (closeAuthBtn) {
+                    closeAuthBtn.addEventListener('click', () => {
+                        document.getElementById('auth-prompt-modal').classList.remove('active');
+                    });
+                }
+            };
+        
+            updateNavbarForAuth();
+            protectActions();
+        });
+    </script>
 </body>
 
 </html>

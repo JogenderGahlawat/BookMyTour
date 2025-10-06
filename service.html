@@ -267,25 +267,21 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- Services Accordion ---
+   
         const serviceItems = document.querySelectorAll('.service-item');
         serviceItems.forEach(item => {
             const header = item.querySelector('.service-header');
             header.addEventListener('click', () => {
-                // Find the currently active item
                 const activeItem = document.querySelector('.service-item.active');
                 
-                // If there is an active item and it's not the one we just clicked, remove its 'active' class
                 if (activeItem && activeItem !== item) {
                     activeItem.classList.remove('active');
                 }
                 
-                // Toggle the 'active' class on the clicked item
                 item.classList.toggle('active');
             });
         });
 
-        // --- FAQ Accordion ---
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {
             const header = item.querySelector('.faq-header');
