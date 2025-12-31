@@ -16,7 +16,7 @@
         <div class="card" id="card">
 
             <div class="form-container front">
-                <form id="loginForm">
+                <form id="loginForm" action="save.php" method="save">
                     <h1 class="form-title">Login</h1>
 
                     <div class="input-box">
@@ -55,7 +55,7 @@
             </div>
 
             <div class="form-container back">
-                <form id="signupForm">
+                <form id="signupForm" action="save.php" method="post">
                     <h1 class="form-title">Create Account</h1>
 
                     <div class="input-group">
@@ -86,6 +86,8 @@
 
         </div>
     </div>
+    
+
 
     <script>
         const card = document.getElementById('card');
@@ -225,5 +227,6 @@
         });
    
     </script>
+   
 </body>
 </html>
