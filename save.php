@@ -1,7 +1,7 @@
 <?php 
 
 $server      ="localhost";
-$name    ="root";
+$name        ="root";
 $password    ="";
 $dbname      ="BMT_Data";
 

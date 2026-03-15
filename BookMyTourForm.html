@@ -16,7 +16,7 @@
         <div class="card" id="card">
 
             <div class="form-container front">
-                <form id="loginForm" action="save.php" method="save">
+                <form id="loginForm">
                     <h1 class="form-title">Login</h1>
 
                     <div class="input-box">
@@ -55,7 +55,7 @@
             </div>
 
             <div class="form-container back">
-                <form id="signupForm" action="save.php" method="post">
+                <form id="signupForm">
                     <h1 class="form-title">Create Account</h1>
 
                     <div class="input-group">
@@ -86,146 +86,75 @@
 
         </div>
     </div>
-    
-
 
     <script>
-        const card = document.getElementById('card');
-        const showSignupLink = document.getElementById('show-signup');
-        const showLoginLink = document.getElementById('show-login');
 
-        showSignupLink.addEventListener('click', () => {
-            card.classList.add('is-flipped');
-        });
+     document.addEventListener('DOMContentLoaded', () => {
+            const card = document.getElementById('card');
+            const showSignup = document.getElementById('show-signup');
+            const showLogin = document.getElementById('show-login');
 
-        showLoginLink.addEventListener('click', () => {
-            card.classList.remove('is-flipped');
-        });
+            showSignup.addEventListener('click', () => {
+                card.classList.add('is-flipped');
+            });
 
-        const loginForm = document.getElementById('loginForm');
-        loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+            showLogin.addEventListener('click', () => {
+                card.classList.remove('is-flipped');
+            });
 
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
+            const loginForm = document.getElementById('loginForm');
+            loginForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
 
-            console.log("Login Data Submitted:", data);
-
-           fetch('/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-          })
-            .then(response => response.json())
-            .then(result => {
-            console.log('Server Response:', result);
-            alert(result.message);
-            if (result.token) {
-                localStorage.setItem('authToken', result.token);
-                 window.location.href = '/'; 
-         }
-            })
-            .catch(error => console.error('Error:', error));
+                try {
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
                     });
 
-
-        const signupForm = document.getElementById('signupForm');
-        signupForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-
-            console.log("Signup Data Submitted:", data);
-
-            fetch('/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log('Server Response:', result);
-                alert(result.message);
-                if (result.message.includes('successful')) {
-                    card.classList.remove('is-flipped');
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            const updateNavbarForAuth = async () => {
-                const navLinksWrapper = document.querySelector('.nav-links-wrapper');
-           
-                const authButtons = navLinksWrapper.querySelectorAll('a[href="/BookMyTourForm.html"]');
-
-                const token = localStorage.getItem('authToken');
-
-                if (token) {
-                    try {
-                        const response = await fetch('/api/user/me', {
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        });
-
-                        if (response.ok) {
-                            const user = await response.json();
-                            
-                            authButtons.forEach(button => button.remove());
-
-                            const welcomeMessage = document.createElement('span');
-                            welcomeMessage.textContent = `Welcome, ${user.firstName}!`;
-                            welcomeMessage.style.color = 'white';
-                            welcomeMessage.style.marginRight = '15px';
-                            welcomeMessage.style.alignSelf = 'center';
-                            
-                            const logoutButton = document.createElement('a');
-                            logoutButton.href = '#';
-                            logoutButton.textContent = 'Logout';
-                            logoutButton.classList.add('nav-button');
-                            logoutButton.addEventListener('click', (e) => {
-                                e.preventDefault();
-                                localStorage.removeItem('authToken');
-                                alert('You have been logged out.');
-                                window.location.reload();
-                            });
-                            
-                            navLinksWrapper.appendChild(welcomeMessage);
-                            navLinksWrapper.appendChild(logoutButton);
-
-                        } else {
-                            localStorage.removeItem('authToken');
-                        }
-                    } catch (error) {
-                        console.error('Error verifying token:', error);
-                        localStorage.removeItem('authToken');
+                    const result = await response.json();
+                    if (response.ok) {
+                        localStorage.setItem('authToken', result.token);
+                        alert("मस्त! लॉगिन हो गया।");
+                        window.location.href = '/index.html'; 
+                    } else {
+                        alert("Error: " + result.message);
                     }
+                } catch (error) {
+                    console.error("Login Error:", error);
                 }
-            };
+            });
 
-            const protectActions = () => {
-                const protectedButtons = document.querySelectorAll('.card-button, .cta-button, .card-button-small');
-                
-                protectedButtons.forEach(button => {
-                    if (button.id === 'open-feedback-modal-btn') return;
-                    
-                    button.addEventListener('click', (e) => {
-                        const token = localStorage.getItem('authToken');
-                        if (!token) {
-                            e.preventDefault(); 
-                            alert('You must be logged in to perform this action.');
-                            window.location.href = '/BookMyTourForm.html'; 
-                        }
+            const signupForm = document.getElementById('signupForm');
+            signupForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+
+                try {
+                    const response = await fetch('/signup', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
                     });
-                });
-            };
 
-            updateNavbarForAuth();
-            protectActions();
-        });
-   
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert("Account has been created. Please login ");
+                        card.classList.remove('is-flipped'); 
+                    } else {
+                        alert("Signup Failed: " + result.message);
+                    }
+                } catch (error) {
+                    console.error("Signup Error:", error);
+                    alert("server not connected ");
+                }
+            });
+        });      
+
     </script>
    
 </body>
