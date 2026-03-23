@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body>
@@ -36,6 +36,36 @@
             </div>
         </nav>
     </header>
+    <div id="booking-history-modal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h2>My Booking History</h2>
+            <button id="close-history-modal-btn" class="close-btn">×</button>
+        </div>
+        <div class="modal-body">
+            <div id="history-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Destination</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-rows">
+                        <tr>
+                            <td>#BMT-101</td>
+                            <td>Goa Beach Resort</td>
+                            <td>12 Oct 2025</td>
+                            <td><span class="status-confirmed">Confirmed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
     <main class="main-content">
         <section class="hero-section">
@@ -494,265 +524,206 @@
             </div>
         </div>
     </div>
-
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("BookMyTour Engine Started! 🚀");
 
-            const hamburger = document.querySelector('.hamburger-menu');
-            const navBar = document.querySelector('.nav-bar');
-            const navLinksWrapper = document.querySelector('.nav-links-wrapper');
+    // --- 1. HOTEL DATA ---
+    const allHotels = [
+        { id: 101, name: "The Taj Mahal Palace", city: "mumbai", price: 25000, img: "https://images.unsplash.com/photo-1562790351-d273a961e0e9" },
+        { id: 102, name: "The Oberoi Amarvilas", city: "agra", price: 45000, img: "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg" },
+        { id: 103, name: "Rambagh Palace", city: "jaipur", price: 40000, img: "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg" },
+        { id: 104, name: "Goa Beach Resort", city: "goa", price: 12000, img: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd" },
+        { id: 105, name: "Himalayan Retreat", city: "manali", price: 8000, img: "https://images.unsplash.com/photo-1605649440416-435423455909" },
+        { id: 106, name: "The Leela Palace", city: "udaipur", price: 35000, img: "https://images.unsplash.com/photo-1618773928121-c32242e63f39" }
+    ];
 
-            if (hamburger && navLinksWrapper && navBar) {
-                hamburger.addEventListener('click', () => {
-                    navLinksWrapper.classList.toggle('active');
-                    navBar.classList.toggle('open');
-                });
-            }
+    const hotelGrid = document.querySelector('.hotels-grid');
+    const searchForm = document.querySelector('.tour-search-form');
 
-            const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
-            const feedbackModal = document.getElementById('feedback-modal');
-            const closeFeedbackBtn = document.getElementById('close-feedback-modal-btn');
-            const feedbackForm = document.getElementById('feedback-form-modal');
-            const feedbackConfirmationBox = document.getElementById('feedback-confirmation-box');
-            const feedbackStars = document.querySelectorAll('.feedback-stars i');
-            let currentRating = 0;
+    // --- 2. NAVBAR & AUTH UI ---
+    const updateNavbarForAuth = () => {
+        const navAuthContainer = document.querySelector('.nav-auth-buttons');
+        const token = localStorage.getItem('authToken');
+        const userFirstName = "Jogender"; 
 
-            if (openFeedbackBtn && feedbackModal) {
-                openFeedbackBtn.addEventListener('click', () => {
-                    feedbackModal.classList.add('active');
-                });
-            }
+        if (token && navAuthContainer) {
+            navAuthContainer.innerHTML = `
+                <div class="user-dropdown">
+                    <div class="user-profile-circle" onclick="document.getElementById('userDropdownMenu').classList.toggle('show')">${userFirstName.charAt(0).toUpperCase()}</div>
+                    <div class="dropdown-content" id="userDropdownMenu">
+                        <a href="#" id="history-link-dropdown"><i class="fas fa-history"></i> Booking History</a>
+                        <a href="#" id="logout-link" style="color:red"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>`;
 
-            if (closeFeedbackBtn && feedbackModal) {
-                closeFeedbackBtn.addEventListener('click', () => {
-                    feedbackModal.classList.remove('active');
-                });
-            }
-
-            feedbackStars.forEach(star => {
-                star.addEventListener('click', () => {
-                    currentRating = star.dataset.value;
-                    feedbackStars.forEach(s => {
-                        s.classList.toggle('fas', s.dataset.value <= currentRating);
-                        s.classList.toggle('far', s.dataset.value > currentRating);
-                    });
-                });
-                star.addEventListener('mouseover', () => {
-                     const hoverValue = star.dataset.value;
-                     feedbackStars.forEach(s => {
-                        s.classList.toggle('fas', s.dataset.value <= hoverValue);
-                        s.classList.toggle('far', s.dataset.value > hoverValue);
-                    });
-                });
-                star.addEventListener('mouseout', () => {
-                     feedbackStars.forEach(s => {
-                        s.classList.toggle('fas', s.dataset.value <= currentRating);
-                        s.classList.toggle('far', s.dataset.value > currentRating);
-                    });
-                });
-            });
-
-            if (feedbackForm && feedbackModal && feedbackConfirmationBox) {
-                feedbackForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    console.log(`Feedback submitted with rating: ${currentRating}`); 
-
-                    feedbackModal.classList.remove('active');
-                    feedbackConfirmationBox.classList.add('show');
-                    setTimeout(() => {
-                        feedbackConfirmationBox.classList.remove('show');
-                    }, 3000); 
-
-                    feedbackForm.reset(); 
-                    currentRating = 0; 
-                    feedbackStars.forEach(s => { 
-                        s.classList.remove('fas');
-                        s.classList.add('far');
-                    });
-                });
-            }
-
-            const privacyModal = document.getElementById('privacy-modal');
-            const termsModal = document.getElementById('terms-modal');
-            const privacyLink = document.getElementById('privacy-policy-link');
-            const termsLink = document.getElementById('terms-condition-link');
-            const closeLegalModalBtns = document.querySelectorAll('.close-legal-modal-btn');
-            const authPromptModal = document.getElementById('auth-prompt-modal');
-            const closeAuthBtn = document.getElementById('close-auth-modal-btn');
-            if (privacyLink && privacyModal) {
-                privacyLink.addEventListener('click', (e) => {
-                    e.preventDefault(); 
-                    privacyModal.classList.add('active');
-                });
-            }
-
-            if (termsLink && termsModal) {
-                termsLink.addEventListener('click', (e) => {
-                     e.preventDefault();
-                    termsModal.classList.add('active');
-                });
-            }
-
-            closeLegalModalBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const modal = btn.closest('.legal-modal');
-                    if (modal) {
-                        modal.classList.remove('active');
-                    }
-                });
-            });
-             if (closeAuthBtn && authPromptModal) {
-                closeAuthBtn.addEventListener('click', () => {
-                    authPromptModal.classList.remove('active');
-                });
-            }
-
-            window.addEventListener('click', (e) => {
-                if (e.target === privacyModal) privacyModal.classList.remove('active');
-                if (e.target === termsModal) termsModal.classList.remove('active');
-                if (e.target === feedbackModal) feedbackModal.classList.remove('active');
-                if (e.target === authPromptModal) authPromptModal.classList.remove('active'); 
-            });
-            const searchForm = document.querySelector('.tour-search-form'); 
-            if (searchForm) {
-                const destinationInput = document.getElementById('destination');
-                const checkinInput = document.getElementById('checkin-date');
-                const checkoutInput = document.getElementById('checkout-date');
-                const hotelsSection = document.getElementById('hotels');
-                const hotelsHeading = document.querySelector('#hotels h2');
-                const hotelCardsContainer = document.querySelector('#hotels .hotels-grid'); 
-
-                searchForm.addEventListener('submit', async (event) => {
-                    event.preventDefault();
-                    const city = destinationInput.value.trim();
-                    const checkin = checkinInput.value;
-                    const checkout = checkoutInput.value;
-
-                    if (!city) {
-                        alert('Please enter a destination.');
-                        return;
-                    }
-                    if (checkin && checkout && checkin >= checkout) {
-                         alert('Check-out date must be after check-in date.');
-                         return;
-                    }
-
-                    hotelsHeading.textContent = `Searching for Hotels in ${city}`;
-                    if (hotelCardsContainer) { 
-                         hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Loading... 🏨</p>`;
-                    }
-                    if (hotelsSection) {
-                        hotelsSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                    try {
-                        await new Promise(resolve => setTimeout(resolve, 1500));
-
-                         console.log("Simulating search for:", city, checkin, checkout);
-                         if (city.toLowerCase() === "mumbai" || city.toLowerCase() === "agra" || city.toLowerCase() === "jaipur") {
-                            hotelsHeading.textContent = `Showing Hotels in ${city}`;
-                         } else {
-                            hotelsHeading.textContent = `No Hotels Found`;
-                            if (hotelCardsContainer) {
-                                hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Sorry, no hotels found for "${city}".</p>`;
-                            }
-                         }
-
-                        // --
-
-                    } catch (error) {
-                        console.error('Search Error:', error);
-                        hotelsHeading.textContent = `Error Searching Hotels`;
-                         if (hotelCardsContainer) {
-                            hotelCardsContainer.innerHTML = `<p style="text-align: center; width: 100%; grid-column: 1 / -1; color: red;">Error: ${error.message}</p>`;
-                         }
-                    }
-                });
-            }
-            const updateNavbarForAuth = () => { 
-                const navAuthContainer = document.querySelector('.nav-auth-buttons');
-                const token = localStorage.getItem('authToken');
-                const isLoggedIn = !!token; 
-                const simulatedUser = { firstName: "Test" };
-
-                if (isLoggedIn && navAuthContainer) { 
-                    try {
-                         const user = simulatedUser;
-                         navAuthContainer.innerHTML = ''; 
-
-                         const userProfileCircle = document.createElement('div');
-                         userProfileCircle.classList.add('user-profile-circle');
-                         const userInitial = user.firstName ? user.firstName.charAt(0).toUpperCase() : '?';
-                         userProfileCircle.textContent = userInitial;
-                         userProfileCircle.title = `Welcome, ${user.firstName}!`;
-
-                         const logoutButton = document.createElement('a');
-                         logoutButton.href = '#';
-                         logoutButton.textContent = 'Logout';
-                         logoutButton.classList.add('nav-button');
-                         logoutButton.style.backgroundColor = '#dc3545'; 
-                         logoutButton.addEventListener('click', (e) => {
-                             e.preventDefault();
-                             localStorage.removeItem('authToken'); 
-                             alert('You have been logged out.');
-                             window.location.reload(); 
-                         });
-
-                         navAuthContainer.appendChild(userProfileCircle);
-                    
-                    } catch (error) {
-                        console.error('Error verifying token (or simulation error):', error);
-                        localStorage.removeItem('authToken');
-                         navAuthContainer.innerHTML = `
-                             <a href="/BookMyTourForm.html" class="nav-button">Sign Up</a>
-                             <a href="/BookMyTourForm.html" class="nav-button">Login</a>`;
-                    }
-                } else if (navAuthContainer) {
-                     navAuthContainer.innerHTML = `
-                         <a href="/BookMyTourForm.html" class="nav-button">Sign Up</a>
-                         <a href="/BookMyTourForm.html" class="nav-button">Login</a>`;
-                }
+            // Dropdown listeners
+            document.getElementById('logout-link').onclick = () => {
+                localStorage.removeItem('authToken');
+                window.location.reload();
             };
-
-            const protectActions = () => {
-                const protectedButtons = document.querySelectorAll(
-                    '.card-button, .cta-button, .cta-button-small'
-                );
-                 const authModal = document.getElementById('auth-prompt-modal');
-
-                protectedButtons.forEach(button => {
-                    if (button.id === 'open-feedback-modal-btn' ||
-                        button.closest('form') ||
-                        button.closest('.auth-modal-buttons')) {
-                        return;
-                    }
-
-                    button.addEventListener('click', (e) => {
-                        const token = localStorage.getItem('authToken');
-                        if (!token && authModal) {
-                            e.preventDefault(); 
-                            e.stopPropagation(); 
-                            authModal.classList.add('active'); 
-                        }
-                    });
-                });
+            document.getElementById('history-link-dropdown').onclick = (e) => {
+                e.preventDefault();
+                document.getElementById('booking-history-modal').classList.add('active');
             };
-
-            updateNavbarForAuth();
-            protectActions();
-
-        });
-        function handleBooking(event, hotelId) {
-            event.preventDefault(); 
-            const token = localStorage.getItem('authToken');
-            if (!token) {
-                document.getElementById('auth-prompt-modal').classList.add('active');
-                return;
-            }
-            console.log("Proceeding to book hotel:", hotelId);
-            alert(`Booking process for hotel ${hotelId} would start here.`);
         }
+    };
 
-    </script>
+    // --- 3. SEARCH & DISPLAY ---
+    function displayHotels(hotels) {
+        if (!hotelGrid) return;
+        hotelGrid.innerHTML = hotels.map(hotel => `
+            <div class="hotel-card">
+                <div class="card-image-container"><img src="${hotel.img}" alt="${hotel.name}"></div>
+                <div class="card-content">
+                    <h3>${hotel.name}</h3>
+                    <p>${hotel.city.toUpperCase()}</p>
+                    <div class="price">₹${hotel.price.toLocaleString()}/night</div>
+                    <button class="card-button" onclick="initiateRealBooking('${hotel.name}', ${hotel.price})">Book Now</button>
+                </div>
+            </div>`).join('');
+    }
+
+    if (searchForm) {
+        searchForm.onsubmit = (e) => {
+            e.preventDefault();
+            const term = document.getElementById('destination').value.toLowerCase().trim();
+            const filtered = allHotels.filter(h => h.city.includes(term) || h.name.toLowerCase().includes(term));
+            const hotelsSection = document.getElementById('hotels');
+            if(hotelsSection) hotelsSection.scrollIntoView({ behavior: 'smooth' });
+            displayHotels(filtered);
+        };
+    }
+
+    // --- 4. HAMBURGER & MODALS ---
+    const hamburger = document.querySelector('.hamburger-menu');
+    if (hamburger) {
+        hamburger.onclick = () => {
+            document.querySelector('.nav-links-wrapper').classList.toggle('active');
+            document.querySelector('.nav-bar').classList.toggle('open');
+        };
+    }
+
+    // Modal close logic for all modals
+    document.querySelectorAll('.close-btn, #close-history-modal-btn, #close-auth-modal-btn').forEach(btn => {
+        btn.onclick = () => {
+            const modal = btn.closest('.modal') || btn.closest('.legal-modal');
+            if(modal) modal.classList.remove('active');
+        };
+    });
+
+    // Feedback Stars logic
+    const feedbackStars = document.querySelectorAll('.feedback-stars i');
+    feedbackStars.forEach(star => {
+        star.onclick = () => {
+            let val = star.dataset.value;
+            feedbackStars.forEach(s => {
+                s.classList.toggle('fas', s.dataset.value <= val);
+                s.classList.toggle('far', s.dataset.value > val);
+            });
+        };
+    });
+
+    // Feedback Form Submit
+    const feedbackForm = document.getElementById('feedback-form-modal');
+    if (feedbackForm) {
+        feedbackForm.onsubmit = (e) => {
+            e.preventDefault();
+            document.getElementById('feedback-modal').classList.remove('active');
+            const confirmation = document.getElementById('feedback-confirmation-box');
+            if(confirmation) {
+                confirmation.classList.add('show');
+                setTimeout(() => confirmation.classList.remove('show'), 3000);
+            }
+            feedbackForm.reset();
+        };
+    }
+
+    const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
+    if(openFeedbackBtn) openFeedbackBtn.onclick = () => document.getElementById('feedback-modal').classList.add('active');
+
+    // --- 5. INITIALIZE PAGE ---
+    displayHotels(allHotels);
+    updateNavbarForAuth();
+    loadBookingHistory();
+
+    // Close dropdown on outside click
+    window.onclick = (e) => {
+        if (!e.target.closest('.user-dropdown')) {
+            const menu = document.getElementById('userDropdownMenu');
+            if (menu) menu.classList.remove('show');
+        }
+        if (e.target.classList.contains('modal')) {
+            e.target.classList.remove('active');
+        }
+    };
+});
+
+// --- 6. GLOBAL RAZORPAY PAYMENT ---
+window.initiateRealBooking = async (hotelName, price) => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        document.getElementById('auth-prompt-modal').classList.add('active');
+        return;
+    }
+
+    try {
+        // 1. Order ID
+        const orderRes = await fetch('/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount: price * 100 })
+        });
+        
+        if (!orderRes.ok) throw new Error('Server returned 500 for order');
+        const order = await orderRes.json();
+
+        // 2. Key ID (Route exact match: /api/get-key)
+        const keyRes = await fetch('/api/get-key');
+        if (!keyRes.ok) throw new Error('Server returned 404 for key');
+        const { key } = await keyRes.json();
+
+        const options = {
+            "key": key,
+            "amount": order.amount,
+            "currency": "INR",
+            "name": "Book My Tour",
+            "order_id": order.id,
+            "handler": function (res) {
+                alert("Payment Successful! ID: " + res.razorpay_payment_id);
+                window.location.reload();
+            },
+            "prefill": { "name": "Jogender", "email": "iamgahlawat777@gmail.com" },
+            "theme": { "color": "#2c3e50" }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+
+    } catch (err) {
+        console.error("DEBUG ERROR:", err.message);
+        alert("Bhai, Error hai! Terminal check kar.");
+    }
+};
+
+function loadBookingHistory() {
+    const history = JSON.parse(localStorage.getItem('userBookings')) || [];
+    const rows = document.getElementById('history-rows');
+    if (rows) {
+        if (history.length > 0) {
+            rows.innerHTML = history.map(b => `
+                <tr>
+                    <td>${b.id.substring(0, 12)}...</td>
+                    <td>${b.destination}</td>
+                    <td>${b.date}</td>
+                    <td><span class="status-confirmed">Confirmed</span></td>
+                </tr>`).join('');
+        } else {
+            rows.innerHTML = `<tr><td colspan="4" style="text-align:center;">Abhi tak koi booking nahi ki hai.</td></tr>`;
+        }
+    }
+}
+</script>
 </body>
 
 </html>
