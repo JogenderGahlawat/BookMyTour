@@ -31,6 +31,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.1.0",
     "mongoose": "^8.23.0",
+    "mysql2": "^3.21.1",
     "node-fetch": "^3.3.2",
     "razorpay": "^2.9.6",
     "react": "^19.2.0",
@@ -41,4 +42,5 @@
     "concurrently": "^9.2.1",
     "vite": "^7.1.9"
   }
+
 }

@@ -528,7 +528,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("BookMyTour Engine Started! 🚀");
 
-    // --- 1. HOTEL DATA ---
     const allHotels = [
         { id: 101, name: "The Taj Mahal Palace", city: "mumbai", price: 25000, img: "https://images.unsplash.com/photo-1562790351-d273a961e0e9" },
         { id: 102, name: "The Oberoi Amarvilas", city: "agra", price: 45000, img: "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg" },
@@ -541,7 +540,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const hotelGrid = document.querySelector('.hotels-grid');
     const searchForm = document.querySelector('.tour-search-form');
 
-    // --- 2. NAVBAR & AUTH UI ---
     const updateNavbarForAuth = () => {
         const navAuthContainer = document.querySelector('.nav-auth-buttons');
         const token = localStorage.getItem('authToken');
@@ -557,7 +555,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>`;
 
-            // Dropdown listeners
             document.getElementById('logout-link').onclick = () => {
                 localStorage.removeItem('authToken');
                 window.location.reload();
@@ -569,7 +566,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- 3. SEARCH & DISPLAY ---
     function displayHotels(hotels) {
         if (!hotelGrid) return;
         hotelGrid.innerHTML = hotels.map(hotel => `
@@ -595,7 +591,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // --- 4. HAMBURGER & MODALS ---
     const hamburger = document.querySelector('.hamburger-menu');
     if (hamburger) {
         hamburger.onclick = () => {
@@ -604,7 +599,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Modal close logic for all modals
     document.querySelectorAll('.close-btn, #close-history-modal-btn, #close-auth-modal-btn').forEach(btn => {
         btn.onclick = () => {
             const modal = btn.closest('.modal') || btn.closest('.legal-modal');
@@ -612,7 +606,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // Feedback Stars logic
     const feedbackStars = document.querySelectorAll('.feedback-stars i');
     feedbackStars.forEach(star => {
         star.onclick = () => {
@@ -624,7 +617,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // Feedback Form Submit
     const feedbackForm = document.getElementById('feedback-form-modal');
     if (feedbackForm) {
         feedbackForm.onsubmit = (e) => {
@@ -642,12 +634,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
     if(openFeedbackBtn) openFeedbackBtn.onclick = () => document.getElementById('feedback-modal').classList.add('active');
 
-    // --- 5. INITIALIZE PAGE ---
     displayHotels(allHotels);
     updateNavbarForAuth();
     loadBookingHistory();
-
-    // Close dropdown on outside click
     window.onclick = (e) => {
         if (!e.target.closest('.user-dropdown')) {
             const menu = document.getElementById('userDropdownMenu');
@@ -659,7 +648,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 });
 
-// --- 6. GLOBAL RAZORPAY PAYMENT ---
 window.initiateRealBooking = async (hotelName, price) => {
     const token = localStorage.getItem('authToken');
     if (!token) {
@@ -668,7 +656,6 @@ window.initiateRealBooking = async (hotelName, price) => {
     }
 
     try {
-        // 1. Order ID
         const orderRes = await fetch('/create-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -678,7 +665,6 @@ window.initiateRealBooking = async (hotelName, price) => {
         if (!orderRes.ok) throw new Error('Server returned 500 for order');
         const order = await orderRes.json();
 
-        // 2. Key ID (Route exact match: /api/get-key)
         const keyRes = await fetch('/api/get-key');
         if (!keyRes.ok) throw new Error('Server returned 404 for key');
         const { key } = await keyRes.json();

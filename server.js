@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
+const mysql = require('mysql2/promise'); // MySQL library
 const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -10,36 +10,32 @@ const cors = require('cors');
 const app = express();
 const PORT = 3000;
 
-// --- 1. MIDDLEWARE ---
 app.use(cors());
 app.use(express.json());
-// Static files handle karne ke liye (index.html, style.css, etc.)
 app.use(express.static(__dirname));
 
-// --- 2. RAZORPAY CONFIG ---
+const pool = mysql.createPool({
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'hotel_db',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
+
+pool.getConnection()
+    .then(conn => {
+        console.log('✅ MySQL Connected!');
+        conn.release();
+    })
+    .catch(err => console.error('❌ MySQL Error:', err));
+
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID, 
     key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
-// --- 3. MONGODB CONNECTION ---
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ MongoDB Connected!'))
-    .catch(err => console.error('❌ MongoDB Error:', err));
-
-// --- 4. SCHEMAS ---
-const User = mongoose.model('User', new mongoose.Schema({
-    firstName: String, lastName: String,
-    email: { type: String, unique: true },
-    password: { type: String, required: true }
-}));
-
-const Booking = mongoose.model('Booking', new mongoose.Schema({
-    userId: String, hotelName: String, amount: Number, paymentId: String,
-    date: { type: Date, default: Date.now }
-}));
-
-// --- 5. AUTH MIDDLEWARE ---
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -52,16 +48,11 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-// --- 6. ROUTES ---
-
-// Razorpay Key Route
 app.get('/api/get-key', (req, res) => {
     res.json({ key: process.env.RAZORPAY_KEY_ID });
 });
 
-// Create Razorpay Order
 app.post('/create-order', async (req, res) => {
-    console.log(">>> Payment Request Received:", req.body.amount);
     try {
         const amountPaise = parseInt(req.body.amount);
         const options = {
@@ -72,45 +63,67 @@ app.post('/create-order', async (req, res) => {
         const order = await razorpay.orders.create(options);
         res.json(order);
     } catch (err) {
-        console.error("Razorpay Error:", err);
+        res.status(500).json({ error: err.message });
+    }
+});
+app.post('/signup', async (req, res) => {
+    console.log("--- 🆕 Nayi Signup Request Aayi Hai ---");
+    try {
+        const { firstName, lastName, email, password } = req.body;
+        console.log("Input Data:", { firstName, lastName, email });
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
+        const [result] = await pool.execute(
+            'INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)',
+            [firstName, lastName, email, hashedPassword]
+        );
+        
+        console.log("✅ Data Save Ho Gaya! MySQL Row ID:", result.insertId);
+        res.status(201).json({ message: "User Created", id: result.insertId });
+
+    } catch (err) { 
+        console.error("❌ MySQL Error Aayi Hai:", err.message);
+        res.status(500).json({ error: err.message }); 
+    }
+});
+
+app.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
+        
+        if (rows.length === 0) return res.status(401).json({ message: "Invalid Credentials" });
+
+        const user = rows[0];
+        const isMatch = await bcrypt.compare(password, user.password);
+        
+        if (!isMatch) return res.status(401).json({ message: "Invalid Credentials" });
+
+        const token = jwt.sign(
+            { userId: user.id, firstName: user.firstName }, 
+            process.env.JWT_SECRET || 'secret_key'
+        );
+        res.json({ token });
+    } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
-// Signup/Login Routes
-app.post('/signup', async (req, res) => {
-    try {
-        const { firstName, lastName, email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ firstName, lastName, email, password: hashedPassword });
-        await newUser.save();
-        res.status(201).json({ message: "User Created" });
-    } catch (err) { res.status(500).json({ error: err.message }); }
-});
-
-app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ message: "Invalid Credentials" });
-    }
-    const token = jwt.sign({ userId: user._id, firstName: user.firstName }, process.env.JWT_SECRET || 'secret_key');
-    res.json({ token });
-});
-
-// Save Booking Route
 app.post('/api/save-booking', authenticateToken, async (req, res) => {
     try {
         const { hotelName, amount, paymentId } = req.body;
-        const newBooking = new Booking({
-            userId: req.user.userId,
-            hotelName,
-            amount: amount / 100,
-            paymentId
-        });
-        await newBooking.save();
+        const finalAmount = amount / 100;
+
+        await pool.execute(
+            'INSERT INTO bookings (userId, hotelName, amount, paymentId) VALUES (?, ?, ?, ?)',
+            [req.user.userId, hotelName, finalAmount, paymentId]
+        );
+
         res.json({ message: "Success" });
-    } catch (err) { res.status(500).json({ error: err.message }); }
+    } catch (err) { 
+        res.status(500).json({ error: err.message }); 
+    }
 });
 
 app.get('/', (req, res) => {
@@ -119,5 +132,4 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`\n🚀 Server running on http://localhost:${PORT}`);
-    console.log(`Razorpay ID: ${process.env.RAZORPAY_KEY_ID ? "LOADED ✅" : "MISSING ❌"}`);
 });

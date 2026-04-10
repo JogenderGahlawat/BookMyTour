@@ -89,71 +89,103 @@
 
     <script>
 
-     document.addEventListener('DOMContentLoaded', () => {
-            const card = document.getElementById('card');
-            const showSignup = document.getElementById('show-signup');
-            const showLogin = document.getElementById('show-login');
+    document.addEventListener('DOMContentLoaded', () => {
+    const card = document.getElementById('card');
+    const showSignup = document.getElementById('show-signup');
+    const showLogin = document.getElementById('show-login');
 
-            showSignup.addEventListener('click', () => {
-                card.classList.add('is-flipped');
+    showSignup.addEventListener('click', () => card.classList.add('is-flipped'));
+    showLogin.addEventListener('click', () => card.classList.remove('is-flipped'));
+
+    const API_URL = "http://localhost:3000"; 
+
+    const signupForm = document.getElementById('signupForm');
+    signupForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        console.log("Signup button clicked!");
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch(`${API_URL}/signup`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
             });
 
-            showLogin.addEventListener('click', () => {
+            const result = await response.json();
+            if (response.ok) {
+                alert("Account created! Please login.");
                 card.classList.remove('is-flipped');
-            });
+            } else {
+                alert("Signup Error: " + result.error);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Could not connect to server. Check if terminal shows server running.");
+        }
+    });
+console.log("Script Loaded!"); 
 
-            const loginForm = document.getElementById('loginForm');
-            loginForm.addEventListener('submit', async function(event) {
-                event.preventDefault();
-                const formData = new FormData(this);
-                const data = Object.fromEntries(formData.entries());
 
-                try {
-                    const response = await fetch('/login', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
+    if (signupForm) {
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log("Signup Button Clicked!"); 
 
-                    const result = await response.json();
-                    if (response.ok) {
-                        localStorage.setItem('authToken', result.token);
-                        alert("मस्त! लॉगिन हो गया।");
-                        window.location.href = '/index.html'; 
-                    } else {
-                        alert("Error: " + result.message);
-                    }
-                } catch (error) {
-                    console.error("Login Error:", error);
+            const formData = new FormData(signupForm);
+            const payload = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch('http://localhost:3000/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+                console.log("Server Response:", data);
+
+                if (res.ok) {
+                    alert("Account Created!");
+                } else {
+                    alert("Error: " + data.error);
                 }
+            } catch (err) {
+                console.error("Fetch Error:", err);
+                alert("Can't connect from server!");
+            }
+        });
+    } else {
+        console.error("Form with ID 'signupForm' not found!");
+    }
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch(`${API_URL}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
             });
 
-            const signupForm = document.getElementById('signupForm');
-            signupForm.addEventListener('submit', async function(event) {
-                event.preventDefault();
-                const formData = new FormData(this);
-                const data = Object.fromEntries(formData.entries());
-
-                try {
-                    const response = await fetch('/signup', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
-
-                    const result = await response.json();
-                    if (response.ok) {
-                        alert("Account has been created. Please login ");
-                        card.classList.remove('is-flipped'); 
-                    } else {
-                        alert("Signup Failed: " + result.message);
-                    }
-                } catch (error) {
-                    console.error("Signup Error:", error);
-                    alert("server not connected ");
-                }
-            });
-        });      
+            const result = await response.json();
+            if (response.ok) {
+                localStorage.setItem('authToken', result.token);
+                alert("Login Successful!");
+                window.location.href = 'index.html'; 
+            } else {
+                alert("Login Failed: " + result.message);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+});
 
     </script>
    
