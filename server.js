@@ -130,6 +130,40 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/api/search-hotels', async (req, res) => {
+    const city = req.query.city;
+    
+    // API Credentials .env se uthana
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+            'X-RapidAPI-Host': process.env.RAPIDAPI_HOST
+        }
+    };
+
+    try {
+        // Step 1: Location ID dhoondo
+        const locRes = await fetch(`https://booking-com.p.rapidapi.com/v1/hotels/locations?name=${city}&locale=en-gb`, options);
+        const locations = await locRes.json();
+        
+        if (!locations || locations.length === 0) {
+            return res.json([]); // Khali array bhej do agar sheher na mile
+        }
+
+        const destId = locations[0].dest_id;
+
+        // Step 2: Us ID se hotels dhoondo
+        const hotelRes = await fetch(`https://booking-com.p.rapidapi.com/v1/hotels/search?dest_id=${destId}&order_by=popularity&filter_by_currency=INR&locale=en-gb&checkin_date=2025-10-10&checkout_date=2025-10-11&adults_number=2&room_number=1&units=metric`, options);
+        
+        const data = await hotelRes.json();
+        res.json(data.result || []); // Sirf results bhejo
+
+    } catch (error) {
+        console.error("API Error:", error);
+        res.status(500).json({ error: "Backend crash ho gaya bhai!" });
+    }
+});
 app.listen(PORT, () => {
     console.log(`\n🚀 Server running on http://localhost:${PORT}`);
 });

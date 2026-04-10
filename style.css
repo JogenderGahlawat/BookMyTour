@@ -1082,3 +1082,24 @@ img, video, iframe {
 .dropdown-content a i {
     width: 20px;
 }
+/* Cart Badge Styling */
+.cart-badge {
+    background: #ff4757;
+    color: white;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: relative;
+    top: -10px;
+    right: 5px;
+}
+
+/* Modal Hotel Details Grid */
+.details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.slider-box { position: relative; width: 100%; height: 250px; overflow: hidden; border-radius: 10px; }
+.slider-box img { width: 100%; height: 100%; object-fit: cover; }
+.slider-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); }
+.slider-nav button { background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer; }
+
+/* Responsive */
+@media (max-width: 768px) { .details-grid { grid-template-columns: 1fr; } }
