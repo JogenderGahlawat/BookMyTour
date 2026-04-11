@@ -17,15 +17,19 @@
 </head>
 <body>
 
-    <header class="header">
-        <nav class="navbar">
-            <a href="index.html" class="logo"><img src="logo.png"></a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="/service.html">Services</a></li>
-            </ul>
+  <header class="navbar">
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="BookMyTour Logo">
+        </a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="service.html">Services</a>
+            <a href="about.html">About</a>
+            <a href="#contact">Contact</a>
+               <div class="nav-auth-buttons" id="authSection">
+        <a href="BookMyTourForm.html" class="nav-button">Sign Up</a>
+        <a href="BookMyTourForm.html" class="nav-button">Login</a>
+             </div>
         </nav>
     </header>
 
@@ -50,7 +54,19 @@
                 </div>
             </div>
         </section>
-
+<section style="display: flex; flex-wrap: wrap; background: #2c3e50; color: white;">
+    <div style="flex: 1; min-width: 300px; padding: 80px 40px; display: flex; flex-direction: column; justify-content: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;" data-aos="fade-right">The Soul of BookMyTour</h2>
+        <p style="font-style: italic; font-size: 1.2rem; opacity: 0.8; line-height: 1.8;">
+            "Traveling – it leaves you speechless, then turns you into a storyteller." 
+        </p>
+        <p style="margin-top: 20px; line-height: 1.6;">
+            We believe that every journey should be a deep discovery of one's own self. Our mission is to take you away from the noise and help you find peace in the most unexpected corners of India.
+        </p>
+    </div>
+    <div style="flex: 1; min-width: 300px; height: 500px; background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470') center/cover no-repeat;">
+        </div>
+</section>
         <section class="values-section">
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">Our Core Values</h2>
@@ -74,6 +90,38 @@
             </div>
         </section>
 
+        <section class="destinations-showcase" style="padding: 100px 0; background: #fdfcfb;">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Destinations We've Conquered</h2>
+        <p style="text-align: center; color: #777; margin-bottom: 50px;">From the snow of the north to the backwaters of the south.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div class="dest-card" data-aos="flip-left" style="position: relative; height: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="https://images.unsplash.com/photo-1548013146-72479768bbaa" style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; bottom: 0; padding: 20px; color: white; background: linear-gradient(transparent, rgba(0,0,0,0.8)); width: 100%;">
+                    <h3>Agra</h3>
+                    <p>The City of Love and White Marble.</p>
+                </div>
+            </div>
+            
+            <div class="dest-card" data-aos="flip-left" data-aos-delay="200" style="position: relative; height: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2" style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; bottom: 0; padding: 20px; color: white; background: linear-gradient(transparent, rgba(0,0,0,0.8)); width: 100%;">
+                    <h3>Kerala</h3>
+                    <p>Nature's own calm paradise.</p>
+                </div>
+            </div>
+
+            <div class="dest-card" data-aos="flip-left" data-aos-delay="400" style="position: relative; height: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="https://images.unsplash.com/photo-1506461883276-594a12b11cf3" style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; bottom: 0; padding: 20px; color: white; background: linear-gradient(transparent, rgba(0,0,0,0.8)); width: 100%;">
+                    <h3>Jaipur</h3>
+                    <p>Royal heritage and Pink city vibes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
         <section class="team-section">
             <div class="container">
@@ -135,7 +183,7 @@
                     <ul>
                         <li><a href="#">Destinations</a></li>
                         <li><a href="#">Special Offers</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="/service.html">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-column contact">
@@ -183,6 +231,95 @@
             duration: 1000,
             once: true,
         });
+        document.addEventListener('DOMContentLoaded', () => {
+    const updateGlobalNavbar = () => {
+        // Navbar mein jahan Sign Up/Login buttons hain wo container select karo
+        // Note: Make sure your about/service pages have a container with class 'nav-auth-buttons'
+        const authContainer = document.querySelector('.nav-auth-buttons');
+        const token = localStorage.getItem('authToken');
+        const userFirstName = "Jogender"; // Isse tum dynamic bhi kar sakte ho database se
+
+        if (token && authContainer) {
+            authContainer.innerHTML = `
+                <div class="user-dropdown">
+                    <div class="user-profile-circle" id="profileTrigger">
+                        ${userFirstName.charAt(0).toUpperCase()}
+                    </div>
+                    <div class="dropdown-content" id="userDropdownMenu">
+                        <a href="#"><i class="fas fa-history"></i> Booking History</a>
+                        <a href="#" id="global-logout" style="color:red"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>`;
+
+            // Dropdown Toggle Logic
+            const trigger = document.getElementById('profileTrigger');
+            const menu = document.getElementById('userDropdownMenu');
+
+            trigger.onclick = (e) => {
+                e.stopPropagation();
+                menu.classList.toggle('show');
+            };
+
+            // Logout Logic
+            document.getElementById('global-logout').onclick = (e) => {
+                e.preventDefault();
+                localStorage.removeItem('authToken');
+                window.location.href = "index.html"; // Logout ke baad home pe bhej do
+            };
+        }
+    };
+    
+document.addEventListener('DOMContentLoaded', () => {
+    const authSection = document.getElementById('authSection');
+    const token = localStorage.getItem('authToken');
+    const userName = localStorage.getItem('userName') || "User"; 
+
+    if (token) {
+        // Agar token mil gaya, toh buttons hatao aur Profile dikhao
+        authSection.innerHTML = `
+            <div class="user-dropdown">
+                <div class="user-profile-circle" id="profileTrigger">
+                    ${userName.charAt(0).toUpperCase()}
+                </div>
+                <div class="dropdown-content" id="userMenu">
+                    <a href="index.html#history">My Bookings</a>
+                    <a href="#" id="logoutBtn" style="color: red !important;">Logout</a>
+                </div>
+            </div>`;
+
+        // Dropdown toggle logic
+        const trigger = document.getElementById('profileTrigger');
+        const menu = document.getElementById('userMenu');
+        
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.classList.toggle('show');
+        });
+
+        // Logout logic
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userName');
+            window.location.reload(); // Page refresh karke wapas buttons dikhayega
+        });
+    }
+
+    // Bahar click karne par dropdown band ho jaye
+    window.addEventListener('click', () => {
+        document.getElementById('userMenu')?.classList.remove('show');
+    });
+});
+
+
+    updateGlobalNavbar();
+
+    // Bahar click karne pe dropdown band ho jaye
+    window.addEventListener('click', () => {
+        const menu = document.getElementById('userDropdownMenu');
+        if (menu) menu.classList.remove('show');
+    });
+});
     </script>
 
 </body>

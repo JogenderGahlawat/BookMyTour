@@ -19,12 +19,17 @@
         </a>
         <nav>
             <a href="index.html">Home</a>
-            <a href="services.html" class="active">Services</a>
+            <a href="service.html" class="active">Services</a>
             <a href="about.html">About</a>
             <a href="#contact">Contact</a>
+             <div class="nav-auth-buttons" id="authSection">
+        <a href="BookMyTourForm.html" class="nav-button">Sign Up</a>
+        <a href="BookMyTourForm.html" class="nav-button">Login</a>
+             </div>
+         
         </nav>
     </header>
-
+  
     <main>
         <section class="hero-section">
             <div class="container">
@@ -289,7 +294,52 @@
                 item.classList.toggle('active');
             });
         });
+document.addEventListener('DOMContentLoaded', () => {
+    const updateGlobalNavbar = () => {
+        // Navbar mein jahan Sign Up/Login buttons hain wo container select karo
+        // Note: Make sure your about/service pages have a container with class 'nav-auth-buttons'
+        const authContainer = document.querySelector('.nav-auth-buttons');
+        const token = localStorage.getItem('authToken');
+        const userFirstName = "Jogender"; // Isse tum dynamic bhi kar sakte ho database se
 
+        if (token && authContainer) {
+            authContainer.innerHTML = `
+                <div class="user-dropdown">
+                    <div class="user-profile-circle" id="profileTrigger">
+                        ${userFirstName.charAt(0).toUpperCase()}
+                    </div>
+                    <div class="dropdown-content" id="userDropdownMenu">
+                        <a href="#"><i class="fas fa-history"></i> Booking History</a>
+                        <a href="#" id="global-logout" style="color:red"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>`;
+
+            // Dropdown Toggle Logic
+            const trigger = document.getElementById('profileTrigger');
+            const menu = document.getElementById('userDropdownMenu');
+
+            trigger.onclick = (e) => {
+                e.stopPropagation();
+                menu.classList.toggle('show');
+            };
+
+            // Logout Logic
+            document.getElementById('global-logout').onclick = (e) => {
+                e.preventDefault();
+                localStorage.removeItem('authToken');
+                window.location.href = "index.html"; // Logout ke baad home pe bhej do
+            };
+        }
+    };
+
+    updateGlobalNavbar();
+
+    // Bahar click karne pe dropdown band ho jaye
+    window.addEventListener('click', () => {
+        const menu = document.getElementById('userDropdownMenu');
+        if (menu) menu.classList.remove('show');
+    });
+});
         const revealElements = document.querySelectorAll('.reveal-on-scroll');
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -306,6 +356,48 @@
 
         revealElements.forEach(el => revealObserver.observe(el));
     });
+document.addEventListener('DOMContentLoaded', () => {
+    const authSection = document.getElementById('authSection');
+    const token = localStorage.getItem('authToken');
+    const userName = localStorage.getItem('userName') || "User"; 
+
+    if (token) {
+        // Agar token mil gaya, toh buttons hatao aur Profile dikhao
+        authSection.innerHTML = `
+            <div class="user-dropdown">
+                <div class="user-profile-circle" id="profileTrigger">
+                    ${userName.charAt(0).toUpperCase()}
+                </div>
+                <div class="dropdown-content" id="userMenu">
+                    <a href="index.html#history">My Bookings</a>
+                    <a href="#" id="logoutBtn" style="color: red !important;">Logout</a>
+                </div>
+            </div>`;
+
+        // Dropdown toggle logic
+        const trigger = document.getElementById('profileTrigger');
+        const menu = document.getElementById('userMenu');
+        
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.classList.toggle('show');
+        });
+
+        // Logout logic
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userName');
+            window.location.reload(); // Page refresh karke wapas buttons dikhayega
+        });
+    }
+
+    // Bahar click karne par dropdown band ho jaye
+    window.addEventListener('click', () => {
+        document.getElementById('userMenu')?.classList.remove('show');
+    });
+});
+
     </script>
 
 </body>

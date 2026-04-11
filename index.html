@@ -116,6 +116,7 @@
 
     <main class="main-content">
         <section class="hero-section">
+            
             <div class="hero-content">
                 <h1>Book Your Dream Vacation</h1>
                 <p>Dream big and explore the world’s most beautiful places. ✈️</p>
@@ -196,7 +197,14 @@
                 </div>
             </div>
         </section>
-
+<section class="parallax-quote" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1'); background-attachment: fixed; background-size: cover; padding: 100px 20px; text-align: center; color: white;">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; font-family: 'Georgia', serif; line-height: 1.4;">
+            "To travel is to live. Not all those who wander are lost, they are just finding parts of themselves in the mountains and the seas."
+        </h2>
+        <p style="margin-top: 20px; letter-spacing: 2px;">— THE BOOKMYTOUR PHILOSOPHY —</p>
+    </div>
+</section>
         <section class="features-section">
             <div class="container">
                 <h2 class="section-title">Why Choose Book My Tour?</h2>
@@ -245,7 +253,7 @@
                                 <span class="offer-discount">30% OFF</span>
                                 <h3 class="offer-title">Honeymoon in Kerala</h3>
                                 <p class="offer-text">7 Days, 6 Nights in God's Own Country.</p>
-                                <a href="#" class="cta-button-small">View Deal</a>
+                                <a href="javascript:void(0)" onclick="openDealDetails('kerala')" class="cta-button-small">View Deal</a>
                             </div>
                         </div>
                     </div>
@@ -256,7 +264,7 @@
                                 <span class="offer-discount">25% OFF</span>
                                 <h3 class="offer-title">Himalayan Adventure</h3>
                                 <p class="offer-text">Trekking and camping in the mountains of Manali.</p>
-                                <a href="#" class="cta-button-small">View Deal</a>
+                    <a href="javascript:void(0)" onclick="openDealDetails('manali')" class="cta-button-small">View Deal</a>
                             </div>
                         </div>
                     </div>
@@ -267,14 +275,50 @@
                                 <span class="offer-discount">40% OFF</span>
                                 <h3 class="offer-title">Royal Rajasthan Tour</h3>
                                 <p class="offer-text">Explore the majestic forts and palaces of Jaipur.</p>
-                                <a href="#" class="cta-button-small">View Deal</a>
+                              <a href="javascript:void(0)" onclick="openDealDetails('rajasthan')" class="cta-button-small">View Deal</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
+<div id="deal-modal" class="modal">
+    <div class="modal-content" style="max-width: 950px; width: 95%;">
+        <div class="modal-header">
+            <h2 id="d-title">Package Name</h2>
+            <button class="close-btn" onclick="closeModal('deal-modal')">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="details-grid">
+                <div>
+                    <div class="slider-box">
+                        <img id="d-main-img" src="" style="width:100%; border-radius:10px;">
+                        <div class="slider-nav">
+                            <button onclick="changeDealImg(-1)">❮</button>
+                            <button onclick="changeDealImg(1)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Hotel Amenities</h3>
+                    <div id="d-amenities" style="display:flex; gap:15px; flex-wrap:wrap; margin-bottom:15px; font-size: 20px;"></div>
+                    <h3>Guest Reviews</h3>
+                    <div id="d-reviews" style="font-style: italic; color: #555; font-size: 14px;"></div>
+                </div>
+                <div>
+                    <h3 style="color: #2c3e50;"><i class="fas fa-map-marker-alt"></i> Trip Itinerary</h3>
+                    <div id="d-itinerary" style="background: #f9f9f9; padding: 15px; border-radius: 10px; max-height: 300px; overflow-y: auto; line-height: 1.6;"></div>
+                    
+                    <div style="margin-top:20px; border-top: 1px solid #eee; padding-top: 15px;">
+                        <h2 id="d-price" style="color:#e67e22;"></h2>
+                        <button id="d-book-btn" class="card-button" style="width:100%; margin-bottom:10px;">Book This Package</button>
+                        <a id="d-whatsapp" href="#" target="_blank" class="card-button" style="background:#25d366; text-align:center; display:block; text-decoration:none;">
+                            <i class="fab fa-whatsapp"></i> Inquiry on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         <section id="hotels" class="featured-hotels">
             <h2>Featured Indian Hotels</h2>
             <div id="map-link-container"></div>
@@ -506,6 +550,7 @@
             </form>
         </div>
     </div>
+    
 
     <div id="feedback-confirmation-box" class="confirmation-box">
         <p>Thank you for your feedback!</p>
@@ -773,117 +818,188 @@ function loadBookingHistory() {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-   const allHotels = [
+  const allHotels = [
     { 
         id: 101, name: "The Taj Mahal Palace", city: "mumbai", price: 25000, 
-        images: ["https://images.unsplash.com/photo-1562790351-d273a961e0e9", "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"],
+        images: [
+            "https://images.unsplash.com/photo-1562790351-d273a961e0e9", 
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+            "https://images.unsplash.com/photo-1590490359683-658d3d23f972",
+            "https://images.unsplash.com/photo-1551632432-c7360ec91986"
+        ],
+        amenities: ["Free Wi-Fi", "Swimming Pool", "Complimentary Breakfast", "Spa", "Fitness Center"],
         map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3774.2120016052733!2d72.83101167520138!3d18.92183638225575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1c13f034079%3A0x6960e7e172e27eeb!2sThe%20Taj%20Mahal%20Palace%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1712750000000",
         reviews: ["- Iconic and royal stay.", "- Best service ever.", "- View of Gateway is amazing."]
     },
     { 
         id: 102, name: "The Oberoi Amarvilas", city: "agra", price: 45000, 
-        images: ["https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg", "https://images.unsplash.com/photo-1548013146-72479768bbaa"],
+        images: [
+            "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg", 
+            "https://images.unsplash.com/photo-1548013146-72479768bbaa",
+            "https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4"
+        ],
+        amenities: ["Free Wi-Fi", "Luxury Pool", "Breakfast Included", "Bar", "Airport Shuttle"],
         map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3549.333833446549!2d78.04018637546051!3d27.161556976500003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3974713f00000001%3A0x5895782782928549!2sThe%20Oberoi%20Amarvilas%2C%20Agra!5e0!3m2!1sen!2sin!4v1712750000001",
         reviews: ["- Taj view from my room!", "- Exceptional luxury.", "- Very peaceful environment."]
     },
     { 
         id: 103, name: "Rambagh Palace", city: "jaipur", price: 40000, 
-        images: ["https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg", "https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e"],
+        images: [
+            "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg", 
+            "https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e",
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
+            "https://images.unsplash.com/photo-1564501049412-61c2a3083791"
+        ],
+        amenities: ["High-speed Wi-Fi", "Outdoor Pool", "Traditional Breakfast", "Parking", "Heritage Tour"],
         map: "https://www.google.com/maps/embed?pb=jaipur-map-link",
         reviews: ["- Living like a Maharaja.", "- Historic property.", "- Peacock sighting in gardens!"]
     },
     { 
         id: 104, name: "Goa Beach Resort", city: "goa", price: 12000, 
-        images: ["https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd", "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b"],
+        images: [
+            "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd", 
+            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
+            "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2",
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+        ],
+        amenities: ["Free Wi-Fi", "Beach Access Pool", "Buffet Breakfast", "Water Sports", "Bar"],
         map: "https://www.google.com/maps/embed?pb=goa-map-link",
         reviews: ["- Great pool side party.", "- Right on the beach.", "- Good seafood."]
     },
     { 
         id: 105, name: "Himalayan Retreat", city: "manali", price: 8500, 
-        images: ["https://images.unsplash.com/photo-1605649440416-435423455909", "https://images.unsplash.com/photo-1617653202545-930d93890539"],
+        images: [
+            "https://images.unsplash.com/photo-1605649440416-435423455909", 
+            "https://images.unsplash.com/photo-1617653202545-930d93890539",
+            "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b",
+            "https://images.unsplash.com/photo-1486870591958-9b9d0d1e821e"
+        ],
+        amenities: ["Standard Wi-Fi", "Heated Pool", "Mountain Breakfast", "Fireplace", "Trekking Desk"],
         map: "https://www.google.com/maps/embed?pb=manali-map-link",
         reviews: ["- Snow views are amazing.", "- Cozy fireplace.", "- Very adventure friendly."]
     },
     { 
         id: 106, name: "The Leela Palace", city: "udaipur", price: 35000, 
-        images: ["https://images.unsplash.com/photo-1618773928121-c32242e63f39", "https://images.unsplash.com/photo-1566073771259-6a8506099945"],
+        images: [
+            "https://images.unsplash.com/photo-1618773928121-c32242e63f39", 
+            "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+        ],
+        amenities: ["Free Wi-Fi", "Infinity Pool", "Continental Breakfast", "Boat Transfer", "Spa"],
         map: "https://www.google.com/maps/embed?pb=udaipur-map-link",
         reviews: ["- Lake Pichola view is best.", "- Boat arrival is unique.", "- Pure luxury."]
     },
     { 
         id: 107, name: "Kumarakom Lake Resort", city: "kerala", price: 18000, 
-        images: ["https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg", "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f"],
+        images: [
+            "https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg", 
+            "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f",
+            "https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+        ],
+        amenities: ["Free Wi-Fi", "Backwater Pool", "Kerala Breakfast", "Ayurvedic Spa", "Houseboat Tour"],
         map: "https://www.google.com/maps/embed?pb=kerala-map-link",
         reviews: ["- Serene backwaters.", "- Traditional Kerala food.", "- Best Ayurveda spa."]
     },
     { 
         id: 108, name: "Umaid Bhawan Palace", city: "jodhpur", price: 55000, 
-        images: ["https://images.unsplash.com/photo-1582719478250-c89cae4dc85b", "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb"],
+        images: [
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b", 
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
+            "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+            "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6"
+        ],
+        amenities: ["Free Wi-Fi", "Palace Pool", "Royal Breakfast", "Museum Access", "Polo Lounge"],
         map: "https://www.google.com/maps/embed?pb=jodhpur-map-link",
         reviews: ["- Royal heritage.", "- Grand architecture.", "- Amazing hospitality."]
     },
     { 
         id: 109, name: "Wildflower Hall", city: "shimla", price: 28000, 
-        images: ["https://images.unsplash.com/photo-1549412172-342cc100c19a", "https://images.unsplash.com/photo-1551882547-ff43c63fedfe"],
+        images: [
+            "https://images.unsplash.com/photo-1549412172-342cc100c19a", 
+            "https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+            "https://images.unsplash.com/photo-1544131417-46973ade08cf",
+            "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1"
+        ],
+        amenities: ["Free Wi-Fi", "Indoor Heated Pool", "Organic Breakfast", "Forest Dining", "Biking"],
         map: "https://www.google.com/maps/embed?pb=shimla-map-link",
         reviews: ["- Infinity pool in hills.", "- Forest trails.", "- Peaceful retreat."]
     },
     { 
         id: 110, name: "ITC Grand Chola", city: "chennai", price: 15000, 
-        images: ["https://images.unsplash.com/photo-1584132967334-10e028bd69f7", "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4"],
+        images: [
+            "https://images.unsplash.com/photo-1584132967334-10e028bd69f7", 
+            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+            "https://images.unsplash.com/photo-1517840901100-8179e982ad34",
+            "https://images.unsplash.com/photo-1566073771259-6a8506099945"
+        ],
+        amenities: ["Gigabit Wi-Fi", "Olympic Size Pool", "South Indian Breakfast", "Multi-cuisine Restro", "Concierge"],
         map: "https://www.google.com/maps/embed?pb=chennai-map-link",
         reviews: ["- Massive property.", "- Great dining options.", "- South Indian vibes."]
-    },
-    { 
-        id: 111, name: "The Fern Resort", city: "lonavala", price: 7000, 
-        images: ["https://images.unsplash.com/photo-1445019980597-93fa8acb246c", "https://images.unsplash.com/photo-1571896349842-33c89424de2d"],
-        map: "https://www.google.com/maps/embed?pb=lonavala-map-link",
-        reviews: ["- Eco friendly.", "- Good for family.", "- Lush green campus."]
-    },
-    { 
-        id: 112, name: "Sterling Ooty", city: "ooty", price: 6500, 
-        images: ["https://images.unsplash.com/photo-1495365200479-c4ed1d35e1aa", "https://images.unsplash.com/photo-1566665797739-1674de7a421a"],
-        map: "https://www.google.com/maps/embed?pb=ooty-map-link",
-        reviews: ["- Cold weather vibes.", "- Tea garden tours.", "- Good breakfast."]
-    },
-    { 
-        id: 113, name: "Radisson Blu", city: "manali", price: 9500, 
-        images: ["https://images.unsplash.com/photo-1470770841072-f978cf4d019e", "https://images.unsplash.com/photo-1506905925346-21bda4d32df4"],
-        map: "https://www.google.com/maps/embed?pb=manali-r-map",
-        reviews: ["- Luxury in snow.", "- Riverside stay.", "- Adventure desk available."]
-    },
-    { 
-        id: 114, name: "Hyatt Regency", city: "delhi", price: 11000, 
-        images: ["https://images.unsplash.com/photo-1551882547-ff43c63fedfe", "https://images.unsplash.com/photo-1444201983204-c43cbd584d93"],
-        map: "https://www.google.com/maps/embed?pb=delhi-map-link",
-        reviews: ["- Central location.", "- Fast WiFi.", "- Professional staff."]
-    },
-    { 
-        id: 115, name: "JW Marriott", city: "mussoorie", price: 22000, 
-        images: ["https://images.unsplash.com/photo-1484154218962-a197022b5858", "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb"],
-        map: "https://www.google.com/maps/embed?pb=mussoorie-map-link",
-        reviews: ["- Best for kids.", "- Morning mist is magic.", "- Luxury wellness."]
-    },
-    { 
-        id: 116, name: "The Khyber", city: "gulmarg", price: 32000, 
-        images: ["https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1", "https://images.unsplash.com/photo-1518005020250-6759229547b9"],
-        map: "https://www.google.com/maps/embed?pb=gulmarg-map-link",
-        reviews: ["- Gondola is close.", "- Ski paradise.", "- Traditional Kashmiri tea."]
-    },
-    { 
-        id: 117, name: "Novotel", city: "hyderabad", price: 9000, 
-        images: ["https://images.unsplash.com/photo-1566073771259-6a8506099945", "https://images.unsplash.com/photo-1582719508461-905c673771fd"],
-        map: "https://www.google.com/maps/embed?pb=hyderabad-map-link",
-        reviews: ["- Business traveler's pick.", "- Large buffet.", "- Near Hitech city."]
-    },
-    { 
-        id: 118, name: "Mayfair Spa", city: "darjeeling", price: 14000, 
-        images: ["https://images.unsplash.com/photo-1495365200479-c4ed1d35e1aa", "https://images.unsplash.com/photo-1521783593447-5702b9bfd275"],
-        map: "https://www.google.com/maps/embed?pb=darjeeling-map-link",
-        reviews: ["- Old colonial charm.", "- View of Kanchenjunga.", "- Best tea."]
     }
 ];
+const tripDeals = {
+    "kerala": {
+        title: "Honeymoon in Kerala",
+        price: 35000,
+        images: ["https://images.pexels.com/photos/1483053/pexels-photo-1483053.jpeg", "https://images.unsplash.com/photo-1593693397690-362cb9666fc2", "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"],
+        amenities: ["wifi", "pool", "breakfast", "spa", "ac"],
+        reviews: ["- Best honeymoon ever! The houseboat was magic.", "- Authentic Kerala food and very polite staff.", "- View of backwaters from the resort is unbeatable."],
+        itinerary: "<b>Day 1:</b> Pickup from Kochi Airport & Transfer to Munnar Tea Gardens.<br><b>Day 2:</b> Sightseeing of Mattupetty Dam & Eravikulam National Park.<br><b>Day 3:</b> Drive to Alleppey. Overnight stay in a Luxury Houseboat.<br><b>Day 4:</b> Traditional Kerala Breakfast & Departure.",
+    },
+    "manali": {
+        title: "Himalayan Adventure",
+        price: 15000,
+        images: ["https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg", "https://images.unsplash.com/photo-1605649440416-435423455909", "https://images.unsplash.com/photo-1506905925346-21bda4d32df4"],
+        amenities: ["wifi", "breakfast", "parking", "fireplace"],
+        reviews: ["- Rafting was thrilling! Very well managed.", "- Riverside camping is the highlight of this trip.", "- Perfect for adventure seekers."],
+        itinerary: "<b>Day 1:</b> Arrival in Manali. Riverside camping and bonfire night.<br><b>Day 2:</b> Solang Valley for Paragliding & Skiing.<br><b>Day 3:</b> Visit to Rohtang Pass (Snow Point).<br><b>Day 4:</b> Local Mall Road shopping & Departure.",
+    },
+    "rajasthan": {
+        title: "Royal Rajasthan Tour",
+        price: 28000,
+        images: ["https://images.pexels.com/photos/3889926/pexels-photo-3889926.jpeg", "https://images.unsplash.com/photo-1599661046289-e31887846eac", "https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e"],
+        amenities: ["wifi", "pool", "breakfast", "parking", "heritage"],
+        reviews: ["- Felt like a Maharaja in Rambagh Palace.", "- Elephant ride at Amer Fort was unforgettable.", "- Best cultural experience in India."],
+        itinerary: "<b>Day 1:</b> Arrival in Jaipur. Visit Hawa Mahal & City Palace.<br><b>Day 2:</b> Amer Fort Elephant ride & Nahargarh Sunset.<br><b>Day 3:</b> Chokhi Dhani for traditional Rajasthani dinner & folk dance.<br><b>Day 4:</b> Breakfast & Departure.",
+    }
+};
 
+let currentDeal = null;
+let dealImgIdx = 0;
+
+// Icon mapper for amenities
+const icons = { wifi: 'fa-wifi', pool: 'fa-swimming-pool', breakfast: 'fa-coffee', spa: 'fa-spa', ac: 'fa-wind', parking: 'fa-car', heritage: 'fa-fort-awesome', fireplace: 'fa-fire' };
+
+window.openDealDetails = (key) => {
+    currentDeal = tripDeals[key];
+    dealImgIdx = 0;
+    
+    document.getElementById('d-title').innerText = currentDeal.title;
+    document.getElementById('d-main-img').src = currentDeal.images[0];
+    document.getElementById('d-price').innerText = `₹${currentDeal.price.toLocaleString()} / Total Trip`;
+    document.getElementById('d-itinerary').innerHTML = currentDeal.itinerary;
+    document.getElementById('d-reviews').innerHTML = currentDeal.reviews.map(r => `<p>${r}</p>`).join('');
+    
+    // Amenities icons
+    document.getElementById('d-amenities').innerHTML = currentDeal.amenities.map(a => `<i class="fas ${icons[a]}" title="${a}"></i>`).join('');
+    
+    // WhatsApp logic
+    const msg = encodeURIComponent(`Hi Jogender! I'm interested in the ${currentDeal.title} package. Please share details.`);
+    document.getElementById('d-whatsapp').href = `https://wa.me/918307023216?text=${msg}`;
+    
+    // Book button
+    document.getElementById('d-book-btn').onclick = () => initiateRealBooking(currentDeal.title, currentDeal.price);
+
+    document.getElementById('deal-modal').classList.add('active');
+};
+
+window.changeDealImg = (dir) => {
+    dealImgIdx = (dealImgIdx + dir + currentDeal.images.length) % currentDeal.images.length;
+    document.getElementById('d-main-img').src = currentDeal.images[dealImgIdx];
+};
     let cart = JSON.parse(localStorage.getItem('userCart')) || [];
     let activeHotel = null;
     let imgIndex = 0;

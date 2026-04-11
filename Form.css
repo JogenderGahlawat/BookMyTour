@@ -207,3 +207,66 @@ form {
     font-weight: bold;
     cursor: pointer;
 }
+/* Shared Profile Icon & Dropdown CSS */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.user-profile-circle {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+    transition: 0.3s;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 55px;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 1100;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.dropdown-content a:hover { background-color: #f8f9fa; color: #e67e22; }
+.dropdown-content.show { display: block; animation: slideDown 0.3s ease; }
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .nav-auth-buttons { margin-top: 15px; }
+    .dropdown-content {
+        position: fixed;
+        right: 10%;
+        left: 10%;
+        width: 80%;
+        top: 80px;
+    }
+}

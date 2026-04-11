@@ -95,6 +95,98 @@ a:hover {
 .navbar nav a.active {
     color: var(--accent-color);
 }
+/* --- Immediate Fix for Alignment --- */
+
+/* Navbar ko flex aur center alignment mein lane ke liye */
+.navbar nav {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end;
+}
+
+/* Contact aur Buttons ke beech ka gap set karne ke liye */
+.nav-auth-buttons {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-left: 20px !important; /* Contact link se doori */
+}
+
+/* Profile Icon fix (Agar login hai toh) */
+.user-dropdown {
+    margin-left: 15px !important;
+}
+
+/* Mobile par responsive buttons */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 15px !important;
+    }
+    .navbar nav a {
+        margin: 0 10px !important;
+        font-size: 14px !important;
+    }
+    .nav-auth-buttons {
+        margin-left: 10px !important;
+        gap: 5px !important;
+    }
+    .nav-button {
+        padding: 5px 10px !important;
+        font-size: 12px !important;
+    }
+}
+/* Navigation container fix */
+.navbar nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Auth Section Styling */
+.nav-auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 20px;
+}
+
+/* Profile Icon */
+.user-profile-circle {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Dropdown menu styling */
+.user-dropdown { position: relative; }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 45px;
+    background: white;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1001;
+}
+.dropdown-content.show { display: block; }
+.dropdown-content a {
+    color: #333 !important;
+    padding: 10px 15px;
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+}
+.dropdown-content a:hover { background: #f1f1f1; }
 
 .hero-section {
     position: relative;
@@ -489,5 +581,139 @@ section {
     .footer-bottom {
         flex-direction: column;
         gap: 15px;
+    }
+}
+/* Shared Profile Icon & Dropdown CSS */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.user-profile-circle {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+    transition: 0.3s;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 55px;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 1100;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.dropdown-content a:hover { background-color: #f8f9fa; color: #e67e22; }
+.dropdown-content.show { display: block; animation: slideDown 0.3s ease; }
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .nav-auth-buttons { margin-top: 15px; }
+    .dropdown-content {
+        position: fixed;
+        right: 10%;
+        left: 10%;
+        width: 80%;
+        top: 80px;
+    }
+}
+.nav-button {
+    background-color: #8b008b;
+    color: white;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+.nav-button:hover {
+    background-color: #6a006a;
+}
+/* --- Global Profile Dropdown --- */
+.nav-auth-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-profile-circle {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.dropdown-menu.show { display: block; }
+
+.dropdown-menu a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.dropdown-menu a:hover { background: #f1f1f1; }
+
+/* Mobile View: Dropdown full width na ho isliye */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: fixed;
+        top: 70px;
+        right: 20px;
+        left: 20px;
     }
 }
