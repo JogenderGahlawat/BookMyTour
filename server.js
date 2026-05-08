@@ -67,7 +67,7 @@ app.post('/create-order', async (req, res) => {
     }
 });
 app.post('/signup', async (req, res) => {
-    console.log("--- 🆕 Nayi Signup Request Aayi Hai ---");
+    console.log("--- 🆕 New  SignUp request ---");
     try {
         const { firstName, lastName, email, password } = req.body;
         console.log("Input Data:", { firstName, lastName, email });
@@ -79,7 +79,7 @@ app.post('/signup', async (req, res) => {
             [firstName, lastName, email, hashedPassword]
         );
         
-        console.log("✅ Data Save Ho Gaya! MySQL Row ID:", result.insertId);
+        console.log("✅ Data save successfully! MySQL Row ID:", result.insertId);
         res.status(201).json({ message: "User Created", id: result.insertId });
 
     } catch (err) { 
@@ -133,7 +133,6 @@ app.get('/', (req, res) => {
 app.get('/api/search-hotels', async (req, res) => {
     const city = req.query.city;
     
-    // API Credentials .env se uthana
     const options = {
         method: 'GET',
         headers: {
@@ -143,21 +142,19 @@ app.get('/api/search-hotels', async (req, res) => {
     };
 
     try {
-        // Step 1: Location ID dhoondo
         const locRes = await fetch(`https://booking-com.p.rapidapi.com/v1/hotels/locations?name=${city}&locale=en-gb`, options);
         const locations = await locRes.json();
         
         if (!locations || locations.length === 0) {
-            return res.json([]); // Khali array bhej do agar sheher na mile
+            return res.json([]); 
         }
 
         const destId = locations[0].dest_id;
 
-        // Step 2: Us ID se hotels dhoondo
         const hotelRes = await fetch(`https://booking-com.p.rapidapi.com/v1/hotels/search?dest_id=${destId}&order_by=popularity&filter_by_currency=INR&locale=en-gb&checkin_date=2025-10-10&checkout_date=2025-10-11&adults_number=2&room_number=1&units=metric`, options);
         
         const data = await hotelRes.json();
-        res.json(data.result || []); // Sirf results bhejo
+        res.json(data.result || []); 
 
     } catch (error) {
         console.error("API Error:", error);
