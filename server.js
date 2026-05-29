@@ -1,11 +1,12 @@
 require('dotenv').config();
 const express = require('express');
-const mysql = require('mysql2/promise'); // MySQL library
+const mysql = require('mysql2/promise'); 
 const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Razorpay = require('razorpay');
 const cors = require('cors');
+const MySQL = require('mysql2');
 
 const app = express();
 const PORT = 3000;
@@ -35,6 +36,8 @@ const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID, 
     key_secret: process.env.RAZORPAY_KEY_SECRET
 });
+
+
 
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
@@ -83,7 +86,7 @@ app.post('/signup', async (req, res) => {
         res.status(201).json({ message: "User Created", id: result.insertId });
 
     } catch (err) { 
-        console.error("❌ MySQL Error Aayi Hai:", err.message);
+        console.error("❌ MySQL Error:", err.message);
         res.status(500).json({ error: err.message }); 
     }
 });
@@ -161,6 +164,7 @@ app.get('/api/search-hotels', async (req, res) => {
         res.status(500).json({ error: "Backend crash ho gaya bhai!" });
     }
 });
+
 app.listen(PORT, () => {
     console.log(`\n🚀 Server running on http://localhost:${PORT}`);
 });

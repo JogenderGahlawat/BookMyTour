@@ -44,6 +44,13 @@
             <button class="close-btn" onclick="closeModal('hotel-details-modal')">×</button>
         </div>
         <div class="modal-body">
+            <!-- Add this inside <div class="modal-body">, right after <div class="details-grid">...</div> -->
+<div class="recommendations-section" style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+    <h3 style="margin-bottom: 15px; color: #2c3e50;">Recommended For You</h3>
+    <div id="m-recommendations" style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px;">
+        <!-- Recommended hotels will be injected here via JS -->
+    </div>
+</div>
             <div class="details-grid">
                 <div>
                     <div class="slider-box">
@@ -616,24 +623,168 @@
             </div>
         </div>
     </div>
-    <script>
+   <script>
 document.addEventListener('DOMContentLoaded', () => {
     console.log("BookMyTour Engine Started! 🚀");
 
-    // --- 1. HOTEL DATA ---
+    // --- 1. UNIFIED HOTEL DATA ---
     const allHotels = [
-        { id: 101, name: "The Taj Mahal Palace", city: "mumbai", price: 25000, img: "https://images.unsplash.com/photo-1562790351-d273a961e0e9" },
-        { id: 102, name: "The Oberoi Amarvilas", city: "agra", price: 45000, img: "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg" },
-        { id: 103, name: "Rambagh Palace", city: "jaipur", price: 40000, img: "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg" },
-        { id: 104, name: "Goa Beach Resort", city: "goa", price: 12000, img: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd" },
-        { id: 105, name: "Himalayan Retreat", city: "manali", price: 8000, img: "https://images.unsplash.com/photo-1605649440416-435423455909" },
-        { id: 106, name: "The Leela Palace", city: "udaipur", price: 35000, img: "https://images.unsplash.com/photo-1618773928121-c32242e63f39" }
+        { 
+            id: 101, name: "The Taj Mahal Palace", city: "mumbai", price: 25000, 
+            images: [
+                "https://images.unsplash.com/photo-1562790351-d273a961e0e9", 
+                "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+                "https://images.unsplash.com/photo-1590490359683-658d3d23f972",
+                "https://images.unsplash.com/photo-1551632432-c7360ec91986"
+            ],
+            amenities: ["Free Wi-Fi", "Swimming Pool", "Complimentary Breakfast", "Spa", "Fitness Center"],
+            map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3774.2120016052733!2d72.83101167520138!3d18.92183638225575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1c13f034079%3A0x6960e7e172e27eeb!2sThe%20Taj%20Mahal%20Palace%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1712750000000",
+            reviews: ["- Iconic and royal stay.", "- Best service ever.", "- View of Gateway is amazing."]
+        },
+        { 
+            id: 102, name: "The Oberoi Amarvilas", city: "agra", price: 45000, 
+            images: [
+                "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg", 
+                "https://images.unsplash.com/photo-1548013146-72479768bbaa",
+                "https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+                "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4"
+            ],
+            amenities: ["Free Wi-Fi", "Luxury Pool", "Breakfast Included", "Bar", "Airport Shuttle"],
+            map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3549.333833446549!2d78.04018637546051!3d27.161556976500003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3974713f00000001%3A0x5895782782928549!2sThe%20Oberoi%20Amarvilas%2C%20Agra!5e0!3m2!1sen!2sin!4v1712750000001",
+            reviews: ["- Taj view from my room!", "- Exceptional luxury.", "- Very peaceful environment."]
+        },
+        { 
+            id: 103, name: "Rambagh Palace", city: "jaipur", price: 40000, 
+            images: [
+                "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg", 
+                "https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e",
+                "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
+                "https://images.unsplash.com/photo-1564501049412-61c2a3083791"
+            ],
+            amenities: ["High-speed Wi-Fi", "Outdoor Pool", "Traditional Breakfast", "Parking", "Heritage Tour"],
+            map: "https://www.google.com/maps/embed?pb=jaipur-map-link",
+            reviews: ["- Living like a Maharaja.", "- Historic property.", "- Peacock sighting in gardens!"]
+        },
+        { 
+            id: 104, name: "Goa Beach Resort", city: "goa", price: 12000, 
+            images: [
+                "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd", 
+                "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
+                "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2",
+                "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+            ],
+            amenities: ["Free Wi-Fi", "Beach Access Pool", "Buffet Breakfast", "Water Sports", "Bar"],
+            map: "https://www.google.com/maps/embed?pb=goa-map-link",
+            reviews: ["- Great pool side party.", "- Right on the beach.", "- Good seafood."]
+        },
+        { 
+            id: 105, name: "Himalayan Retreat", city: "manali", price: 8500, 
+            images: [
+                "https://images.unsplash.com/photo-1605649440416-435423455909", 
+                "https://images.unsplash.com/photo-1617653202545-930d93890539",
+                "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b",
+                "https://images.unsplash.com/photo-1486870591958-9b9d0d1e821e"
+            ],
+            amenities: ["Standard Wi-Fi", "Heated Pool", "Mountain Breakfast", "Fireplace", "Trekking Desk"],
+            map: "https://www.google.com/maps/embed?pb=manali-map-link",
+            reviews: ["- Snow views are amazing.", "- Cozy fireplace.", "- Very adventure friendly."]
+        },
+        { 
+            id: 106, name: "The Leela Palace", city: "udaipur", price: 35000, 
+            images: [
+                "https://images.unsplash.com/photo-1618773928121-c32242e63f39", 
+                "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+                "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+                "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+            ],
+            amenities: ["Free Wi-Fi", "Infinity Pool", "Continental Breakfast", "Boat Transfer", "Spa"],
+            map: "https://www.google.com/maps/embed?pb=udaipur-map-link",
+            reviews: ["- Lake Pichola view is best.", "- Boat arrival is unique.", "- Pure luxury."]
+        },
+        { 
+            id: 107, name: "Kumarakom Lake Resort", city: "kerala", price: 18000, 
+            images: [
+                "https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg", 
+                "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f",
+                "https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+                "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+            ],
+            amenities: ["Free Wi-Fi", "Backwater Pool", "Kerala Breakfast", "Ayurvedic Spa", "Houseboat Tour"],
+            map: "https://www.google.com/maps/embed?pb=kerala-map-link",
+            reviews: ["- Serene backwaters.", "- Traditional Kerala food.", "- Best Ayurveda spa."]
+        },
+        { 
+            id: 108, name: "Umaid Bhawan Palace", city: "jodhpur", price: 55000, 
+            images: [
+                "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b", 
+                "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
+                "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+                "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6"
+            ],
+            amenities: ["Free Wi-Fi", "Palace Pool", "Royal Breakfast", "Museum Access", "Polo Lounge"],
+            map: "https://www.google.com/maps/embed?pb=jodhpur-map-link",
+            reviews: ["- Royal heritage.", "- Grand architecture.", "- Amazing hospitality."]
+        },
+        { 
+            id: 109, name: "Wildflower Hall", city: "shimla", price: 28000, 
+            images: [
+                "https://images.unsplash.com/photo-1549412172-342cc100c19a", 
+                "https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+                "https://images.unsplash.com/photo-1544131417-46973ade08cf",
+                "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1"
+            ],
+            amenities: ["Free Wi-Fi", "Indoor Heated Pool", "Organic Breakfast", "Forest Dining", "Biking"],
+            map: "https://www.google.com/maps/embed?pb=shimla-map-link",
+            reviews: ["- Infinity pool in hills.", "- Forest trails.", "- Peaceful retreat."]
+        },
+        { 
+            id: 110, name: "ITC Grand Chola", city: "chennai", price: 15000, 
+            images: [
+                "https://images.unsplash.com/photo-1584132967334-10e028bd69f7", 
+                "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+                "https://images.unsplash.com/photo-1517840901100-8179e982ad34",
+                "https://images.unsplash.com/photo-1566073771259-6a8506099945"
+            ],
+            amenities: ["Gigabit Wi-Fi", "Olympic Size Pool", "South Indian Breakfast", "Multi-cuisine Restro", "Concierge"],
+            map: "https://www.google.com/maps/embed?pb=chennai-map-link",
+            reviews: ["- Massive property.", "- Great dining options.", "- South Indian vibes."]
+        }
     ];
 
-    const hotelGrid = document.querySelector('.hotels-grid');
-    const searchForm = document.querySelector('.tour-search-form');
+    const tripDeals = {
+        "kerala": {
+            title: "Honeymoon in Kerala", price: 35000,
+            images: ["https://images.pexels.com/photos/1483053/pexels-photo-1483053.jpeg", "https://images.unsplash.com/photo-1593693397690-362cb9666fc2", "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"],
+            amenities: ["wifi", "pool", "breakfast", "spa", "ac"],
+            reviews: ["- Best honeymoon ever! The houseboat was magic.", "- Authentic Kerala food and very polite staff."],
+            itinerary: "<b>Day 1:</b> Pickup from Kochi Airport & Transfer to Munnar.<br><b>Day 2:</b> Sightseeing of Mattupetty Dam.<br><b>Day 3:</b> Drive to Alleppey. Overnight stay in a Houseboat.<br><b>Day 4:</b> Departure.",
+        },
+        "manali": {
+            title: "Himalayan Adventure", price: 15000,
+            images: ["https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg", "https://images.unsplash.com/photo-1605649440416-435423455909", "https://images.unsplash.com/photo-1506905925346-21bda4d32df4"],
+            amenities: ["wifi", "breakfast", "parking", "fireplace"],
+            reviews: ["- Rafting was thrilling! Very well managed.", "- Riverside camping is the highlight of this trip."],
+            itinerary: "<b>Day 1:</b> Arrival in Manali. Riverside camping.<br><b>Day 2:</b> Solang Valley for Paragliding.<br><b>Day 3:</b> Visit to Rohtang Pass.<br><b>Day 4:</b> Departure.",
+        },
+        "rajasthan": {
+            title: "Royal Rajasthan Tour", price: 28000,
+            images: ["https://images.pexels.com/photos/3889926/pexels-photo-3889926.jpeg", "https://images.unsplash.com/photo-1599661046289-e31887846eac", "https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e"],
+            amenities: ["wifi", "pool", "breakfast", "parking", "heritage"],
+            reviews: ["- Felt like a Maharaja.", "- Elephant ride at Amer Fort was unforgettable."],
+            itinerary: "<b>Day 1:</b> Arrival in Jaipur. Visit Hawa Mahal.<br><b>Day 2:</b> Amer Fort Elephant ride.<br><b>Day 3:</b> Chokhi Dhani traditional dinner.<br><b>Day 4:</b> Departure.",
+        }
+    };
 
-    // --- 2. NAVBAR & AUTH UI ---
+    let cart = [];
+    try { cart = JSON.parse(localStorage.getItem('userCart')) || []; } catch(e) { cart = []; }
+    
+    let activeHotel = null;
+    let imgIndex = 0;
+    let dealImgIdx = 0;
+    let currentDeal = null;
+    const icons = { wifi: 'fa-wifi', pool: 'fa-swimming-pool', breakfast: 'fa-coffee', spa: 'fa-spa', ac: 'fa-wind', parking: 'fa-car', heritage: 'fa-fort-awesome', fireplace: 'fa-fire' };
+
+    // --- 2. AUTH & HISTORY LOGIC ---
     const updateNavbarForAuth = () => {
         const navAuthContainer = document.querySelector('.nav-auth-buttons');
         const token = localStorage.getItem('authToken');
@@ -649,7 +800,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>`;
 
-            // Dropdown listeners
             document.getElementById('logout-link').onclick = () => {
                 localStorage.removeItem('authToken');
                 window.location.reload();
@@ -661,33 +811,271 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- 3. SEARCH & DISPLAY ---
-    function displayHotels(hotels) {
+    function loadBookingHistory() {
+        let history = [];
+        try { history = JSON.parse(localStorage.getItem('userBookings')) || []; } catch(e) {}
+        const rows = document.getElementById('history-rows');
+        if (rows) {
+            if (history.length > 0) {
+                rows.innerHTML = history.map(b => `
+                    <tr>
+                        <td>${b.id.substring(0, 12)}...</td>
+                        <td>${b.destination}</td>
+                        <td>${b.date}</td>
+                        <td><span class="status-confirmed">Confirmed</span></td>
+                    </tr>`).join('');
+            } else {
+                rows.innerHTML = `<tr><td colspan="4" style="text-align:center;">Abhi tak koi booking nahi ki hai.</td></tr>`;
+            }
+        }
+    }
+// --- 3. FIX: SEARCH & DISPLAY LOGIC (WITH DYNAMIC GENERATION) ---
+    window.displayHotels = (hotels) => {
+        const hotelGrid = document.querySelector('.hotels-grid');
         if (!hotelGrid) return;
+        
+        if (hotels.length === 0) {
+            hotelGrid.innerHTML = `<h3 style="grid-column: 1/-1; text-align:center; padding: 40px; color: #e74c3c;">No hotels found for your search.</h3>`;
+            return;
+        }
+
         hotelGrid.innerHTML = hotels.map(hotel => `
-            <div class="hotel-card">
-                <div class="card-image-container"><img src="${hotel.img}" alt="${hotel.name}"></div>
+            <div class="hotel-card" onclick="openDetails(${hotel.id})" style="cursor:pointer;">
+                <div class="card-image-container"><img src="${hotel.images[0]}" alt="${hotel.name}"></div>
                 <div class="card-content">
-                    <h3>${hotel.name}</h3>
-                    <p>${hotel.city.toUpperCase()}</p>
+                    <h3 class="card-title">${hotel.name}</h3>
+                    <p class="card-description"><i class="fas fa-map-marker-alt" style="color:#e67e22;"></i> ${hotel.city.toUpperCase()}</p>
                     <div class="price">₹${hotel.price.toLocaleString()}/night</div>
-                    <button class="card-button" onclick="initiateRealBooking('${hotel.name}', ${hotel.price})">Book Now</button>
+                    <button class="card-button" onclick="event.stopPropagation(); initiateRealBooking('${hotel.name}', ${hotel.price})">Book Now</button>
                 </div>
             </div>`).join('');
-    }
+    };
 
+    const searchForm = document.querySelector('.tour-search-form');
     if (searchForm) {
-        searchForm.onsubmit = (e) => {
-            e.preventDefault();
-            const term = document.getElementById('destination').value.toLowerCase().trim();
-            const filtered = allHotels.filter(h => h.city.includes(term) || h.name.toLowerCase().includes(term));
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            const destInput = document.getElementById('destination');
+            if(!destInput) return;
+            
+            const term = destInput.value.toLowerCase().trim();
+            if (term === "") return;
+
+            // Pehle local array me check karo
+            let filtered = allHotels.filter(h => h.city.toLowerCase().includes(term) || h.name.toLowerCase().includes(term));
+            
+            // MAGIC: Agar location database me nahi hai, to automatically naye hotels bana do!
+            if (filtered.length === 0) {
+                const capitalizedCity = term.charAt(0).toUpperCase() + term.slice(1);
+                
+                filtered = [
+                    { 
+                        id: Date.now() + 1, name: `The ${capitalizedCity} Grand`, city: term, price: Math.floor(Math.random() * 10000) + 5000, 
+                        images: ["https://images.unsplash.com/photo-1566073771259-6a8506099945", "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"],
+                        amenities: ["Free Wi-Fi", "Swimming Pool", "Spa"],
+                        map: `https://maps.google.com/maps?q=hotels+in+${term}&t=&z=13&ie=UTF8&iwloc=&output=embed`,
+                        reviews: [`- Best stay in ${capitalizedCity}.`, "- Clean and premium.", "- Highly recommended!"]
+                    },
+                    { 
+                        id: Date.now() + 2, name: `${capitalizedCity} Heritage Resort`, city: term, price: Math.floor(Math.random() * 8000) + 4000, 
+                        images: ["https://images.unsplash.com/photo-1551882547-ff43c63fedfe", "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb"],
+                        amenities: ["Free Wi-Fi", "Breakfast Included", "Parking"],
+                        map: `https://maps.google.com/maps?q=resorts+in+${term}&t=&z=13&ie=UTF8&iwloc=&output=embed`,
+                        reviews: ["- Great vibe.", "- Loved the traditional touch.", "- Excellent food."]
+                    },
+                    { 
+                        id: Date.now() + 3, name: `Royal Plaza ${capitalizedCity}`, city: term, price: Math.floor(Math.random() * 15000) + 8000, 
+                        images: ["https://images.unsplash.com/photo-1520250497591-112f2f40a3f4", "https://images.unsplash.com/photo-1562790351-d273a961e0e9"],
+                        amenities: ["Gym", "Infinity Pool", "Bar", "Spa"],
+                        map: `https://maps.google.com/maps?q=luxury+hotels+in+${term}&t=&z=13&ie=UTF8&iwloc=&output=embed`,
+                        reviews: ["- Right in the city center.", "- The infinity pool is a must try.", "- Perfect for vacations."]
+                    }
+                ];
+                
+                // In naye hotels ko main database me dal do taki recommendations me bhi dikhe
+                allHotels.push(...filtered);
+            }
+            
             const hotelsSection = document.getElementById('hotels');
-            if(hotelsSection) hotelsSection.scrollIntoView({ behavior: 'smooth' });
+            if(hotelsSection) {
+                hotelsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
             displayHotels(filtered);
-        };
+        });
     }
 
-    // --- 4. HAMBURGER & MODALS ---
+    // --- 4. FIX: HOTEL DETAILS & BIG RECOMMENDATIONS ---
+    window.openDetails = (id) => {
+        activeHotel = allHotels.find(h => h.id === id);
+        imgIndex = 0;
+        
+        document.getElementById('m-hotel-name').innerText = activeHotel.name;
+        document.getElementById('m-hotel-price').innerText = `₹${activeHotel.price.toLocaleString()}/night`;
+        document.getElementById('m-hotel-img').src = activeHotel.images[0];
+        document.getElementById('m-reviews').innerHTML = activeHotel.reviews.map(r => `<p style="margin:5px 0;">${r}</p>`).join('');
+        document.getElementById('m-map').innerHTML = `<iframe src="${activeHotel.map}" width="100%" height="100%" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy"></iframe>`;
+        
+        // WhatsApp Link
+        const waMsg = encodeURIComponent(`Hi! I'm interested in booking ${activeHotel.name} in ${activeHotel.city}.`);
+        document.getElementById('m-whatsapp').href = `https://wa.me/918307023216?text=${waMsg}`;
+
+        // Buttons
+        document.getElementById('m-book-btn').onclick = () => initiateRealBooking(activeHotel.name, activeHotel.price);
+        document.getElementById('m-cart-btn').onclick = () => addToCart(activeHotel);
+
+       // -- RECOMMENDATION LOGIC (Bulletproof Amazon Style) --
+        let modalBody = document.querySelector('#hotel-details-modal .modal-body');
+        let recContainer = document.getElementById('m-dynamic-recommendations');
+        
+        if (!recContainer) {
+            recContainer = document.createElement('div');
+            recContainer.id = 'm-dynamic-recommendations';
+            recContainer.style.cssText = "margin-top: 40px; clear: both; width: 100%;"; 
+            modalBody.appendChild(recContainer);
+        }
+
+        const recommended = allHotels.filter(h => h.id !== id).sort(() => 0.5 - Math.random()).slice(0, 5);
+        
+        recContainer.innerHTML = `
+            <h3 style="margin-top: 20px; margin-bottom: 15px; color: #0f1111; font-size: 20px; font-weight: 700; border-top: 1px solid #e7e7e7; padding-top: 20px;">
+                Customers who viewed this also looked at
+            </h3>
+            
+            <div class="scroll-container" style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 20px; padding-top: 5px; scroll-snap-type: x mandatory; min-height: 320px;">
+                
+                ${recommended.map(h => `
+                    <div style="display: flex !important; flex-direction: column !important; min-width: 220px !important; width: 220px !important; height: 290px !important; flex: 0 0 auto; scroll-snap-align: start; border: 1px solid #e7e7e7; border-radius: 8px; overflow: hidden; cursor: pointer; background: #fff; box-sizing: border-box;" 
+                         onclick="openDetails(${h.id})" 
+                         onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'" 
+                         onmouseout="this.style.boxShadow='none'">
+                        
+                        <div style="height: 140px !important; width: 100% !important; flex-shrink: 0 !important; overflow: hidden; background: #f8f8f8;">
+                            <img src="${h.images[0]}" style="width: 100% !important; height: 100% !important; object-fit: cover !important; border-bottom: 1px solid #f0f0f0; display: block !important;" alt="${h.name}">
+                        </div>
+                        
+                        <div style="padding: 12px !important; display: flex !important; flex-direction: column !important; height: 150px !important; box-sizing: border-box !important;">
+                            
+                            <h4 style="margin: 0 0 6px 0 !important; font-size: 15px !important; font-weight: 600 !important; color: #0f1111 !important; line-height: 1.3 !important; white-space: normal !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important;">
+                                ${h.name}
+                            </h4>
+                            
+                            <div style="display: flex !important; align-items: center !important; margin-bottom: 8px !important;">
+                                <span style="color: #FFA41C !important; font-size: 12px !important;">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </span>
+                                <span style="color: #007185 !important; font-size: 12px !important; margin-left: 5px !important;">1,24${h.id % 10}</span>
+                            </div>
+
+                            <p style="margin: 0 0 8px 0 !important; color: #565959 !important; font-size: 12px !important;">
+                                <i class="fas fa-map-marker-alt"></i> ${h.city.charAt(0).toUpperCase() + h.city.slice(1)}
+                            </p>
+                            
+                            <div style="margin-top: auto !important;">
+                                <p style="margin: 0 !important; color: #B12704 !important; font-weight: 700 !important; font-size: 18px !important;">
+                                    ₹${h.price.toLocaleString()} <span style="font-size: 12px !important; color: #565959 !important; font-weight: normal !important;">/ night</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+                
+            </div>
+        `;
+        
+
+        document.getElementById('hotel-details-modal').classList.add('active');
+    };
+
+    window.nextSlide = () => {
+        imgIndex = (imgIndex + 1) % activeHotel.images.length;
+        document.getElementById('m-hotel-img').src = activeHotel.images[imgIndex];
+    };
+
+    window.prevSlide = () => {
+        imgIndex = (imgIndex - 1 + activeHotel.images.length) % activeHotel.images.length;
+        document.getElementById('m-hotel-img').src = activeHotel.images[imgIndex];
+    };
+
+    // --- 5. DEALS LOGIC ---
+    window.openDealDetails = (key) => {
+        currentDeal = tripDeals[key];
+        dealImgIdx = 0;
+        
+        document.getElementById('d-title').innerText = currentDeal.title;
+        document.getElementById('d-main-img').src = currentDeal.images[0];
+        document.getElementById('d-price').innerText = `₹${currentDeal.price.toLocaleString()} / Total Trip`;
+        document.getElementById('d-itinerary').innerHTML = currentDeal.itinerary;
+        document.getElementById('d-reviews').innerHTML = currentDeal.reviews.map(r => `<p>${r}</p>`).join('');
+        document.getElementById('d-amenities').innerHTML = currentDeal.amenities.map(a => `<i class="fas ${icons[a]}" title="${a}"></i>`).join('');
+        
+        const msg = encodeURIComponent(`Hi Jogender! I'm interested in the ${currentDeal.title} package.`);
+        document.getElementById('d-whatsapp').href = `https://wa.me/918307023216?text=${msg}`;
+        
+        document.getElementById('d-book-btn').onclick = () => initiateRealBooking(currentDeal.title, currentDeal.price);
+
+        document.getElementById('deal-modal').classList.add('active');
+    };
+
+    window.changeDealImg = (dir) => {
+        dealImgIdx = (dealImgIdx + dir + currentDeal.images.length) % currentDeal.images.length;
+        document.getElementById('d-main-img').src = currentDeal.images[dealImgIdx];
+    };
+
+    // --- 6. CART LOGIC ---
+    window.addToCart = (hotel) => {
+        if (!cart.some(item => item.id === hotel.id)) {
+            cart.push(hotel);
+            localStorage.setItem('userCart', JSON.stringify(cart));
+            document.getElementById('cart-count').innerText = cart.length;
+            alert("Added to cart!");
+        } else {
+            alert("Already in cart!");
+        }
+    };
+
+    window.openCart = () => {
+        const cartItemsDiv = document.getElementById('cart-items');
+        if(cart.length === 0) {
+            cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+        } else {
+            cartItemsDiv.innerHTML = cart.map((item, idx) => `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+                    <div>
+                        <strong style="display:block;">${item.name}</strong>
+                        <span style="color:#e67e22;">₹${item.price.toLocaleString()}</span>
+                    </div>
+                    <button onclick="removeFromCart(${idx})" class="card-button-2" style="padding: 5px 10px;">Remove</button>
+                </div>
+            `).join('');
+        }
+        document.getElementById('cart-modal').classList.add('active');
+    };
+
+    window.removeFromCart = (idx) => {
+        cart.splice(idx, 1);
+        localStorage.setItem('userCart', JSON.stringify(cart));
+        document.getElementById('cart-count').innerText = cart.length;
+        openCart();
+    };
+
+    window.checkoutCart = () => {
+        if(cart.length === 0) return alert("Cart is empty!");
+        const total = cart.reduce((sum, h) => sum + h.price, 0);
+        initiateRealBooking("Cart Checkout", total);
+    };
+
+    // --- 7. GLOBAL UI LISTENERS ---
+    window.closeModal = (id) => document.getElementById(id).classList.remove('active');
+
+    document.querySelectorAll('.close-btn, #close-history-modal-btn, #close-auth-modal-btn, .close-legal-modal-btn').forEach(btn => {
+        btn.onclick = () => {
+            const modal = btn.closest('.modal') || btn.closest('.legal-modal');
+            if(modal) modal.classList.remove('active');
+        };
+    });
+
     const hamburger = document.querySelector('.hamburger-menu');
     if (hamburger) {
         hamburger.onclick = () => {
@@ -696,15 +1084,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Modal close logic for all modals
-    document.querySelectorAll('.close-btn, #close-history-modal-btn, #close-auth-modal-btn').forEach(btn => {
-        btn.onclick = () => {
-            const modal = btn.closest('.modal') || btn.closest('.legal-modal');
-            if(modal) modal.classList.remove('active');
-        };
-    });
-
-    // Feedback Stars logic
+    // Feedback Logic
     const feedbackStars = document.querySelectorAll('.feedback-stars i');
     feedbackStars.forEach(star => {
         star.onclick = () => {
@@ -716,8 +1096,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // Feedback Form Submit
-    const feedbackForm = document.getElementById('feedback-form-modal');
+    const feedbackForm = document.getElementById('feedback-form-modal');    
     if (feedbackForm) {
         feedbackForm.onsubmit = (e) => {
             e.preventDefault();
@@ -734,24 +1113,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const openFeedbackBtn = document.getElementById('open-feedback-modal-btn');
     if(openFeedbackBtn) openFeedbackBtn.onclick = () => document.getElementById('feedback-modal').classList.add('active');
 
-    // --- 5. INITIALIZE PAGE ---
-    displayHotels(allHotels);
-    updateNavbarForAuth();
-    loadBookingHistory();
-
-    // Close dropdown on outside click
+    // Close Dropdowns & Modals on Outside Click
     window.onclick = (e) => {
         if (!e.target.closest('.user-dropdown')) {
             const menu = document.getElementById('userDropdownMenu');
             if (menu) menu.classList.remove('show');
         }
-        if (e.target.classList.contains('modal')) {
+        if (e.target.classList.contains('modal') || e.target.classList.contains('legal-modal')) {
             e.target.classList.remove('active');
         }
     };
-});
 
-// --- 6. GLOBAL RAZORPAY PAYMENT ---
+    // --- 8. INITIALIZE PAGE ---
+    displayHotels(allHotels);
+    updateNavbarForAuth();
+    loadBookingHistory();
+    document.getElementById('cart-count').innerText = cart.length;
+
+}); // End of DOMContentLoaded
+
+// --- 9. GLOBAL RAZORPAY PAYMENT ---
 window.initiateRealBooking = async (hotelName, price) => {
     const token = localStorage.getItem('authToken');
     if (!token) {
@@ -760,19 +1141,17 @@ window.initiateRealBooking = async (hotelName, price) => {
     }
 
     try {
-        // 1. Order ID
         const orderRes = await fetch('/create-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ amount: price * 100 })
         });
         
-        if (!orderRes.ok) throw new Error('Server returned 500 for order');
+        if (!orderRes.ok) throw new Error('Server returned error for order');
         const order = await orderRes.json();
 
-        // 2. Key ID (Route exact match: /api/get-key)
         const keyRes = await fetch('/api/get-key');
-        if (!keyRes.ok) throw new Error('Server returned 404 for key');
+        if (!keyRes.ok) throw new Error('Server returned error for key');
         const { key } = await keyRes.json();
 
         const options = {
@@ -780,367 +1159,34 @@ window.initiateRealBooking = async (hotelName, price) => {
             "amount": order.amount,
             "currency": "INR",
             "name": "Book My Tour",
+            "description": "Booking for " + hotelName,
             "order_id": order.id,
             "handler": function (res) {
                 alert("Payment Successful! ID: " + res.razorpay_payment_id);
+                let history = [];
+                try { history = JSON.parse(localStorage.getItem('userBookings')) || []; } catch(e){}
+                history.push({
+                    id: res.razorpay_payment_id,
+                    destination: hotelName,
+                    date: new Date().toLocaleDateString('en-GB')
+                });
+                localStorage.setItem('userBookings', JSON.stringify(history));
+                
                 window.location.reload();
             },
             "prefill": { "name": "Jogender", "email": "iamgahlawat777@gmail.com" },
             "theme": { "color": "#2c3e50" }
         };
 
-        const rzp = new Razorpay(options);
+        const rzp = new Razorpay(options)
         rzp.open();
 
     } catch (err) {
         console.error("DEBUG ERROR:", err.message);
-        alert("Error, Please check the Terminal");
+        alert("Payment Error! Please check if your Node.js server is running properly.");
     }
-};
-
-function loadBookingHistory() {
-    const history = JSON.parse(localStorage.getItem('userBookings')) || [];
-    const rows = document.getElementById('history-rows');
-    if (rows) {
-        if (history.length > 0) {
-            rows.innerHTML = history.map(b => `
-                <tr>
-                    <td>${b.id.substring(0, 12)}...</td>
-                    <td>${b.destination}</td>
-                    <td>${b.date}</td>
-                    <td><span class="status-confirmed">Confirmed</span></td>
-                </tr>`).join('');
-        } else {
-            rows.innerHTML = `<tr><td colspan="4" style="text-align:center;">Abhi tak koi booking nahi ki hai.</td></tr>`;
-        }
-    }
-}
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  const allHotels = [
-    { 
-        id: 101, name: "The Taj Mahal Palace", city: "mumbai", price: 25000, 
-        images: [
-            "https://images.unsplash.com/photo-1562790351-d273a961e0e9", 
-            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
-            "https://images.unsplash.com/photo-1590490359683-658d3d23f972",
-            "https://images.unsplash.com/photo-1551632432-c7360ec91986"
-        ],
-        amenities: ["Free Wi-Fi", "Swimming Pool", "Complimentary Breakfast", "Spa", "Fitness Center"],
-        map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3774.2120016052733!2d72.83101167520138!3d18.92183638225575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1c13f034079%3A0x6960e7e172e27eeb!2sThe%20Taj%20Mahal%20Palace%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1712750000000",
-        reviews: ["- Iconic and royal stay.", "- Best service ever.", "- View of Gateway is amazing."]
-    },
-    { 
-        id: 102, name: "The Oberoi Amarvilas", city: "agra", price: 45000, 
-        images: [
-            "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg", 
-            "https://images.unsplash.com/photo-1548013146-72479768bbaa",
-            "https://images.unsplash.com/photo-1566665797739-1674de7a421a",
-            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4"
-        ],
-        amenities: ["Free Wi-Fi", "Luxury Pool", "Breakfast Included", "Bar", "Airport Shuttle"],
-        map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3549.333833446549!2d78.04018637546051!3d27.161556976500003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3974713f00000001%3A0x5895782782928549!2sThe%20Oberoi%20Amarvilas%2C%20Agra!5e0!3m2!1sen!2sin!4v1712750000001",
-        reviews: ["- Taj view from my room!", "- Exceptional luxury.", "- Very peaceful environment."]
-    },
-    { 
-        id: 103, name: "Rambagh Palace", city: "jaipur", price: 40000, 
-        images: [
-            "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg", 
-            "https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e",
-            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
-            "https://images.unsplash.com/photo-1564501049412-61c2a3083791"
-        ],
-        amenities: ["High-speed Wi-Fi", "Outdoor Pool", "Traditional Breakfast", "Parking", "Heritage Tour"],
-        map: "https://www.google.com/maps/embed?pb=jaipur-map-link",
-        reviews: ["- Living like a Maharaja.", "- Historic property.", "- Peacock sighting in gardens!"]
-    },
-    { 
-        id: 104, name: "Goa Beach Resort", city: "goa", price: 12000, 
-        images: [
-            "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd", 
-            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
-            "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2",
-            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
-        ],
-        amenities: ["Free Wi-Fi", "Beach Access Pool", "Buffet Breakfast", "Water Sports", "Bar"],
-        map: "https://www.google.com/maps/embed?pb=goa-map-link",
-        reviews: ["- Great pool side party.", "- Right on the beach.", "- Good seafood."]
-    },
-    { 
-        id: 105, name: "Himalayan Retreat", city: "manali", price: 8500, 
-        images: [
-            "https://images.unsplash.com/photo-1605649440416-435423455909", 
-            "https://images.unsplash.com/photo-1617653202545-930d93890539",
-            "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b",
-            "https://images.unsplash.com/photo-1486870591958-9b9d0d1e821e"
-        ],
-        amenities: ["Standard Wi-Fi", "Heated Pool", "Mountain Breakfast", "Fireplace", "Trekking Desk"],
-        map: "https://www.google.com/maps/embed?pb=manali-map-link",
-        reviews: ["- Snow views are amazing.", "- Cozy fireplace.", "- Very adventure friendly."]
-    },
-    { 
-        id: 106, name: "The Leela Palace", city: "udaipur", price: 35000, 
-        images: [
-            "https://images.unsplash.com/photo-1618773928121-c32242e63f39", 
-            "https://images.unsplash.com/photo-1566073771259-6a8506099945",
-            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
-            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
-        ],
-        amenities: ["Free Wi-Fi", "Infinity Pool", "Continental Breakfast", "Boat Transfer", "Spa"],
-        map: "https://www.google.com/maps/embed?pb=udaipur-map-link",
-        reviews: ["- Lake Pichola view is best.", "- Boat arrival is unique.", "- Pure luxury."]
-    },
-    { 
-        id: 107, name: "Kumarakom Lake Resort", city: "kerala", price: 18000, 
-        images: [
-            "https://images.pexels.com/photos/2034335/pexels-photo-2034335.jpeg", 
-            "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f",
-            "https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
-            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
-        ],
-        amenities: ["Free Wi-Fi", "Backwater Pool", "Kerala Breakfast", "Ayurvedic Spa", "Houseboat Tour"],
-        map: "https://www.google.com/maps/embed?pb=kerala-map-link",
-        reviews: ["- Serene backwaters.", "- Traditional Kerala food.", "- Best Ayurveda spa."]
-    },
-    { 
-        id: 108, name: "Umaid Bhawan Palace", city: "jodhpur", price: 55000, 
-        images: [
-            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b", 
-            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
-            "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
-            "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6"
-        ],
-        amenities: ["Free Wi-Fi", "Palace Pool", "Royal Breakfast", "Museum Access", "Polo Lounge"],
-        map: "https://www.google.com/maps/embed?pb=jodhpur-map-link",
-        reviews: ["- Royal heritage.", "- Grand architecture.", "- Amazing hospitality."]
-    },
-    { 
-        id: 109, name: "Wildflower Hall", city: "shimla", price: 28000, 
-        images: [
-            "https://images.unsplash.com/photo-1549412172-342cc100c19a", 
-            "https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
-            "https://images.unsplash.com/photo-1544131417-46973ade08cf",
-            "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1"
-        ],
-        amenities: ["Free Wi-Fi", "Indoor Heated Pool", "Organic Breakfast", "Forest Dining", "Biking"],
-        map: "https://www.google.com/maps/embed?pb=shimla-map-link",
-        reviews: ["- Infinity pool in hills.", "- Forest trails.", "- Peaceful retreat."]
-    },
-    { 
-        id: 110, name: "ITC Grand Chola", city: "chennai", price: 15000, 
-        images: [
-            "https://images.unsplash.com/photo-1584132967334-10e028bd69f7", 
-            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
-            "https://images.unsplash.com/photo-1517840901100-8179e982ad34",
-            "https://images.unsplash.com/photo-1566073771259-6a8506099945"
-        ],
-        amenities: ["Gigabit Wi-Fi", "Olympic Size Pool", "South Indian Breakfast", "Multi-cuisine Restro", "Concierge"],
-        map: "https://www.google.com/maps/embed?pb=chennai-map-link",
-        reviews: ["- Massive property.", "- Great dining options.", "- South Indian vibes."]
-    }
-];
-const tripDeals = {
-    "kerala": {
-        title: "Honeymoon in Kerala",
-        price: 35000,
-        images: ["https://images.pexels.com/photos/1483053/pexels-photo-1483053.jpeg", "https://images.unsplash.com/photo-1593693397690-362cb9666fc2", "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"],
-        amenities: ["wifi", "pool", "breakfast", "spa", "ac"],
-        reviews: ["- Best honeymoon ever! The houseboat was magic.", "- Authentic Kerala food and very polite staff.", "- View of backwaters from the resort is unbeatable."],
-        itinerary: "<b>Day 1:</b> Pickup from Kochi Airport & Transfer to Munnar Tea Gardens.<br><b>Day 2:</b> Sightseeing of Mattupetty Dam & Eravikulam National Park.<br><b>Day 3:</b> Drive to Alleppey. Overnight stay in a Luxury Houseboat.<br><b>Day 4:</b> Traditional Kerala Breakfast & Departure.",
-    },
-    "manali": {
-        title: "Himalayan Adventure",
-        price: 15000,
-        images: ["https://images.pexels.com/photos/1450360/pexels-photo-1450360.jpeg", "https://images.unsplash.com/photo-1605649440416-435423455909", "https://images.unsplash.com/photo-1506905925346-21bda4d32df4"],
-        amenities: ["wifi", "breakfast", "parking", "fireplace"],
-        reviews: ["- Rafting was thrilling! Very well managed.", "- Riverside camping is the highlight of this trip.", "- Perfect for adventure seekers."],
-        itinerary: "<b>Day 1:</b> Arrival in Manali. Riverside camping and bonfire night.<br><b>Day 2:</b> Solang Valley for Paragliding & Skiing.<br><b>Day 3:</b> Visit to Rohtang Pass (Snow Point).<br><b>Day 4:</b> Local Mall Road shopping & Departure.",
-    },
-    "rajasthan": {
-        title: "Royal Rajasthan Tour",
-        price: 28000,
-        images: ["https://images.pexels.com/photos/3889926/pexels-photo-3889926.jpeg", "https://images.unsplash.com/photo-1599661046289-e31887846eac", "https://images.unsplash.com/photo-1590073242678-70ee3fc28e8e"],
-        amenities: ["wifi", "pool", "breakfast", "parking", "heritage"],
-        reviews: ["- Felt like a Maharaja in Rambagh Palace.", "- Elephant ride at Amer Fort was unforgettable.", "- Best cultural experience in India."],
-        itinerary: "<b>Day 1:</b> Arrival in Jaipur. Visit Hawa Mahal & City Palace.<br><b>Day 2:</b> Amer Fort Elephant ride & Nahargarh Sunset.<br><b>Day 3:</b> Chokhi Dhani for traditional Rajasthani dinner & folk dance.<br><b>Day 4:</b> Breakfast & Departure.",
-    }
-};
-
-let currentDeal = null;
-let dealImgIdx = 0;
-
-// Icon mapper for amenities
-const icons = { wifi: 'fa-wifi', pool: 'fa-swimming-pool', breakfast: 'fa-coffee', spa: 'fa-spa', ac: 'fa-wind', parking: 'fa-car', heritage: 'fa-fort-awesome', fireplace: 'fa-fire' };
-
-window.openDealDetails = (key) => {
-    currentDeal = tripDeals[key];
-    dealImgIdx = 0;
-    
-    document.getElementById('d-title').innerText = currentDeal.title;
-    document.getElementById('d-main-img').src = currentDeal.images[0];
-    document.getElementById('d-price').innerText = `₹${currentDeal.price.toLocaleString()} / Total Trip`;
-    document.getElementById('d-itinerary').innerHTML = currentDeal.itinerary;
-    document.getElementById('d-reviews').innerHTML = currentDeal.reviews.map(r => `<p>${r}</p>`).join('');
-    
-    // Amenities icons
-    document.getElementById('d-amenities').innerHTML = currentDeal.amenities.map(a => `<i class="fas ${icons[a]}" title="${a}"></i>`).join('');
-    
-    // WhatsApp logic
-    const msg = encodeURIComponent(`Hi Jogender! I'm interested in the ${currentDeal.title} package. Please share details.`);
-    document.getElementById('d-whatsapp').href = `https://wa.me/918307023216?text=${msg}`;
-    
-    // Book button
-    document.getElementById('d-book-btn').onclick = () => initiateRealBooking(currentDeal.title, currentDeal.price);
-
-    document.getElementById('deal-modal').classList.add('active');
-};
-
-window.changeDealImg = (dir) => {
-    dealImgIdx = (dealImgIdx + dir + currentDeal.images.length) % currentDeal.images.length;
-    document.getElementById('d-main-img').src = currentDeal.images[dealImgIdx];
-};
-    let cart = JSON.parse(localStorage.getItem('userCart')) || [];
-    let activeHotel = null;
-    let imgIndex = 0;
-
-    // --- DISPLAY HOTELS ---
-    window.displayHotels = (hotels) => {
-        const hotelGrid = document.querySelector('.hotels-grid');
-        if (!hotelGrid) return;
-        hotelGrid.innerHTML = hotels.map(hotel => `
-            <div class="hotel-card" onclick="openDetails(${hotel.id})">
-                <div class="card-image-container"><img src="${hotel.images[0]}" alt="${hotel.name}"></div>
-                <div class="card-content">
-                    <h3>${hotel.name}</h3>
-                    <p>${hotel.city.toUpperCase()}</p>
-                    <div class="price">₹${hotel.price.toLocaleString()}/night</div>
-                    <button class="card-button" onclick="event.stopPropagation(); initiateRealBooking('${hotel.name}', ${hotel.price})">Book Now</button>
-                </div>
-            </div>`).join('');
-            // API se aaye hue data ko map karna
-
-    };
-
-    // --- HOTEL DETAILS MODAL LOGIC ---
-    window.openDetails = (id) => {
-        activeHotel = allHotels.find(h => h.id === id);
-        imgIndex = 0;
-        document.getElementById('m-hotel-name').innerText = activeHotel.name;
-        document.getElementById('m-hotel-price').innerText = `₹${activeHotel.price.toLocaleString()}/night`;
-        document.getElementById('m-hotel-img').src = activeHotel.images[0];
-        document.getElementById('m-reviews').innerHTML = activeHotel.reviews.map(r => `<p>${r}</p>`).join('');
-        document.getElementById('m-map').innerHTML = `<iframe src="${activeHotel.map}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`;
-        
-        // WhatsApp link setup (Using your number)
-        const waMsg = encodeURIComponent(`Hi! I'm interested in booking ${activeHotel.name} in ${activeHotel.city}.`);
-        document.getElementById('m-whatsapp').href = `https://wa.me/918307023216?text=${waMsg}`;
-
-        // Buttons
-        document.getElementById('m-book-btn').onclick = () => initiateRealBooking(activeHotel.name, activeHotel.price);
-        document.getElementById('m-cart-btn').onclick = () => addToCart(activeHotel);
-
-        document.getElementById('hotel-details-modal').classList.add('active');
-    };
-
-    window.nextSlide = () => {
-        imgIndex = (imgIndex + 1) % activeHotel.images.length;
-        document.getElementById('m-hotel-img').src = activeHotel.images[imgIndex];
-    };
-
-    window.prevSlide = () => {
-        imgIndex = (imgIndex - 1 + activeHotel.images.length) % activeHotel.images.length;
-        document.getElementById('m-hotel-img').src = activeHotel.images[imgIndex];
-    };
-
-    // --- CART LOGIC ---
-    window.addToCart = (hotel) => {
-        if (!cart.some(item => item.id === hotel.id)) {
-            cart.push(hotel);
-            saveCart();
-            alert("Added to cart!");
-        } else {
-            alert("Already in cart!");
-        }
-    };
-
-    function saveCart() {
-        localStorage.setItem('userCart', JSON.stringify(cart));
-        document.getElementById('cart-count').innerText = cart.length;
-    }
-
-    window.openCart = () => {
-        const cartItemsDiv = document.getElementById('cart-items');
-        if(cart.length === 0) {
-            cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
-        } else {
-            cartItemsDiv.innerHTML = cart.map((item, idx) => `
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <span>${item.name} (₹${item.price})</span>
-                    <button onclick="removeFromCart(${idx})" style="color:red; border:none; background:none; cursor:pointer;">Remove</button>
-                </div>
-            `).join('');
-        }
-        document.getElementById('cart-modal').classList.add('active');
-    };
-
-    window.removeFromCart = (idx) => {
-        cart.splice(idx, 1);
-        saveCart();
-        openCart();
-    };
-
-    window.checkoutCart = () => {
-        if(cart.length === 0) return alert("Cart is empty!");
-        const total = cart.reduce((sum, h) => sum + h.price, 0);
-        initiateRealBooking("Cart Checkout", total);
-    };
-
-    window.closeModal = (id) => document.getElementById(id).classList.remove('active');
-
-    // --- INITIALIZE ---
-    displayHotels(allHotels);
-    document.getElementById('cart-count').innerText = cart.length;
-
-    // Search aur Auth logic jo tune pehle likha tha wo niche as-it-is rehne de...
-});
-
-// --- RAZORPAY LOGIC (Tera purana wala fix kiya hua) ---
-window.initiateRealBooking = async (hotelName, price) => {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-        document.getElementById('auth-prompt-modal').classList.add('active');
-        return;
-    }
-    try {
-        const orderRes = await fetch('/create-order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: price * 100 })
-        });
-        const order = await orderRes.json();
-        const keyRes = await fetch('/api/get-key');
-        const { key } = await keyRes.json();
-
-        const options = {
-            "key": key,
-            "amount": order.amount,
-            "currency": "INR",
-            "name": "Book My Tour",
-            "order_id": order.id,
-            "handler": function (res) {
-                alert("Payment Successful! ID: " + res.razorpay_payment_id);
-                // MySQL me save karne ka code yahan dalo...
-                window.location.reload();
-            },
-            "prefill": { "name": "Jogender", "email": "iamgahlawat777@gmail.com" },
-            "theme": { "color": "#2c3e50" }
-        };
-        new Razorpay(options).open();
-    } catch (err) { alert("Server Error!"); }
 };
 </script>
-
 </body>
 
 </html>
