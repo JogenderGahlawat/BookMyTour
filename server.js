@@ -70,10 +70,20 @@ app.post('/create-order', async (req, res) => {
     }
 });
 app.post('/signup', async (req, res) => {
-    console.log("--- 🆕 New  SignUp request ---");
+    console.log("--- 🆕 New SignUp request ---");
     try {
         const { firstName, lastName, email, password } = req.body;
         console.log("Input Data:", { firstName, lastName, email });
+
+        const [existingUser] = await pool.execute(
+            'SELECT email FROM users WHERE email = ?', 
+            [email]
+        );
+
+        if (existingUser.length > 0) {
+            console.log("⚠️ Signup Failed: Email already exists ->", email);
+            return res.status(400).json({ message: "Email already registered. Please login." });
+        }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         
@@ -83,14 +93,15 @@ app.post('/signup', async (req, res) => {
         );
         
         console.log("✅ Data save successfully! MySQL Row ID:", result.insertId);
-        res.status(201).json({ message: "User Created", id: result.insertId });
+        return res.status(201).json({ message: "User Created", id: result.insertId });
 
     } catch (err) { 
         console.error("❌ MySQL Error:", err.message);
-        res.status(500).json({ error: err.message }); 
+        if (!res.headersSent) {
+            return res.status(500).json({ error: "Internal Server Error" }); 
+        }
     }
 });
-
 app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
