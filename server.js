@@ -10,15 +10,15 @@ const MySQL = require('mysql2');
 
 const app = express();
 
-app.use(express.json());
-app.use(express.static(__dirname));
-
 app.use(cors({
     origin: 'https://book-my-tour-co1m.vercel.app', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
+
+app.use(express.json());
+app.use(express.static(__dirname));
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
@@ -41,8 +41,6 @@ const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID, 
     key_secret: process.env.RAZORPAY_KEY_SECRET
 });
-
-
 
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
@@ -74,6 +72,7 @@ app.post('/create-order', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 app.post('/signup', async (req, res) => {
     console.log("--- 🆕 New SignUp request ---");
     try {
@@ -107,6 +106,7 @@ app.post('/signup', async (req, res) => {
         }
     }
 });
+
 app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
