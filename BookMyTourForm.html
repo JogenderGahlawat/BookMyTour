@@ -138,7 +138,7 @@ console.log("Script Loaded!");
             const payload = Object.fromEntries(formData.entries());
 
             try {
-                const res = await fetch('http://localhost:3000/signup', {
+               fetch('/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
