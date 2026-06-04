@@ -10,10 +10,15 @@ const MySQL = require('mysql2');
 
 const app = express();
 
-
-app.use(cors({ origin: 'https://book-my-tour-co1m.vercel.app' }));
 app.use(express.json());
 app.use(express.static(__dirname));
+
+app.use(cors({
+    origin: 'https://book-my-tour-co1m.vercel.app', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
