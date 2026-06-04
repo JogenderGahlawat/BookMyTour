@@ -74,33 +74,17 @@ app.post('/create-order', async (req, res) => {
 });
 
 app.post('/signup', async (req, res) => {
-    console.log("--- 🆕 New SignUp request ---");
+    console.log("--- 🆕 New SignUp request (TEST MODE) ---");
     try {
         const { firstName, lastName, email, password } = req.body;
         console.log("Input Data:", { firstName, lastName, email });
 
-        const [existingUser] = await pool.execute(
-            'SELECT email FROM users WHERE email = ?', 
-            [email]
-        );
-
-        if (existingUser.length > 0) {
-            console.log("⚠️ Signup Failed: Email already exists ->", email);
-            return res.status(400).json({ message: "Email already registered. Please login." });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        
-        const [result] = await pool.execute(
-            'INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)',
-            [firstName, lastName, email, hashedPassword]
-        );
-        
-        console.log("✅ Data save successfully! MySQL Row ID:", result.insertId);
-        return res.status(201).json({ message: "User Created", id: result.insertId });
+        // 🟢 TEST MODE: Database query bypass kar di hai
+        console.log("✅ Data bypass successful (Test Mode)!");
+        return res.status(201).json({ message: "User Created", id: 999 });
 
     } catch (err) { 
-        console.error("❌ MySQL Error:", err.message);
+        console.error("❌ Error:", err.message);
         if (!res.headersSent) {
             return res.status(500).json({ error: "Internal Server Error" }); 
         }
@@ -108,28 +92,22 @@ app.post('/signup', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
+    console.log("--- 🔑 New Login request (TEST MODE) ---");
     try {
         const { email, password } = req.body;
-        const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
-        
-        if (rows.length === 0) return res.status(401).json({ message: "Invalid Credentials" });
+        console.log("Login Attempt Email:", email);
 
-        const user = rows[0];
-        const isMatch = await bcrypt.compare(password, user.password);
-        
-        if (!isMatch) return res.status(401).json({ message: "Invalid Credentials" });
-
+        // 🟢 TEST MODE: Bina database ke direct success token bhej rahe hain
         const token = jwt.sign(
-            { userId: user.id, firstName: user.firstName }, 
+            { userId: 999, firstName: "Test User" }, 
             process.env.JWT_SECRET || 'secret_key'
         );
-        res.json({ token });
+        
+        return res.json({ token });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-});
-
-app.post('/api/save-booking', authenticateToken, async (req, res) => {
+});app.post('/api/save-booking', authenticateToken, async (req, res) => {
     try {
         const { hotelName, amount, paymentId } = req.body;
         const finalAmount = amount / 100;
