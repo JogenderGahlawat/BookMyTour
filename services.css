@@ -27,7 +27,7 @@ body {
     line-height: 1.7;
     color: var(--text-color);
     background-color: var(--background-color);
-    overflow-x: hidden; /* 🔴 FIX: Prevent mobile horizontal scrolling */
+    overflow-x: hidden; /* 🔴 FIX: Mobile par page side me nahi bhagega */
 }
 
 .container {
@@ -97,7 +97,6 @@ a:hover {
 .navbar nav a.active {
     color: var(--accent-color);
 }
-/* --- Immediate Fix for Alignment --- */
 
 /* Navbar ko flex aur center alignment mein lane ke liye */
 .navbar nav {
@@ -111,19 +110,12 @@ a:hover {
     display: flex !important;
     align-items: center !important;
     gap: 10px !important;
-    margin-left: 20px !important; /* Contact link se doori */
+    margin-left: 20px !important;
 }
 
 /* Profile Icon fix (Agar login hai toh) */
 .user-dropdown {
     margin-left: 15px !important;
-}
-
-/* Navigation container fix */
-.navbar nav {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
 }
 
 /* Auth Section Styling */
@@ -193,7 +185,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 21, 36, 0.6); /* Darker overlay for text contrast */
+    background: rgba(0, 21, 36, 0.6);
 }
 
 .hero-section .container {
@@ -317,7 +309,6 @@ section {
     border-radius: var(--border-radius);
 }
 
-
 .creative-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -421,6 +412,7 @@ section {
     width: 100%;
     border-radius: var(--border-radius);
 }
+
 .site-footer {
     background-color: var(--primary-color);
     color: rgba(255, 255, 255, 0.8);
@@ -536,58 +528,6 @@ section {
     transform: translateY(0);
 }
 
-/* Shared Profile Icon & Dropdown CSS */
-.user-dropdown {
-    position: relative;
-    display: inline-block;
-    margin-left: 20px;
-}
-
-.user-profile-circle {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #e67e22, #d35400);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
-    transition: 0.3s;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 55px;
-    background-color: white;
-    min-width: 180px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    border-radius: 12px;
-    overflow: hidden;
-    z-index: 1100;
-}
-
-.dropdown-content a {
-    color: #333;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 14px;
-    transition: 0.2s;
-}
-
-.dropdown-content a:hover { background-color: #f8f9fa; color: #e67e22; }
-.dropdown-content.show { display: block; animation: slideDown 0.3s ease; }
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
 .nav-button {
     background-color: #8b008b;
     color: white;
@@ -599,11 +539,6 @@ section {
 }
 .nav-button:hover {
     background-color: #6a006a;
-}
-/* --- Global Profile Dropdown --- */
-.nav-auth-buttons {
-    display: flex;
-    align-items: center;
 }
 
 .user-dropdown {
@@ -652,67 +587,56 @@ section {
 
 
 /* ==================================================================
-   🟢 EXCLUSIVE MOBILE RESPONSIVE RECONCILIATION & HAMBURGER PATCH
+   🔴 FIXED RESPONSIVE MEDIA QUERIES (DIRECT LINKS DISPLAY ON MOBILE)
    ================================================================== */
 
 @media (max-width: 768px) {
-    /* Hero Title scale compression */
     .hero-title {
-        font-size: 2.3rem !important;
+        font-size: 2.4rem !important;
     }
     .section-heading h2 {
         font-size: 2rem !important;
     }
 
-    /* 3 Bar (Hamburger Trigger Configuration) */
-    /* Mobile standard state handles menu overlay correctly */
+    /* Navbar standard links setup for screen view */
     .navbar {
-        flex-wrap: wrap !important;
-        padding: 12px 20px !important;
-    }
-
-    /* Target direct links container setup for JS trigger */
-    .navbar nav {
-        display: none !important; /* Default hide: Only shows when 3-bar toggles '.show' or '.open' via JS */
         flex-direction: column !important;
-        width: 100% !important;
-        background-color: #2D5D7C !important;
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        padding: 20px !important;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.1) !important;
         gap: 15px !important;
-        align-items: center !important;
+        padding: 15px 20px !important;
+        text-align: center !important;
     }
 
-    /* Use this class toggled via JavaScript on the <nav> element to slide/show options */
-    .navbar nav.show, .navbar nav.open, .navbar nav.active {
+    /* 🟢 DIRECT DISPLAY: No hamburger hiding, saare links samne dikhenge */
+    .navbar nav {
         display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        width: 100% !important;
+        gap: 10px 15px !important;
     }
 
     .navbar nav a {
-        margin: 5px 0 !important;
-        font-size: 15px !important;
-        width: 100% !important;
-        text-align: center !important;
+        margin: 0 !important;
+        font-size: 14px !important;
+        padding-bottom: 3px !important;
     }
 
     .nav-auth-buttons {
         margin-left: 0 !important;
         margin-top: 10px !important;
-        flex-direction: column !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
         width: 100% !important;
         gap: 10px !important;
     }
 
     .nav-button {
-        width: 100% !important;
-        text-align: center !important;
-        padding: 10px !important;
+        padding: 6px 12px !important;
+        font-size: 13px !important;
     }
 
-    /* Accordion Structures Squeezing Fix */
+    /* Content cards structure stacks */
     .service-content, .faq-content {
         flex-direction: column !important;
         align-items: stretch !important;
@@ -721,7 +645,7 @@ section {
 
     .service-item.active .service-content {
         padding: 15px 20px 20px 20px !important;
-        max-height: none !important; /* Fluid auto-wrap */
+        max-height: none !important;
     }
 
     .service-image, .faq-image {
@@ -731,7 +655,7 @@ section {
 
     .service-image img, .faq-image img {
         height: auto !important;
-        max-height: 200px !important;
+        max-height: 180px !important;
         width: 100% !important;
     }
 
@@ -739,17 +663,18 @@ section {
         padding-left: 0 !important;
     }
 
-    /* Fixed global dropdown positions mapping safely on mobile layout bounds */
+    /* Fixed global dropdown placements */
     .dropdown-content, .dropdown-menu {
-        position: fixed !important;
-        top: 75px !important;
-        right: 20px !important;
-        left: 20px !important;
-        width: auto !important;
+        position: absolute !important;
+        top: 45px !important;
+        right: 50% !important;
+        transform: translateX(50%) !important;
+        left: auto !important;
+        width: 160px !important;
         z-index: 9999 !important;
     }
 
-    /* Footer flow stacks sequentially layout alignment grid override */
+    /* Footer adjustments */
     .footer-main-content {
         flex-direction: column !important;
         gap: 30px !important;
@@ -773,10 +698,11 @@ section {
 }
 
 @media (max-width: 480px) {
-    .hero-title {
-        font-size: 1.9rem !important;
+    .navbar nav a {
+        font-size: 12px !important;
     }
-    .creative-grid {
-        grid-template-columns: 1fr !important;
+    .nav-button {
+        padding: 5px 10px !important;
+        font-size: 12px !important;
     }
 }
