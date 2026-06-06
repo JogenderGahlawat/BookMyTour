@@ -1140,20 +1140,28 @@ window.initiateRealBooking = async (hotelName, price) => {
         return;
     }
 
+    // Aapka Render Backend Ka Main URL
+    const BACKEND_URL = "https://bookmytour-e4q0.onrender.com";
+
     try {
-        const orderRes = await fetch('https://bookmytour-e4q0.onrender.com', {
+        console.log("Initiating payment for:", hotelName, "Amount:", price);
+
+        // 🟢 FIX 1: URL ke aage /create-order lagaya hai
+        const orderRes = await fetch(`${BACKEND_URL}/create-order`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: price * 100 })
+            body: JSON.stringify({ amount: price * 100 }) // Razorpay paise/paise mein amount leta hai
         });
         
         if (!orderRes.ok) throw new Error('Server returned error for order');
         const order = await orderRes.json();
 
-        const keyRes = await fetch('/api/get-key');
+        // 🟢 FIX 2: Razorpay Key API ke aage bhi Render ka URL joda hai
+        const keyRes = await fetch(`${BACKEND_URL}/api/get-key`);
         if (!keyRes.ok) throw new Error('Server returned error for key');
         const { key } = await keyRes.json();
 
+        // Razorpay Options Configuration
         const options = {
             "key": key,
             "amount": order.amount,
@@ -1163,8 +1171,12 @@ window.initiateRealBooking = async (hotelName, price) => {
             "order_id": order.id,
             "handler": function (res) {
                 alert("Payment Successful! ID: " + res.razorpay_payment_id);
+                
                 let history = [];
-                try { history = JSON.parse(localStorage.getItem('userBookings')) || []; } catch(e){}
+                try { 
+                    history = JSON.parse(localStorage.getItem('userBookings')) || []; 
+                } catch(e){}
+                
                 history.push({
                     id: res.razorpay_payment_id,
                     destination: hotelName,
@@ -1174,11 +1186,14 @@ window.initiateRealBooking = async (hotelName, price) => {
                 
                 window.location.reload();
             },
-            "prefill": { "name": "Jogender", "email": "iamgahlawat777@gmail.com" },
+            "prefill": { 
+                "name": "Jogender", 
+                "email": "iamgahlawat777@gmail.com" 
+            },
             "theme": { "color": "#2c3e50" }
         };
 
-        const rzp = new Razorpay(options)
+        const rzp = new Razorpay(options);
         rzp.open();
 
     } catch (err) {
