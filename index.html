@@ -825,7 +825,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td><span class="status-confirmed">Confirmed</span></td>
                     </tr>`).join('');
             } else {
-                rows.innerHTML = `<tr><td colspan="4" style="text-align:center;">Abhi tak koi booking nahi ki hai.</td></tr>`;
+                rows.innerHTML = `<tr><td colspan="4" style="text-align:center;">zero Booking.</td></tr>`;
             }
         }
     }
@@ -1141,7 +1141,7 @@ window.initiateRealBooking = async (hotelName, price) => {
     }
 
     try {
-        const orderRes = await fetch('/create-order', {
+        const orderRes = await fetch('https://bookmytour-e4q0.onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ amount: price * 100 })

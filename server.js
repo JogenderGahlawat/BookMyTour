@@ -111,7 +111,7 @@ app.post('/api/save-booking', authenticateToken, async (req, res) => {
     try {
         const { hotelName, amount, paymentId } = req.body;
         const finalAmount = amount / 100;
-
+        
         await pool.execute(
             'INSERT INTO bookings (userId, hotelName, amount, paymentId) VALUES (?, ?, ?, ?)',
             [req.user.userId, hotelName, finalAmount, paymentId]
