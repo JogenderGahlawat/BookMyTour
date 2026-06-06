@@ -397,6 +397,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('userMenu')?.classList.remove('show');
     });
 });
+// Mobile 3-Bar Menu Toggle Logic
+const hamburgerMenu = document.querySelector('.navbar .logo'); // Ya jo bhi aapka 3-bar icon/logo hai
+const navContainer = document.querySelector('.navbar nav');
+
+if (hamburgerMenu && navContainer) {
+    hamburgerMenu.addEventListener('click', () => {
+        navContainer.classList.toggle('show'); // Yeh CSS ki '.show' class ko chalu/band karega
+    });
+}
 
     </script>
 
