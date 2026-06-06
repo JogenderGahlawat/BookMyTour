@@ -155,7 +155,7 @@ app.get('/api/search-hotels', async (req, res) => {
 
     } catch (error) {
         console.error("API Error:", error);
-        res.status(500).json({ error: "Backend crash ho gaya bhai!" });
+        res.status(500).json({ error: "Backend crash !" });
     }
 });
 
