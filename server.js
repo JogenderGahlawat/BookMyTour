@@ -97,7 +97,6 @@ app.post('/login', async (req, res) => {
         const { email, password } = req.body;
         console.log("Login Attempt Email:", email);
 
-        // 🟢 TEST MODE: Bina database ke direct success token bhej rahe hain
         const token = jwt.sign(
             { userId: 999, firstName: "Test User" }, 
             process.env.JWT_SECRET || 'secret_key'
@@ -107,7 +106,8 @@ app.post('/login', async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-});app.post('/api/save-booking', authenticateToken, async (req, res) => {
+});
+app.post('/api/save-booking', authenticateToken, async (req, res) => {
     try {
         const { hotelName, amount, paymentId } = req.body;
         const finalAmount = amount / 100;
