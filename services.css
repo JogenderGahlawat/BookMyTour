@@ -27,12 +27,14 @@ body {
     line-height: 1.7;
     color: var(--text-color);
     background-color: var(--background-color);
+    overflow-x: hidden; /* 🔴 FIX: Prevent mobile horizontal scrolling */
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -117,24 +119,6 @@ a:hover {
     margin-left: 15px !important;
 }
 
-/* Mobile par responsive buttons */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 10px 15px !important;
-    }
-    .navbar nav a {
-        margin: 0 10px !important;
-        font-size: 14px !important;
-    }
-    .nav-auth-buttons {
-        margin-left: 10px !important;
-        gap: 5px !important;
-    }
-    .nav-button {
-        padding: 5px 10px !important;
-        font-size: 12px !important;
-    }
-}
 /* Navigation container fix */
 .navbar nav {
     display: flex;
@@ -552,37 +536,6 @@ section {
     transform: translateY(0);
 }
 
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 2.5rem;
-    }
-
-    .section-heading h2 {
-        font-size: 2.2rem;
-    }
-    
-    .faq-content, .service-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .service-item.active .service-content {
-         padding: 0 25px 25px 25px;
-    }
-
-    .faq-description {
-        padding-left: 0;
-    }
-
-    .footer-main-content {
-        flex-direction: column;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        gap: 15px;
-    }
-}
 /* Shared Profile Icon & Dropdown CSS */
 .user-dropdown {
     position: relative;
@@ -635,17 +588,6 @@ section {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobile View Adjustments */
-@media (max-width: 768px) {
-    .nav-auth-buttons { margin-top: 15px; }
-    .dropdown-content {
-        position: fixed;
-        right: 10%;
-        left: 10%;
-        width: 80%;
-        top: 80px;
-    }
-}
 .nav-button {
     background-color: #8b008b;
     color: white;
@@ -708,12 +650,133 @@ section {
 
 .dropdown-menu a:hover { background: #f1f1f1; }
 
-/* Mobile View: Dropdown full width na ho isliye */
+
+/* ==================================================================
+   🟢 EXCLUSIVE MOBILE RESPONSIVE RECONCILIATION & HAMBURGER PATCH
+   ================================================================== */
+
 @media (max-width: 768px) {
-    .dropdown-menu {
-        position: fixed;
-        top: 70px;
-        right: 20px;
-        left: 20px;
+    /* Hero Title scale compression */
+    .hero-title {
+        font-size: 2.3rem !important;
+    }
+    .section-heading h2 {
+        font-size: 2rem !important;
+    }
+
+    /* 3 Bar (Hamburger Trigger Configuration) */
+    /* Mobile standard state handles menu overlay correctly */
+    .navbar {
+        flex-wrap: wrap !important;
+        padding: 12px 20px !important;
+    }
+
+    /* Target direct links container setup for JS trigger */
+    .navbar nav {
+        display: none !important; /* Default hide: Only shows when 3-bar toggles '.show' or '.open' via JS */
+        flex-direction: column !important;
+        width: 100% !important;
+        background-color: #2D5D7C !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        padding: 20px !important;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1) !important;
+        gap: 15px !important;
+        align-items: center !important;
+    }
+
+    /* Use this class toggled via JavaScript on the <nav> element to slide/show options */
+    .navbar nav.show, .navbar nav.open, .navbar nav.active {
+        display: flex !important;
+    }
+
+    .navbar nav a {
+        margin: 5px 0 !important;
+        font-size: 15px !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .nav-auth-buttons {
+        margin-left: 0 !important;
+        margin-top: 10px !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 10px !important;
+    }
+
+    .nav-button {
+        width: 100% !important;
+        text-align: center !important;
+        padding: 10px !important;
+    }
+
+    /* Accordion Structures Squeezing Fix */
+    .service-content, .faq-content {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 20px !important;
+    }
+
+    .service-item.active .service-content {
+        padding: 15px 20px 20px 20px !important;
+        max-height: none !important; /* Fluid auto-wrap */
+    }
+
+    .service-image, .faq-image {
+        flex: none !important;
+        width: 100% !important;
+    }
+
+    .service-image img, .faq-image img {
+        height: auto !important;
+        max-height: 200px !important;
+        width: 100% !important;
+    }
+
+    .faq-description {
+        padding-left: 0 !important;
+    }
+
+    /* Fixed global dropdown positions mapping safely on mobile layout bounds */
+    .dropdown-content, .dropdown-menu {
+        position: fixed !important;
+        top: 75px !important;
+        right: 20px !important;
+        left: 20px !important;
+        width: auto !important;
+        z-index: 9999 !important;
+    }
+
+    /* Footer flow stacks sequentially layout alignment grid override */
+    .footer-main-content {
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    .footer-bottom {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 15px !important;
+    }
+
+    .footer-bottom-links {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    .footer-bottom-links a {
+        margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.9rem !important;
+    }
+    .creative-grid {
+        grid-template-columns: 1fr !important;
     }
 }
