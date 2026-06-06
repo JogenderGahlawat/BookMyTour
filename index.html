@@ -1141,7 +1141,7 @@ window.initiateRealBooking = async (hotelName, price) => {
     }
 
     try {
-        const response = await fetch('https://bookmytour-e4q0.onrender.com', {
+        const orderRes = await fetch('https://bookmytour-e4q0.onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ amount: price * 100 })
