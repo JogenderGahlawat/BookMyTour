@@ -21,10 +21,11 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'hotel_db',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: Number(process.env.DB_PORT) || 3306,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -104,14 +105,12 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-// 2. REPLACED LOGIN ROUTE (Ab real DB se check karega)
 app.post('/login', async (req, res) => {
     console.log("--- 🔑 New Login request ---");
     try {
         const { email, password } = req.body;
         console.log("Login Attempt Email:", email);
 
-        // Database se user dhundo
         const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
         
         if (rows.length === 0) {
@@ -120,13 +119,11 @@ app.post('/login', async (req, res) => {
 
         const user = rows[0];
 
-        // Password match karo
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).json({ error: "Invalid Email or Password" });
         }
 
-        // JWT Token generate karo (Fallback key thodi lambi aur safe rakho)
         const token = jwt.sign(
             { userId: user.id, firstName: user.firstName }, 
             process.env.JWT_SECRET || 'super_secret_fallback_key_123456789'
