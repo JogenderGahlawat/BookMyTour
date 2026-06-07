@@ -18,20 +18,18 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.static(__dirname));
+
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: parseInt(process.env.DB_PORT) || 3306,
+    port: parseInt(process.env.DB_PORT) || 80, // Render se aane wala port 80 read karega
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0,
-    // 🟢 FIX: Yeh line localtunnel ki warning screen ko bypass karegi
-    headers: { 'Bypass-Tunnel-Reminder': 'true' } 
+    queueLimit: 0
 });
 
-// Test connection logs explicit handle
 pool.getConnection()
     .then(conn => {
         console.log('✅ Cloud MySQL Connected Successfully!');
