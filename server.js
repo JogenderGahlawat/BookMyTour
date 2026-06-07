@@ -162,38 +162,52 @@ app.post('/signup', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
+  console.log('--- LOGIN HIT ---');
+  console.log('BODY:', req.body);
+
   try {
     let { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({
-        error: 'email and password required',
-        received: req.body
-      });
+      return res.status(400).json({ error: 'Email/password missing', body: req.body });
     }
 
-    email = email.toLowerCase().trim();
+    email = email.trim().toLowerCase();
+
+    console.log('EMAIL:', email);
 
     const [rows] = await pool.execute(
-      'SELECT id, firstName, email, password FROM users WHERE email = ?',
+      'SELECT id, firstName, email, password FROM users WHERE email = ? LIMIT 1',
       [email]
     );
 
+    console.log('ROWS FOUND:', rows.length);
+
     if (rows.length === 0) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(401).json({ error: 'User not found. Signup first.' });
     }
 
     const user = rows[0];
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    console.log('USER FROM DB:', user);
 
-    if (!isMatch) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+    if (!user.password) {
+      return res.status(500).json({ error: 'Password column empty in database' });
     }
 
-    const token = createToken(user);
+    const isMatch = await bcrypt.compare(String(password), String(user.password));
 
-    res.json({
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Wrong password' });
+    }
+
+    const token = jwt.sign(
+      { userId: user.id, firstName: user.firstName },
+      process.env.JWT_SECRET || 'super_secret_fallback_key',
+      { expiresIn: '1d' }
+    );
+
+    return res.status(200).json({
       message: 'Login successful',
       token,
       firstName: user.firstName,
@@ -201,13 +215,25 @@ app.post('/login', async (req, res) => {
     });
 
   } catch (err) {
-    console.error('❌ Login Error:', err);
-    res.status(500).json({ error: err.message });
+    console.error('FULL LOGIN ERROR:', err);
+
+    return res.status(500).json({
+      error: err.message || err.code || JSON.stringify(err) || 'Unknown backend error'
+    });
   }
 });
-
 app.get('/api/get-key', (req, res) => {
   res.json({ key: process.env.RAZORPAY_KEY_ID });
+});
+app.get('/api/users-test', async (req, res) => {
+  try {
+    const [rows] = await pool.execute('SELECT id, firstName, email, password FROM users');
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({
+      error: err.message || err.code || JSON.stringify(err)
+    });
+  }
 });
 
 app.post('/create-order', async (req, res) => {
