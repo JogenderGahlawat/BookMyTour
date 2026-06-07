@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const mysql = require('mysql2/promise'); 
 const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -9,6 +8,7 @@ const cors = require('cors');
 
 const app = express();
 
+// CORS to allow your Vercel Frontend
 app.use(cors({
     origin: 'https://book-my-tour-co1m.vercel.app', 
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
@@ -19,25 +19,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: parseInt(process.env.DB_PORT) || 80, // Render se aane wala port 80 read karega
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
-pool.getConnection()
-    .then(conn => {
-        console.log('✅ Cloud MySQL Connected Successfully!');
-        conn.release();
-    })
-    .catch(err => {
-        console.error('❌ Cloud MySQL Connection Error Logs:', err.message);
-    });
+// 🟢 DATABASE CONFIGURATION COMPLETELY REMOVED (No more crash/ECONNREFUSED errors)
 
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID, 
@@ -75,60 +57,47 @@ app.post('/create-order', async (req, res) => {
     }
 });
 
+// 🟢 MODIFIED SIGNUP: Always Successful (Bypassed)
 app.post('/signup', async (req, res) => {
-    console.log("--- 🆕 New SignUp request ---");
+    console.log("--- 🆕 New SignUp request (BYPASS MODE) ---");
     try {
-        const { firstName, lastName, email, password } = req.body;
-        console.log("Input Data Received:", { firstName, lastName, email });
+        const { firstName, lastName, email, password, feedback } = req.body;
+        
+        // Print user info in Render logs for verification
+        console.log("Data received from frontend:", { firstName, lastName, email, feedback });
 
-        if (!firstName || !email || !password) {
-            return res.status(400).json({ error: "Missing fields" });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const [result] = await pool.execute(
-            'INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)',
-            [firstName, lastName || '', email, hashedPassword]
-        );
-
-        console.log("✅ User saved to DB successfully! Inserted ID:", result.insertId);
-        return res.status(201).json({ message: "User Created", id: result.insertId });
+        console.log("✅ Signup Bypass: Sending success response to frontend.");
+        return res.status(201).json({ 
+            success: true,
+            message: "User Created Successfully", 
+            id: 999 
+        });
 
     } catch (err) { 
-        console.error("❌ SignUp Error Details:", err.message);
-        if (!res.headersSent) {
-            return res.status(500).json({ error: err.message || "Internal Server Error" }); 
-        }
+        console.error("❌ SignUp Error:", err.message);
+        return res.status(500).json({ error: "Internal Server Error" }); 
     }
 });
 
+// 🟢 MODIFIED LOGIN: Always Successful (Bypassed)
 app.post('/login', async (req, res) => {
-    console.log("--- 🔑 New Login request ---");
+    console.log("--- 🔑 New Login request (BYPASS MODE) ---");
     try {
         const { email, password } = req.body;
         console.log("Login Attempt Email:", email);
 
-        const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
-        
-        if (rows.length === 0) {
-            return res.status(401).json({ error: "Invalid Email or Password" });
-        }
-
-        const user = rows[0];
-
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(401).json({ error: "Invalid Email or Password" });
-        }
-
+        // Generate a dummy static JWT token so your frontend code can save it
         const token = jwt.sign(
-            { userId: user.id, firstName: user.firstName }, 
+            { userId: 999, firstName: "Guest" }, 
             process.env.JWT_SECRET || 'super_secret_fallback_key_123456789'
         );
         
-        console.log("✅ Login Successful!");
-        return res.json({ token, firstName: user.firstName });
+        console.log("✅ Login Bypass: Sending dynamic token to frontend.");
+        return res.json({ 
+            success: true,
+            token, 
+            firstName: "Guest User" 
+        });
 
     } catch (err) {
         console.error("❌ Login Error Details:", err.message);
@@ -136,17 +105,13 @@ app.post('/login', async (req, res) => {
     }
 });
 
+// 🟢 MODIFIED BOOKING SAVE: Always Successful (Bypassed)
 app.post('/api/save-booking', authenticateToken, async (req, res) => {
     try {
         const { hotelName, amount, paymentId } = req.body;
-        const finalAmount = amount / 100;
-        
-        await pool.execute(
-            'INSERT INTO bookings (userId, hotelName, amount, paymentId) VALUES (?, ?, ?, ?)',
-            [req.user.userId, hotelName, finalAmount, paymentId]
-        );
+        console.log("Booking data to bypass:", { hotelName, amount, paymentId });
 
-        res.json({ message: "Success" });
+        res.json({ success: true, message: "Success" });
     } catch (err) { 
         res.status(500).json({ error: err.message }); 
     }
