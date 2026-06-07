@@ -25,7 +25,7 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: Number(process.env.DB_PORT) || 3306,
+    port: process.env.DB_PORT || 3306, // Agar Aiven ka port 24855 hai toh Render env me DB_PORT jadd dena
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
