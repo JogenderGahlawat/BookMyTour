@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Razorpay = require('razorpay');
 const cors = require('cors');
-const MySQL = require('mysql2');
 
 const app = express();
 
@@ -20,23 +19,28 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static(__dirname));
 
+// 🟢 FIX 1: Connection pool variables failover constraints handled perfectly
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT || 3306, // Agar Aiven ka port 24855 hai toh Render env me DB_PORT jadd dena
+    port: parseInt(process.env.DB_PORT) || 3306, 
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    connectTimeout: 10000 // 10 seconds timeout for cloud delay handling
 });
 
+// Test connection logs explicit handle
 pool.getConnection()
     .then(conn => {
-        console.log('✅ MySQL Connected!');
+        console.log('✅ Cloud MySQL Connected Successfully!');
         conn.release();
     })
-    .catch(err => console.error('❌ MySQL Error:', err));
+    .catch(err => {
+        console.error('❌ Cloud MySQL Connection Error Logs:', err.message);
+    });
 
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID, 
@@ -74,31 +78,28 @@ app.post('/create-order', async (req, res) => {
     }
 });
 
-// 1. REPLACED SIGNUP ROUTE (Ab data real me DB me jayega)
 app.post('/signup', async (req, res) => {
     console.log("--- 🆕 New SignUp request ---");
     try {
         const { firstName, lastName, email, password } = req.body;
-        console.log("Input Data:", { firstName, lastName, email });
+        console.log("Input Data Received:", { firstName, lastName, email });
 
         if (!firstName || !email || !password) {
             return res.status(400).json({ error: "Missing fields" });
         }
 
-        // Password ko hash karo security ke liye
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Database me insert karo (Make sure users table exists)
         const [result] = await pool.execute(
             'INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)',
             [firstName, lastName || '', email, hashedPassword]
         );
 
-        console.log("✅ User saved to DB successfully!");
+        console.log("✅ User saved to DB successfully! Inserted ID:", result.insertId);
         return res.status(201).json({ message: "User Created", id: result.insertId });
 
     } catch (err) { 
-        console.error("❌ SignUp Error:", err.message);
+        console.error("❌ SignUp Error Details:", err.message);
         if (!res.headersSent) {
             return res.status(500).json({ error: err.message || "Internal Server Error" }); 
         }
@@ -133,10 +134,12 @@ app.post('/login', async (req, res) => {
         return res.json({ token, firstName: user.firstName });
 
     } catch (err) {
-        console.error("❌ Login Error:", err.message);
+        console.error("❌ Login Error Details:", err.message);
         return res.status(500).json({ error: err.message });
     }
-});app.post('/api/save-booking', authenticateToken, async (req, res) => {
+});
+
+app.post('/api/save-booking', authenticateToken, async (req, res) => {
     try {
         const { hotelName, amount, paymentId } = req.body;
         const finalAmount = amount / 100;
@@ -176,7 +179,6 @@ app.get('/api/search-hotels', async (req, res) => {
         }
 
         const destId = locations[0].dest_id;
-
         const hotelRes = await fetch(`https://booking-com.p.rapidapi.com/v1/hotels/search?dest_id=${destId}&order_by=popularity&filter_by_currency=INR&locale=en-gb&checkin_date=2025-10-10&checkout_date=2025-10-11&adults_number=2&room_number=1&units=metric`, options);
         
         const data = await hotelRes.json();
