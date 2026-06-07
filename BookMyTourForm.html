@@ -89,106 +89,84 @@
 
     <script>
 
-     document.addEventListener('DOMContentLoaded', () => {
-  const card = document.getElementById('card');
-  const showSignup = document.getElementById('show-signup');
-  const showLogin = document.getElementById('show-login');
+   document.addEventListener('DOMContentLoaded', () => {
+    const card = document.getElementById('card');
+    const showSignup = document.getElementById('show-signup');
+    const showLogin = document.getElementById('show-login');
 
-  if (showSignup) {
     showSignup.addEventListener('click', () => card.classList.add('is-flipped'));
-  }
-
-  if (showLogin) {
     showLogin.addEventListener('click', () => card.classList.remove('is-flipped'));
-  }
 
-  const BACKEND_URL = 'https://bookmytour-e4q0.onrender.com';
+    const BACKEND_URL = "https://bookmytour-e4q0.onrender.com"; 
 
-  console.log('Script Loaded!');
+    console.log("Script Loaded!"); 
 
-  const signupForm = document.getElementById('signupForm');
+    const signupForm = document.getElementById('signupForm');
+    if (signupForm) {
+        signupForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            console.log("Signup button clicked!");
 
-  if (signupForm) {
-    signupForm.addEventListener('submit', async function (event) {
-      event.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
 
-      const formData = new FormData(this);
-      const rawData = Object.fromEntries(formData.entries());
+            try {
+                const response = await fetch(`${BACKEND_URL}/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
 
-      const data = {
-        firstName: rawData.firstName || rawData.name || rawData.fullName || rawData.username || '',
-        lastName: rawData.lastName || '',
-        email: rawData.email || '',
-        password: rawData.password || ''
-      };
+                const result = await response.json();
+                console.log("Server Response:", result);
 
-      console.log('Signup Data:', data);
-
-      try {
-        const response = await fetch(`${BACKEND_URL}/signup`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+                if (response.ok) {
+                    alert("Account created! Please login.");
+                    card.classList.remove('is-flipped'); 
+                } else {
+                    alert("Signup Error: " + (result.error || result.message));
+                }
+            } catch (error) {
+                console.error("Fetch Error:", error);
+                alert("Could not connect to server. Make sure backend is Live on Render!");
+            }
         });
+    } else {
+        console.error("Form with ID 'signupForm' not found!");
+    }
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            console.log("Login button clicked!");
 
-        const result = await response.json();
-        console.log('Signup Response:', result);
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
 
-        if (response.ok) {
-          alert('Account created! Now login.');
-          card.classList.remove('is-flipped');
-        } else {
-          alert('Signup Error: ' + (result.error || result.message || 'Unknown error'));
-        }
-      } catch (error) {
-        console.error('Signup Fetch Error:', error);
-        alert('Backend connect nahi ho raha.');
-      }
-    });
-  }
+            try {
+                const response = await fetch(`${BACKEND_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
 
-  const loginForm = document.getElementById('loginForm');
-
-  if (loginForm) {
-    loginForm.addEventListener('submit', async function (event) {
-      event.preventDefault();
-
-      const formData = new FormData(this);
-      const rawData = Object.fromEntries(formData.entries());
-
-      const data = {
-        email: rawData.email || '',
-        password: rawData.password || ''
-      };
-
-      console.log('Login Data:', data);
-
-      try {
-        const response = await fetch(`${BACKEND_URL}/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+                const result = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('authToken', result.token);
+                    alert("Login Successful!");
+                    window.location.href = 'index.html'; 
+                } else {
+                    alert("Login Failed: " + (result.message || result.error));
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Could not connect to server. Check your internet or Render dashboard!");
+            }
         });
-
-        const result = await response.json();
-        console.log('Login Response:', result);
-
-        if (response.ok) {
-          localStorage.setItem('authToken', result.token);
-          localStorage.setItem('firstName', result.firstName);
-          alert('Login Successful!');
-          window.location.href = 'index.html';
-        } else {
-          alert('Login Failed: ' + (result.error || result.message || 'Unknown error'));
-        }
-      } catch (error) {
-        console.error('Login Fetch Error:', error);
-        alert('Backend connect nahi ho raha.');
-      }
-    });
-  }
+    } else {
+        console.error("Form with ID 'loginForm' not found!");
+    }
 });
-
     </script>
    
 </body>
